@@ -47,21 +47,24 @@ void removeSpaceship (spaceship_t *s) {
 	getxy((s->y+2),(s->x));
 }
 
-int8_t makeSpaceship_weapon() {
+int8_t makeSpaceship_weapon(spaceship_t *s) {
 	uint16_t val = GPIOC->IDR & (0x0001 << 1); //Read from pin PC1
 	if (val) {
-		printf("%c",45);
+		set_led(0b010);
 		return val;
 	}
-}
 
+
+
+}
 void start_weapon(spaceship_t *s) {
 	s->weapon = s->y-1;
 }
 void draw_weapon(spaceship_t *s){
 	getxy((s->weapon),s->x);
-	fgcolor(5);
+	fgcolor(2);
 	printf("%c",42);
+
 }
 void remove_weapon(spaceship_t *s){
 	getxy((s->weapon),s->x);
@@ -88,12 +91,11 @@ void update_ship_left(spaceship_t *s) {
 int8_t readjoystick(spaceship_t *s){
 
 	uint16_t x = ADC_GetConversionValue(ADC1); // Read the ADC value
-	printf("Value = %02ld\n", x);
-	if ( 1450 < x && x < 4100) {
+	if ( 1500 < x && x < 4100) {
 		return 2;
 	}
 
-	if ( 14 < x && x < 1450) {
+	if ( 14 < x && x < 1300) {
 		return 3;
 	}
 
@@ -105,7 +107,7 @@ int main (void) {
 	spaceship_t s;
 
 	initializeSpaceship(&s);
-	//drawSpaceship(&s);
+	drawSpaceship(&s);
 
 	while(1){
 		init_pins();

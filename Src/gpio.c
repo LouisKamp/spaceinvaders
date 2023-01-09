@@ -14,11 +14,9 @@ void init_pins() {
 	RCC->AHBENR |= RCC_AHBPeriph_GPIOB;
 	RCC->AHBENR |= RCC_AHBPeriph_GPIOC;
 
-
 	// JOYSTICK
 
-
-	// PC0 = RIGHT
+	// PC0 = RIGHT/Swtich weapons with joystick SW1
 	uint8_t pin_right = 0;
 	GPIOC->MODER &= ~(0x00000003 << (pin_right * 2)); // Clear mode register GPIOA->MODER |= (0x00000000 << (0 * 2)); // Set mode register (0x00 – Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out)
 	GPIOC->PUPDR &= ~(0x00000003 << (pin_right * 2)); // Clear push/pull register GPIOA->PUPDR |= (0x00000002 << (0 * 2)); // Set push/pull register (0x00 - No pull, 0x01 - Pull-up, 0x02 - Pull-down)
@@ -37,7 +35,7 @@ void init_pins() {
 	GPIOB->PUPDR &= ~(0x00000003 << (pin_center * 2));
 	// uint16_t val_center = GPIOB->IDR & (0x0001 << pin_center);
 
-	// PC1 = LEFT
+	// PC1 = LEFT/Shoot on Joystick SW2
 	uint8_t pin_left = 1;
 	GPIOC->MODER &= ~(0x00000003 << (pin_left * 2));
 	GPIOC->PUPDR &= ~(0x00000003 << (pin_left * 2));
