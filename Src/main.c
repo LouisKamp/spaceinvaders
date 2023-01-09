@@ -8,7 +8,11 @@ int main(void)
 {
 	lcd_init();
 	lcd_clear();
-	lcd_write_string(0,50);
+
+	uint8_t buffer[512] = {};
+	lcd_write_string("H",27,-2, &buffer);
+
+	lcd_push_buffer(&buffer);
 
 	while(1){}
 }
