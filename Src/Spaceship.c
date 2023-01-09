@@ -50,38 +50,48 @@ void removeSpaceship (spaceship_t *s) {
 int8_t makeSpaceship_weapon(spaceship_t *s) {
 	uint16_t switch_W = GPIOC->IDR & (0x0001 << 3); //Read from pin PC3
 	uint16_t shoot = GPIOC->IDR & (0x0001 << 2); //Read from pin PC2
-	int weaponcolor[] = {1,2,3};
+	if (switch_W) {
 		while(1) {
-			while (!switch_W) {
-				set_led(0b100);
-				return shoot;
-			}
+			int weaponcolor[] = {1,2,3};
 			const int* current_weapon = weaponcolor;
 
-			if (shoot) {
-				break;
+			if (current_weapon == &weaponcolor[0]) {
+				set_led(0b100);
+				current_weapon++;
+				return shoot;
+			}
+			if (current_weapon == &weaponcolor[1]) {
+				set_led(0b010);
+				current_weapon++;
+				return shoot;
+			}
+			if (current_weapon == &weaponcolor[2]) {
+				set_led(0b001);
+				current_weapon++;
+				return shoot;
+			}
+			if (current_weapon == &weaponcolor[3])
+			{
+				current_weapon = weaponcolor;
+				return shoot;
 			}
 		}
-	 return shoot;
+	} else {
+		return shoot;
+	}
+
 }
 void start_weapon(spaceship_t *s) {
 	s->weapon = s->y-1;
 }
 void draw_weapon(spaceship_t *s){
-	if () {
-		getxy((s->weapon),s->x);
-		set_led(0b100);
-		fgcolor(1);
-		printf("%c",42);
-	}
-	else {
-		getxy((s->weapon),s->x);
-		set_led(0b010);
-		fgcolor(2);
-		printf("%c",42);
-	}
+	getxy((s->weapon),s->x);
+	fgcolor(1);
+	printf("%c",42);
 
 }
+
+
 void remove_weapon(spaceship_t *s){
 	getxy((s->weapon),s->x);
 	printf("%c",32);
