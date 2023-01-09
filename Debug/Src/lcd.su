@@ -1,0 +1,2 @@
+../Src/lcd.c:11:6:lcd_clear	72	static
+../Src/lcd.c:17:6:lcd_write_string	72	static

@@ -19,12 +19,12 @@ void print_fix(int32_t i) {
 	// Print a maximum of 4 decimal digits to avoid overflow
 }
 
-int32_t convert_2_14_to_16_16(int32_t i) {
+fix_16_16_t convert_2_14_to_16_16(fix_2_14_t i) {
     // Converts an 18.14 fixed point number to 16.16
 	return i << 2;
 }
 
-int32_t fixed_point_sin(int32_t angle) {
+fix_16_16_t fixed_point_sin(int32_t angle) {
 	int32_t value_2_14;
 
 	if (angle < 0) {
@@ -37,7 +37,7 @@ int32_t fixed_point_sin(int32_t angle) {
 	return convert_2_14_to_16_16(value_2_14); // format 16.16
 }
 
-int32_t fixed_point_cos(int32_t angle) {
+fix_16_16_t fixed_point_cos(int32_t angle) {
 	return fixed_point_sin(angle + 128);
 }
 

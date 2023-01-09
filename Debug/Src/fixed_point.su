@@ -1,0 +1,5 @@
+../Src/fixed_point.c:10:6:print_fix	16	static
+../Src/fixed_point.c:22:13:convert_2_14_to_16_16	16	static
+../Src/fixed_point.c:27:13:fixed_point_sin	24	static
+../Src/fixed_point.c:40:13:fixed_point_cos	16	static
+../Src/fixed_point.c:44:6:rotate_vector	32	static

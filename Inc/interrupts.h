@@ -8,6 +8,8 @@
 #ifndef INTERRUPTS_H_
 #define INTERRUPTS_H_
 
+#include "stm32f30x_conf.h"
+
 
 void init_interupts();
 

@@ -1,10 +1,6 @@
-/*
- * interrupts.c
- *
- *  Created on: 9. jan. 2023
- *      Author: louiss
- */
 
+
+#include "interrupts.h"
 
 
 void TIM2_IRQHandler(void) {

@@ -1,0 +1,2 @@
+../Src/joystick.c:6:18:read_joystick	24	static
+../Src/joystick.c:32:9:input_to_color	24	static
