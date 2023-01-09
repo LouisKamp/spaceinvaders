@@ -14,25 +14,64 @@ void lcd_clear() {
 	lcd_push_buffer(&buffer);
 }
 
-void lcd_write_string(uint8_t row, uint8_t col) {
-	uint8_t buffer[512] = {};
-	uint8_t x = 30;
 
+// Writes one char to a LCD buffer on a x,y coordinate
+void lcd_write_char(char letter,int32_t x, int32_t y, uint8_t * buffer) {
 
+	// char to ascii
+	uint32_t c = (int32_t) letter - 32;
 
-	for (uint8_t i = 0; i < 5; i++) {
-//		uint8_t offset = 128*row+col+i;
-		uint8_t offset = 0+i+0b10;
-		memset(buffer+offset,(character_data[x][i]>>2),1);
+	// calcs the row text is on
+	int32_t row = x/8;
+
+	uint32_t i = 0;
+	// sets the correct offset so the text is partially rendered
+	if (y < 0) {
+		i = -y;
 	}
 
-//	memset(buffer+128*row+col,character_data[x][0],1);
-//	memset(buffer+1+128*row+col,character_data[x][1],1);
-//	memset(buffer+2+128*row+col,character_data[x][2],1);
-//	memset(buffer+3+128*row+col,character_data[x][3],1);
-//	memset(buffer+4+128*row+col,character_data[x][4],1);
+
+	for (i; i < 5; i++) {
+
+		// check if inside y-axis
+		if (i+y > 128 || i < 0) {
+			break;
+		}
+
+		// check if inside x-axis and if its above display
+		if (x < 0 && -7 < x) {
+			// The text is visible and above display
+			uint32_t row_offset = (-1)*x % 8;
+			uint32_t offset = row*128+i+y;
+			memset(buffer+offset,(character_data[c][i]>>row_offset),1);
+		} else if (row < 4) {
+			// The text is inside the display
+			uint32_t row_offset = x % 8;
+			uint32_t offset = row*128+i+y;
+
+			// sets the correct bits according to offset of line
+			memset(buffer+offset,(character_data[c][i]<<row_offset),1);
+
+			// if the offset is not on the rows, offset needs to be rendered too
+			if (row_offset != 0 && row < 3) {
+				// text is not completely outside display and can be rendered
+				memset(buffer+offset+128,(character_data[c][i]>>8-row_offset),1);
+			}
+		}
 
 
-	lcd_push_buffer(&buffer);
+	}
+
+}
+
+// Writes a string to a LCD buffer on a specific coordinate
+void lcd_write_string(char* str,int32_t x, int32_t y,  uint8_t * buffer) {
+
+	uint8_t len = strlen(str);
+
+	for (uint8_t i = 0; i < len; i++) {
+		lcd_write_char(str[i], x, y+5*i, buffer);
+	}
+
 }
 
