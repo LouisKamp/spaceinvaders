@@ -50,17 +50,25 @@ void removeSpaceship (spaceship_t *s) {
 int8_t makeSpaceship_weapon(spaceship_t *s) {
 	uint16_t switch_W = GPIOC->IDR & (0x0001 << 3); //Read from pin PC3
 	uint16_t shoot = GPIOC->IDR & (0x0001 << 2); //Read from pin PC2
-	if (shoot) {
-		return shoot;
-	}
+	int weaponcolor[] = {1,2,3};
+		while(1) {
+			while (!switch_W) {
+				set_led(0b100);
+				return shoot;
+			}
+			const int* current_weapon = weaponcolor;
 
-
+			if (shoot) {
+				break;
+			}
+		}
+	 return shoot;
 }
 void start_weapon(spaceship_t *s) {
 	s->weapon = s->y-1;
 }
-void draw_weapon(spaceship_t *s, uint16_t switch_W){
-	if (switch_W) {
+void draw_weapon(spaceship_t *s){
+	if () {
 		getxy((s->weapon),s->x);
 		set_led(0b100);
 		fgcolor(1);
@@ -71,7 +79,6 @@ void draw_weapon(spaceship_t *s, uint16_t switch_W){
 		set_led(0b010);
 		fgcolor(2);
 		printf("%c",42);
-
 	}
 
 }
@@ -109,7 +116,6 @@ int8_t readjoystick(spaceship_t *s){
 	}
 
 }
-
 int main (void) {
 	uart_init(115200); // Initialize USB serial emulation at 115200 baud
 	clear();
@@ -136,11 +142,11 @@ int main (void) {
 		if (makeSpaceship_weapon(&s) == 2) {
 			int n = 0;
 			start_weapon(&s);
-			draw_weapon(&s,switch_W);
+			draw_weapon(&s);
 			while ( n < 20) {
 				remove_weapon(&s);
 				updateSpaceship_weapon(&s);
-				draw_weapon(&s,switch_W);
+				draw_weapon(&s);
 				n++;
 			}
 
