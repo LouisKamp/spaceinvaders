@@ -48,22 +48,31 @@ void removeSpaceship (spaceship_t *s) {
 }
 
 int8_t makeSpaceship_weapon(spaceship_t *s) {
-	uint16_t val = GPIOC->IDR & (0x0001 << 1); //Read from pin PC1
-	if (val) {
-		set_led(0b010);
-		return val;
+	uint16_t switch_W = GPIOC->IDR & (0x0001 << 3); //Read from pin PC3
+	uint16_t shoot = GPIOC->IDR & (0x0001 << 2); //Read from pin PC2
+	if (shoot) {
+		return shoot;
 	}
-
 
 
 }
 void start_weapon(spaceship_t *s) {
 	s->weapon = s->y-1;
 }
-void draw_weapon(spaceship_t *s){
-	getxy((s->weapon),s->x);
-	fgcolor(2);
-	printf("%c",42);
+void draw_weapon(spaceship_t *s, uint16_t switch_W){
+	if (switch_W) {
+		getxy((s->weapon),s->x);
+		set_led(0b100);
+		fgcolor(1);
+		printf("%c",42);
+	}
+	else {
+		getxy((s->weapon),s->x);
+		set_led(0b010);
+		fgcolor(2);
+		printf("%c",42);
+
+	}
 
 }
 void remove_weapon(spaceship_t *s){
@@ -127,11 +136,11 @@ int main (void) {
 		if (makeSpaceship_weapon(&s) == 2) {
 			int n = 0;
 			start_weapon(&s);
-			draw_weapon(&s);
+			draw_weapon(&s,switch_W);
 			while ( n < 20) {
 				remove_weapon(&s);
 				updateSpaceship_weapon(&s);
-				draw_weapon(&s);
+				draw_weapon(&s,switch_W);
 				n++;
 			}
 

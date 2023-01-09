@@ -16,12 +16,11 @@ void init_pins() {
 
 	// JOYSTICK
 
-	// PC0 = RIGHT/Swtich weapons with joystick SW1
+	// PC0 = RIGHT
 	uint8_t pin_right = 0;
 	GPIOC->MODER &= ~(0x00000003 << (pin_right * 2)); // Clear mode register GPIOA->MODER |= (0x00000000 << (0 * 2)); // Set mode register (0x00 – Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out)
 	GPIOC->PUPDR &= ~(0x00000003 << (pin_right * 2)); // Clear push/pull register GPIOA->PUPDR |= (0x00000002 << (0 * 2)); // Set push/pull register (0x00 - No pull, 0x01 - Pull-up, 0x02 - Pull-down)
 	// uint16_t val_right = GPIOC->IDR & (0x0001 << pin_right); //Read from pin PC0
-
 
 	// PA4 = UP
 	uint8_t pin_up = 4;
@@ -47,16 +46,36 @@ void init_pins() {
 	GPIOB->PUPDR &= ~(0x00000003 << (pin_down * 2));
 	// uint16_t val_down = GPIOB->IDR & (0x0001 << pin_down);
 
+	// PC2 = Switch Weapon/SW1
+	uint8_t Switch_W = 1;
+	GPIOC->MODER &= ~(0x00000003 << (Switch_W * 2));
+	GPIOC->PUPDR &= ~(0x00000003 << (Switch_W * 2));
+	GPIOC->PUPDR &= ~(0x00000003 << (Switch_W * 2)); // Clear push/pull register
+	GPIOC->PUPDR |= (0x00000002 << (Switch_W * 2));
+
+	// uint16_t val = GPIOC->IDR & (0x0001 << Switch_W ); //Read from pin PC2
+
+	// PC3 = Shoot/SW2
+	uint8_t shoot = 3;
+	GPIOC->MODER &= ~(0x00000003 << (shoot * 2));
+	GPIOC->PUPDR &= ~(0x00000003 << (shoot * 2));
+	GPIOC->PUPDR &= ~(0x00000003 << (shoot * 2)); // Clear push/pull register
+	GPIOC->PUPDR |= (0x00000002 << (shoot* 2));
+
+	//	uint16_t val = GPIOC->IDR & (0x0001 << shoot ); //Read from pin PC3
+
+
+
 	//PinA0
 	uint8_t pinA0_joystick_ADC = 1;
-			GPIOA->MODER &= ~(0x00000003 << (pinA0_joystick_ADC * 2)); // Clear mode register
+	GPIOA->MODER &= ~(0x00000003 << (pinA0_joystick_ADC * 2)); // Clear mode register
 	GPIOA->MODER |= (0x00000000 << (pinA0_joystick_ADC * 2));
 	GPIOA->PUPDR &= ~(0x00000003 << (pinA0_joystick_ADC * 2)); // Clear push/pull register
 	GPIOA->PUPDR |= (0x00000002 << (pinA0_joystick_ADC * 2));
 
 	//PinA1
 	uint8_t pinA1_joystick_ADC = 1;
-			GPIOA->MODER &= ~(0x00000003 << (pinA1_joystick_ADC * 2)); // Clear mode register
+	GPIOA->MODER &= ~(0x00000003 << (pinA1_joystick_ADC * 2)); // Clear mode register
 	GPIOA->MODER |= (0x00000000 << (pinA1_joystick_ADC * 2));
 	GPIOA->PUPDR &= ~(0x00000003 << (pinA1_joystick_ADC * 2)); // Clear push/pull register
 	GPIOA->PUPDR |= (0x00000002 << (pinA1_joystick_ADC * 2));
