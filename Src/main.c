@@ -8,7 +8,7 @@ int main(void)
 {
 	lcd_init();
 	lcd_clear();
-	//lcd_write_string();
+	lcd_write_string(0,50);
 
 	while(1){}
 }

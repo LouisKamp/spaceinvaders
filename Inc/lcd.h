@@ -12,6 +12,6 @@
 #include "charset.h"
 
 void lcd_clear();
-void lcd_write_string();
+void lcd_write_string(uint8_t row, uint8_t col);
 
 #endif /* LCD_H_ */
