@@ -17,7 +17,7 @@ int main(void) {
 	initialize_spaceship(&myspaceship);
 
 
-	while(1) {}
+	while (1) {}
 }
 
 

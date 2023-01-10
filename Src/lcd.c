@@ -28,7 +28,6 @@ void lcd_write_char(char letter,int32_t x, int32_t y, uint8_t * buffer) {
 		i = -y;
 	}
 
-
 	for (i; i < 5; i++) {
 
 		// check if inside y-axis
@@ -56,17 +55,13 @@ void lcd_write_char(char letter,int32_t x, int32_t y, uint8_t * buffer) {
 				memset(buffer+offset+128,(character_data[c][i]>>8-row_offset),1);
 			}
 		}
-
-
 	}
-
 }
 
 // Writes a string to a LCD buffer on a specific coordinate
 void lcd_write_string(char* str,int32_t x, int32_t y,  uint8_t * buffer) {
 
 	uint8_t len = strlen(str);
-
 	for (uint8_t i = 0; i < len; i++) {
 		lcd_write_char(str[i], x, y+5*i, buffer);
 	}
@@ -78,7 +73,6 @@ void lcd_write_pixel(int32_t x, int32_t y,  uint8_t * buffer) {
 	int32_t row = x/8;
 	int32_t row_offset = x % 8;
 	int32_t offset = 128*row+y;
-
 
 	buffer[offset] |= (0b00000001 << row_offset);
 

@@ -33,7 +33,11 @@ void start_weapon(spaceship_t* s);
 void draw_weapon(spaceship_t* s);
 void remove_weapon(spaceship_t* s);
 void update_spaceship_weapon(spaceship_t* s);
-void update_spaceship_postition(joystick_input_t input, spaceship_t* s);
+<<<<<< < HEAD
+    void update_spaceship_postition(joystick_input_t input, spaceship_t * s);
+====== =
+//int8_t read_joystick(spaceship_t* s);
+>>>>>> > a4b0e921f4ce3144510b2448e254b9443c355f35
 
 
 
