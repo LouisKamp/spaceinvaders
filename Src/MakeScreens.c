@@ -33,6 +33,7 @@ void make_help_screen(char* str) {
 	lcd_write_string(str,1,38, &buffer);
 	lcd_push_buffer(&buffer);
 }
+
 void help_info_screen() {
 	lcd_init();
 	lcd_clear();
@@ -41,6 +42,7 @@ void help_info_screen() {
 	lcd_write_string("Move Down ",20,3, &buffer);
 	lcd_push_buffer(&buffer);
 }
+
 
 
 
