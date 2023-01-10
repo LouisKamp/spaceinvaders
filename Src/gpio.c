@@ -46,23 +46,23 @@ void init_pins() {
 	GPIOB->PUPDR &= ~(0x00000003 << (pin_down * 2));
 	// uint16_t val_down = GPIOB->IDR & (0x0001 << pin_down);
 
-	// PC2 = Switch Weapon/SW1
-	uint8_t Switch_W = 1;
-	GPIOC->MODER &= ~(0x00000003 << (Switch_W * 2));
-	GPIOC->PUPDR &= ~(0x00000003 << (Switch_W * 2));
-	GPIOC->PUPDR &= ~(0x00000003 << (Switch_W * 2)); // Clear push/pull register
-	GPIOC->PUPDR |= (0x00000002 << (Switch_W * 2));
-
-	// uint16_t val = GPIOC->IDR & (0x0001 << Switch_W ); //Read from pin PC2
-
-	// PC3 = Shoot/SW2
-	uint8_t shoot = 3;
+	// PC2 = Shoot/SW2
+	uint8_t shoot = 2;
 	GPIOC->MODER &= ~(0x00000003 << (shoot * 2));
 	GPIOC->PUPDR &= ~(0x00000003 << (shoot * 2));
 	GPIOC->PUPDR &= ~(0x00000003 << (shoot * 2)); // Clear push/pull register
-	GPIOC->PUPDR |= (0x00000002 << (shoot* 2));
+	GPIOC->PUPDR |= (0x00000002 << (shoot * 2));
 
-	//	uint16_t val = GPIOC->IDR & (0x0001 << shoot ); //Read from pin PC3
+	// uint16_t val = GPIOC->IDR & (0x0001 << shoot ); //Read from pin PC2
+
+	// PC3 = Switch/SW1
+	uint8_t switch_W = 3;
+	GPIOC->MODER &= ~(0x00000003 << (switch_W * 2));
+	GPIOC->PUPDR &= ~(0x00000003 << (switch_W * 2));
+	GPIOC->PUPDR &= ~(0x00000003 << (switch_W * 2)); // Clear push/pull register
+	GPIOC->PUPDR |= (0x00000002 << (switch_W * 2));
+
+	//	uint16_t val = GPIOC->IDR & (0x0001 << switch_W ); //Read from pin PC3
 
 
 
