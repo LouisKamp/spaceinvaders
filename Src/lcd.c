@@ -75,3 +75,15 @@ void lcd_write_string(char* str,int32_t x, int32_t y,  uint8_t * buffer) {
 
 }
 
+void lcd_write_pixel(int32_t x, int32_t y,  uint8_t * buffer) {
+
+	int32_t row = x/8;
+	int32_t row_offset = x % 8;
+	int32_t offset = 128*row+y;
+
+
+	buffer[offset] |= (0b00000001 << row_offset);
+
+}
+
+
