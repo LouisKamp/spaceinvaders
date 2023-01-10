@@ -3,16 +3,13 @@
 #include "gpio.h"
 #include "led.h"
 #include "lcd.h"
+#include "MakeScreens.h"
 
 int main(void)
 {
-	lcd_init();
-	lcd_clear();
-
-	uint8_t buffer[512] = {};
-	lcd_write_string("H",27,-2, &buffer);
-
-	lcd_push_buffer(&buffer);
+	make_start_screen("Start Game");
+	//make_help_screen("Help!");
+	//help_info_screen();
 
 	while(1){}
 }

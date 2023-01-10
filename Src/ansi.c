@@ -4,7 +4,6 @@
  *  Created on: 3. jun. 2022
  *      Author: Casper
  */
-blasjdbjasljbdaslbjd
 #define ESC 0x1B
 #include "stm32f30x_conf.h" // STM32 config
 #include "30010_io.h" // Input/output library for this course

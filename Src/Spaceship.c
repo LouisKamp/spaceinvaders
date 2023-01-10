@@ -89,7 +89,7 @@ void update_ship_left(spaceship_t* s) {
 }
 
 
-int8_t read_joystick(spaceship_t* s) {
+/*int8_t read_joystick(spaceship_t* s) {
 
 	uint16_t x = ADC_GetConversionValue(ADC1); // Read the ADC value
 	if (1500 < x && x < 4100) {
@@ -100,7 +100,7 @@ int8_t read_joystick(spaceship_t* s) {
 		return 3;
 	}
 
-}
+}*/
 //
 //int main (void) {
 //	uart_init(115200); // Initialize USB serial emulation at 115200 baud

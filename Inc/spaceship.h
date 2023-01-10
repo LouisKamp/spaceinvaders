@@ -34,7 +34,7 @@ void remove_weapon(spaceship_t* s);
 void update_spaceship_weapon(spaceship_t* s);
 void update_ship_right(spaceship_t* s);
 void update_ship_left(spaceship_t* s);
-int8_t read_joystick(spaceship_t* s);
+//int8_t read_joystick(spaceship_t* s);
 
 
 
