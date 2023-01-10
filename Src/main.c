@@ -5,31 +5,55 @@
 #include "lcd.h"
 #include "spaceship.h"
 #include "interrupts.h"
+#include "screens.h"
 
-uint8_t buffer[512] = {};
-spaceship_t myspaceship;
+uint8_t local_buffer[512] = {};
+uint8_t render_buffer[512] = {};
+uint8_t waiting_for_render = 0;
+
+
+
+// Tactic: do all the calculations in while and the push the local buffer to the render buffer, that is updated ever xx seconds.
 
 int main(void) {
 	init_pins();
 	lcd_init();
 	init_interupts();
+	set_led(0b000);
 
+
+	uint8_t game_state = 0; // start screen
+
+
+	spaceship_t myspaceship;
 	initialize_spaceship(&myspaceship);
 
 
-	while (1) {}
+	while (1) {
+		if (!waiting_for_render) {
+			waiting_for_render = 1;
+			lcd_clear(&local_buffer);
+
+			switch(game_state) {
+				case 0:
+					make_start_screen("Press down to start",&local_buffer, &game_state);
+					break;
+
+				case 1:
+					make_game_screen(&myspaceship,&local_buffer, &game_state);
+					break;
+			}
+
+
+			memcpy(render_buffer, local_buffer, sizeof(render_buffer));
+		}
+	}
 }
 
 
 void TIM2_IRQHandler(void) {
-
-
-	lcd_clear(&buffer);
-	joystick_input_t input = read_joystick();
-	update_spaceship_postition(input, &myspaceship);
-	draw_spaceship(&myspaceship, &buffer);
-	lcd_push_buffer(&buffer);
-
+	lcd_push_buffer(&render_buffer);
+	waiting_for_render = 0;
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
 }
 
