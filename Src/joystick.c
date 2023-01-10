@@ -48,6 +48,7 @@ color_t input_to_color(joystick_input_t joystick_input) {
 		color |= (0x0001 << 2);
 	}
 
+
 	return color;
 
 }
