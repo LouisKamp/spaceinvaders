@@ -82,78 +82,74 @@ void update_spaceship_postition(joystick_input_t input, spaceship_t* s) {
 		s->x--;
 	}
 
-	<<<<<< < HEAD
-		// DOWN
-		if ((input & (1 << 1)) && (s->x < 25)) {
-			s->x++;
-		}
-	====== =
-		/*int8_t read_joystick(spaceship_t* s) {
-		>>>>>>> a4b0e921f4ce3144510b2448e254b9443c355f35
+	// DOWN
+	if ((input & (1 << 1)) && (s->x < 25)) {
+		s->x++;
+	}
 
-			// LEFT
-			if ((input & (1 << 2)) && (0 < s->y)) {
-				s->y--;
-			}
+	// LEFT
+	if ((input & (1 << 2)) && (0 < s->y)) {
+		s->y--;
+	}
 
-			// RIGHT
-			if ((input & (1 << 3)) && (s->y < 122)) {
-				s->y++;
-			}
+	// RIGHT
+	if ((input & (1 << 3)) && (s->y < 122)) {
+		s->y++;
+	}
 
-		}
+}
 
 
-		//int8_t read_joystick(spaceship_t* s) {
-		//
-		//	uint16_t x = ADC_GetConversionValue(ADC1); // Read the ADC value
-		//	if (1500 < x && x < 4100) {
-		//		return 2;
-		//	}
-		//
-		//	if (14 < x && x < 1300) {
-		//		return 3;
-		//	}
-		//
-		//}
-		//
-		//int main (void) {
-		//	uart_init(115200); // Initialize USB serial emulation at 115200 baud
-		//	clear();
-		//	spaceship_t s;
-		//
-		//	initializeSpaceship(&s);
-		//	drawSpaceship(&s);
-		//
-		//	while(1){
-		//		init_pins();
-		//		configADC();
-		//		readjoystick(&s);
-		//
-		//		if (readjoystick(&s) == 2 ) {
-		//			removeSpaceship(&s);
-		//			update_ship_right(&s);
-		//			drawSpaceship(&s);
-		//		}
-		//		if (readjoystick(&s) == 3 ) {
-		//			removeSpaceship(&s);
-		//			update_ship_left(&s);
-		//			drawSpaceship(&s);
-		//		}
-		//		if (makeSpaceship_weapon(&s) == 2) {
-		//			int n = 0;
-		//			start_weapon(&s);
-		//			draw_weapon(&s);
-		//			while ( n < 20) {
-		//				remove_weapon(&s);
-		//				updateSpaceship_weapon(&s);
-		//				draw_weapon(&s);
-		//				n++;
-		//			}
-		//
-		//		}
-		//
-		//	}
-		//
-		//}
+//int8_t read_joystick(spaceship_t* s) {
+//
+//	uint16_t x = ADC_GetConversionValue(ADC1); // Read the ADC value
+//	if (1500 < x && x < 4100) {
+//		return 2;
+//	}
+//
+//	if (14 < x && x < 1300) {
+//		return 3;
+//	}
+//
+//}
+//
+//int main (void) {
+//	uart_init(115200); // Initialize USB serial emulation at 115200 baud
+//	clear();
+//	spaceship_t s;
+//
+//	initializeSpaceship(&s);
+//	drawSpaceship(&s);
+//
+//	while(1){
+//		init_pins();
+//		configADC();
+//		readjoystick(&s);
+//
+//		if (readjoystick(&s) == 2 ) {
+//			removeSpaceship(&s);
+//			update_ship_right(&s);
+//			drawSpaceship(&s);
+//		}
+//		if (readjoystick(&s) == 3 ) {
+//			removeSpaceship(&s);
+//			update_ship_left(&s);
+//			drawSpaceship(&s);
+//		}
+//		if (makeSpaceship_weapon(&s) == 2) {
+//			int n = 0;
+//			start_weapon(&s);
+//			draw_weapon(&s);
+//			while ( n < 20) {
+//				remove_weapon(&s);
+//				updateSpaceship_weapon(&s);
+//				draw_weapon(&s);
+//				n++;
+//			}
+//
+//		}
+//
+//	}
+//
+//}
 
