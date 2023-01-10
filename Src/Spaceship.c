@@ -1,37 +1,36 @@
 
 #include "spaceship.h"
 
-
-void initializeSpaceship(spaceship_t *s){
+void initialize_spaceship(spaceship_t* s) {
 	s->x = 20;
 	s->y = 20;
-	s->vx = 2 ;
-	s->vy = 5 ;
+	s->vx = 2;
+	s->vy = 5;
 	s->life = 2;
-	s->weapon = s->y-1;
+	s->weapon = s->y - 1;
 }
-void drawSpaceship(spaceship_t *s, uint8_t * buffer) {
+void draw_spaceship(spaceship_t* s, uint8_t* buffer) {
 	lcd_write_char('<', s->x, s->y, buffer);
 }
 
-void removeSpaceship (spaceship_t *s) {
-	getxy(s->y,s->x);
-	printf("%c",32);
-	getxy((s->y+1),s->x);
-	printf("%c",32);
-	getxy((s->y+1),(s->x+2));
-	printf("%c",32);
-	getxy((s->y+1),(s->x-2));
-	printf("%c",32);
-	getxy((s->y+2),(s->x));
+void remove_spaceship(spaceship_t* s) {
+	getxy(s->y, s->x);
+	printf("%c", 32);
+	getxy((s->y + 1), s->x);
+	printf("%c", 32);
+	getxy((s->y + 1), (s->x + 2));
+	printf("%c", 32);
+	getxy((s->y + 1), (s->x - 2));
+	printf("%c", 32);
+	getxy((s->y + 2), (s->x));
 }
 
-int8_t makeSpaceship_weapon(spaceship_t *s) {
+int8_t make_spaceship_weapon(spaceship_t* s) {
 	uint16_t shoot = GPIOC->IDR & (0x0001 << 2); //Read from pin PC2
-	uint16_t switch_W = GPIOC->IDR & (0x0001 << 3 ); //Read from pin PC3
+	uint16_t switch_W = GPIOC->IDR & (0x0001 << 3); //Read from pin PC3
 	if (switch_W) {
-		while(1) {
-			int weaponcolor[] = {1,2,3};
+		while (1) {
+			int weaponcolor[] = { 1,2,3 };
 			const int* current_weapon = weaponcolor;
 
 			if (current_weapon == &weaponcolor[0]) {
@@ -55,49 +54,49 @@ int8_t makeSpaceship_weapon(spaceship_t *s) {
 				return shoot;
 			}
 		}
-	} else {
+	}
+	else {
 		return shoot;
 	}
 
 }
-void start_weapon(spaceship_t *s) {
-	s->weapon = s->y-1;
+void start_weapon(spaceship_t* s) {
+	s->weapon = s->y - 1;
 }
-void draw_weapon(spaceship_t *s){
+void draw_weapon(spaceship_t* s) {
 
-}
-
-
-void remove_weapon(spaceship_t *s){
-	getxy((s->weapon),s->x);
-	printf("%c",32);
 }
 
-void updateSpaceship_weapon(spaceship_t *s) {
-	s->weapon= s-> weapon-1;
+void remove_weapon(spaceship_t* s) {
+	getxy((s->weapon), s->x);
+	printf("%c", 32);
 }
 
-void update_ship_right(spaceship_t *s) {
+void update_spaceship_weapon(spaceship_t* s) {
+	s->weapon = s->weapon - 1;
+}
+
+void update_ship_right(spaceship_t* s) {
 	int k = 1;
-	s->x = s->x + 1*k;
-	s-> y = s-> y;
+	s->x = s->x + 1 * k;
+	s->y = s->y;
 
 }
-void update_ship_left(spaceship_t *s) {
+void update_ship_left(spaceship_t* s) {
 	int k = 1;
-	s->x = s->x - 1*k;
-	s-> y = s-> y;
+	s->x = s->x - 1 * k;
+	s->y = s->y;
 }
 
 
-int8_t readjoystick(spaceship_t *s){
+int8_t read_joystick(spaceship_t* s) {
 
 	uint16_t x = ADC_GetConversionValue(ADC1); // Read the ADC value
-	if ( 1500 < x && x < 4100) {
+	if (1500 < x && x < 4100) {
 		return 2;
 	}
 
-	if ( 14 < x && x < 1300) {
+	if (14 < x && x < 1300) {
 		return 3;
 	}
 

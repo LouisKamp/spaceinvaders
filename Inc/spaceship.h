@@ -23,5 +23,21 @@ typedef struct {
     uint8_t weapon;
 } spaceship_t;
 
+
+void initialize_spaceship(spaceship_t* s);
+void draw_spaceship(spaceship_t* s, uint8_t* buffer);
+void remove_spaceship(spaceship_t* s);
+int8_t make_spaceship_weapon(spaceship_t* s);
+void start_weapon(spaceship_t* s);
+void draw_weapon(spaceship_t* s);
+void remove_weapon(spaceship_t* s);
+void update_spaceship_weapon(spaceship_t* s);
+void update_ship_right(spaceship_t* s);
+void update_ship_left(spaceship_t* s);
+int8_t read_joystick(spaceship_t* s);
+
+
+
+
 #endif // SPACESHIP_H
 
