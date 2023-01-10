@@ -7,6 +7,7 @@
 #include "interrupts.h"
 #include "screens.h"
 #include "bullet.h"
+#include "state.h"
 
 uint8_t local_buffer[512] = {};
 uint8_t render_buffer[512] = {};
@@ -23,34 +24,32 @@ int main(void) {
 	set_led(0b000);
 
 
-	uint8_t game_state = 0; // start screen
+	spaceship_t player_spaceship;
+	initialize_spaceship(&player_spaceship);
+	bullet_t bullets[NBULLETS] = {};
+	uint8_t screen = 0;
+	joystick_input_t joystick_input;
 
-
-	spaceship_t myspaceship;
-	initialize_spaceship(&myspaceship);
-	bullet_t mybullet;
-
-	// initialize_bullet(&myspaceship,&mybullet);
-
-	// draw_bullet(input,&mybullet,&buffer);
-	// remove_bullet(&myspaceship,&mybullet,&buffer);
+	game_state_t game_state;
+	game_state.buffer = local_buffer;
+	game_state.player = &player_spaceship;
+	game_state.bullets = bullets;
+	game_state.screen = &screen;
+	game_state.joystick_input = &joystick_input;
 
 
 	while (1) {
 		if (!waiting_for_render) {
 			waiting_for_render = 1;
 			lcd_clear(&local_buffer);
+			joystick_input = read_joystick();
 
-			switch (game_state) {
+			switch (screen) {
 			case 0:
-				make_start_screen("Press down to start", &local_buffer, &game_state);
+				make_start_screen("Press down to start", game_state);
 				break;
-
-
-
-
 			case 1:
-				make_game_screen(&myspaceship, &local_buffer, &game_state);
+				make_game_screen(game_state);
 				break;
 			}
 

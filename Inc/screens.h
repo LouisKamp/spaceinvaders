@@ -11,10 +11,12 @@
 
 #include "lcd.h"
 #include "spaceship.h"
+#include "state.h"
+#include "bullet.h"
 
-void make_start_screen(char* str, uint8_t * buffer, uint8_t * game_state);
-void make_help_screen(char* str, uint8_t * buffer, uint8_t * game_state);
-void help_info_screen(uint8_t * buffer, uint8_t * game_state);
-void make_game_screen(spaceship_t * s,uint8_t * buffer, uint8_t * game_state);
+void make_start_screen(char* str, game_state_t state);
+void make_help_screen(char* str, game_state_t state);
+void help_info_screen(game_state_t state);
+void make_game_screen(game_state_t state);
 
 #endif /* SCREENS_H_ */
