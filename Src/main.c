@@ -6,6 +6,7 @@
 #include "spaceship.h"
 #include "interrupts.h"
 #include "screens.h"
+#include "bullet.h"
 
 uint8_t local_buffer[512] = {};
 uint8_t render_buffer[512] = {};
@@ -27,6 +28,12 @@ int main(void) {
 
 	spaceship_t myspaceship;
 	initialize_spaceship(&myspaceship);
+	bullet_t mybullet;
+
+	// initialize_bullet(&myspaceship,&mybullet);
+
+	// draw_bullet(input,&mybullet,&buffer);
+	// remove_bullet(&myspaceship,&mybullet,&buffer);
 
 
 	while (1) {
@@ -34,16 +41,18 @@ int main(void) {
 			waiting_for_render = 1;
 			lcd_clear(&local_buffer);
 
-			switch(game_state) {
-				case 0:
-					make_start_screen("Press down to start",&local_buffer, &game_state);
-					break;
+			switch (game_state) {
+			case 0:
+				make_start_screen("Press down to start", &local_buffer, &game_state);
+				break;
 
-				case 1:
-					make_game_screen(&myspaceship,&local_buffer, &game_state);
-					break;
+
+
+
+			case 1:
+				make_game_screen(&myspaceship, &local_buffer, &game_state);
+				break;
 			}
-
 
 			memcpy(render_buffer, local_buffer, sizeof(render_buffer));
 		}
@@ -56,5 +65,7 @@ void TIM2_IRQHandler(void) {
 	waiting_for_render = 0;
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
 }
+
+
 
 

@@ -7,7 +7,7 @@ void initialize_spaceship(spaceship_t* s) {
 	s->vx = 2;
 	s->vy = 5;
 	s->life = 2;
-	s->weapon = s->y - 1;
+	s->weapon = s->y+2;
 }
 void draw_spaceship(spaceship_t* s, uint8_t* buffer) {
 	lcd_write_char('>', s->x, s->y, buffer);
@@ -60,17 +60,7 @@ int8_t make_spaceship_weapon(spaceship_t* s) {
 	}
 
 }
-void start_weapon(spaceship_t* s) {
-	s->weapon = s->y - 1;
-}
-void draw_weapon(spaceship_t* s) {
 
-}
-
-void remove_weapon(spaceship_t* s) {
-	getxy((s->weapon), s->x);
-	printf("%c", 32);
-}
 
 void update_spaceship_weapon(spaceship_t* s) {
 	s->weapon = s->weapon - 1;
