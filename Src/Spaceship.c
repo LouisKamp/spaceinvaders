@@ -85,6 +85,8 @@ void start_weapon(spaceship_t *s) {
 	s->weapon = s->y-1;
 }
 void draw_weapon(spaceship_t *s){
+	getxy((s->weapon),s->x);
+	printf("%c",40);
 
 }
 
@@ -112,12 +114,10 @@ void update_ship_left(spaceship_t *s) {
 
 
 int8_t readjoystick(spaceship_t *s){
-
 	uint16_t x = ADC_GetConversionValue(ADC1); // Read the ADC value
 	if ( 1500 < x && x < 4100) {
 		return 2;
 	}
-
 	if ( 14 < x && x < 1300) {
 		return 3;
 	}
@@ -127,7 +127,6 @@ int main (void) {
 	uart_init(115200); // Initialize USB serial emulation at 115200 baud
 	clear();
 	spaceship_t s;
-
 	initializeSpaceship(&s);
 	drawSpaceship(&s);
 
