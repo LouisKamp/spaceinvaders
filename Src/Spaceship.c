@@ -10,7 +10,7 @@ void initialize_spaceship(spaceship_t* s) {
 	s->weapon = s->y - 1;
 }
 void draw_spaceship(spaceship_t* s, uint8_t* buffer) {
-	lcd_write_char('<', s->x, s->y, buffer);
+	lcd_write_char('>', s->x, s->y, buffer);
 }
 
 void remove_spaceship(spaceship_t* s) {
@@ -76,31 +76,42 @@ void update_spaceship_weapon(spaceship_t* s) {
 	s->weapon = s->weapon - 1;
 }
 
-void update_ship_right(spaceship_t* s) {
-	int k = 1;
-	s->x = s->x + 1 * k;
-	s->y = s->y;
-
-}
-void update_ship_left(spaceship_t* s) {
-	int k = 1;
-	s->x = s->x - 1 * k;
-	s->y = s->y;
-}
-
-
-int8_t read_joystick(spaceship_t* s) {
-
-	uint16_t x = ADC_GetConversionValue(ADC1); // Read the ADC value
-	if (1500 < x && x < 4100) {
-		return 2;
+void update_spaceship_postition(joystick_input_t input, spaceship_t* s) {
+	// UP
+	if ((input & (1 << 0)) &&  (0 < s->x )) {
+		s->x--;
 	}
 
-	if (14 < x && x < 1300) {
-		return 3;
+	// DOWN
+	if ((input & (1 << 1)) &&  (s->x < 25)) {
+		s->x++;
+	}
+
+	// LEFT
+	if ((input & (1 << 2)) && (0 < s->y)) {
+		s->y--;
+	}
+
+	// RIGHT
+	if ((input & (1 << 3)) && (s->y < 122)) {
+		s->y++;
 	}
 
 }
+
+
+//int8_t read_joystick(spaceship_t* s) {
+//
+//	uint16_t x = ADC_GetConversionValue(ADC1); // Read the ADC value
+//	if (1500 < x && x < 4100) {
+//		return 2;
+//	}
+//
+//	if (14 < x && x < 1300) {
+//		return 3;
+//	}
+//
+//}
 //
 //int main (void) {
 //	uart_init(115200); // Initialize USB serial emulation at 115200 baud

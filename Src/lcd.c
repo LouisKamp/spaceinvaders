@@ -8,10 +8,8 @@
 #include "lcd.h"
 
 
-void lcd_clear() {
-	uint8_t buffer[512];
+void lcd_clear(uint8_t * buffer) {
 	memset(buffer,0b00000000,512);
-	lcd_push_buffer(&buffer);
 }
 
 

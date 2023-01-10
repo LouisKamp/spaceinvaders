@@ -9,6 +9,7 @@
 #include "ansi.h"
 #include "lcd.h"
 #include "fixed_point.h"
+#include "joystick.h"
 
 #define ESC 0x1B
 #define FIX14_SHIFT 14
@@ -32,9 +33,7 @@ void start_weapon(spaceship_t* s);
 void draw_weapon(spaceship_t* s);
 void remove_weapon(spaceship_t* s);
 void update_spaceship_weapon(spaceship_t* s);
-void update_ship_right(spaceship_t* s);
-void update_ship_left(spaceship_t* s);
-int8_t read_joystick(spaceship_t* s);
+void update_spaceship_postition(joystick_input_t input, spaceship_t* s);
 
 
 

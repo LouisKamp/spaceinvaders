@@ -14,6 +14,9 @@ void init_pins() {
 	RCC->AHBENR |= RCC_AHBPeriph_GPIOB;
 	RCC->AHBENR |= RCC_AHBPeriph_GPIOC;
 
+	// PB8 for I2C
+	//PB9 for I2C
+
 	// JOYSTICK
 
 	// PC0 = RIGHT
@@ -133,11 +136,11 @@ void configADC() {
 	ADC1->SQR1 &= ~ADC_SQR1_L; // Clear regular sequence register 1
 
 	ADC1->CR |= 0x10000000; // Enable internal ADC voltage regulator
-	for (int i = 0 ; i < 1000 ; i++) {} // Wait for about 16 microseconds
+	for (int i = 0; i < 1000; i++) {} // Wait for about 16 microseconds
 
 	ADC1->CR |= 0x80000000; // Start ADC1 calibration
 	while (!(ADC1->CR & 0x80000000)); // Wait for calibration to finish
-	for (int i = 0 ; i < 100 ; i++) {} // Wait for a little while
+	for (int i = 0; i < 100; i++) {} // Wait for a little while
 
 	ADC1->CR |= 0x00000001; // Enable ADC1 (0x01 - Enable, 0x02 - Disable)
 	while (!(ADC1->ISR & 0x00000001)); // Wait until ready

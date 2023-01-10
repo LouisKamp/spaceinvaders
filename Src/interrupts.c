@@ -3,10 +3,10 @@
 #include "interrupts.h"
 
 
-void TIM2_IRQHandler(void) {
-	//Do whatever you want here, but make sure it doesn’t take too much time!
-	TIM2->SR &= ~0x0001; // Clear interrupt bit
-}
+//void TIM2_IRQHandler(void) {
+//	//Do whatever you want here, but make sure it doesn’t take too much time!
+//	TIM2->SR &= ~0x0001; // Clear interrupt bit
+//}
 
 void init_interupts() {
 
@@ -27,7 +27,7 @@ void init_interupts() {
 	// TIM2->CR1 |= 0x1 << 0;
 
 
-	TIM2->ARR = 63999; // Set reload value
+	TIM2->ARR = 63999999/50; // Set reload value
 	TIM2->PSC = 0; // Set prescale value
 
 	TIM2->DIER |= 0x0001; // Enable timer 2 interrupts
