@@ -27,8 +27,8 @@ void removeSpaceship (spaceship_t *s) {
 }
 
 int8_t makeSpaceship_weapon(spaceship_t *s) {
-	uint16_t switch_W = GPIOC->IDR & (0x0001 << 3); //Read from pin PC3
 	uint16_t shoot = GPIOC->IDR & (0x0001 << 2); //Read from pin PC2
+	uint16_t switch_W = GPIOC->IDR & (0x0001 << 3 ); //Read from pin PC3
 	if (switch_W) {
 		while(1) {
 			int weaponcolor[] = {1,2,3};
@@ -64,9 +64,6 @@ void start_weapon(spaceship_t *s) {
 	s->weapon = s->y-1;
 }
 void draw_weapon(spaceship_t *s){
-	getxy((s->weapon),s->x);
-	fgcolor(1);
-	printf("%c",42);
 
 }
 
