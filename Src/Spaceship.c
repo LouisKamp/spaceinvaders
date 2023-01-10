@@ -1,38 +1,17 @@
-#define ESC 0x1B
-#define FIX14_SHIFT 14
-#define FIX14_MULT(a, b) ( (a)*(b) >> FIX14_SHIFT )
-#include "stm32f30x_conf.h" // STM32 config
-#include "stm32f30x_rcc.h"
-#include "30010_io.h" // Input/output library for this course
-#include "gpio.h"
-#include "led.h"
-#include "LUTsin.h" //
-#include "ansi.h"
 
+#include "spaceship.h"
 
-typedef struct {
-	uint8_t x,y,vx,vy,life,weapon;
-} spaceship_t;
 
 void initializeSpaceship(spaceship_t *s){
-	s->x = 60;
-	s->y = 40;
+	s->x = 20;
+	s->y = 20;
 	s->vx = 2 ;
 	s->vy = 5 ;
 	s->life = 2;
 	s->weapon = s->y-1;
 }
-void drawSpaceship(spaceship_t *s) {
-	getxy(s->y,s->x);
-	printf("%c",94);
-	getxy((s->y+1),s->x);
-	fgcolor(15);
-	printf("%c",219);
-	getxy((s->y+1),(s->x+2));
-	printf("%c",62);
-	getxy((s->y+1),(s->x-2));
-	printf("%c",60);
-	getxy((s->y+2),(s->x));
+void drawSpaceship(spaceship_t *s, uint8_t * buffer) {
+	lcd_write_char('<', s->x, s->y, buffer);
 }
 
 void removeSpaceship (spaceship_t *s) {
@@ -126,43 +105,44 @@ int8_t readjoystick(spaceship_t *s){
 	}
 
 }
-int main (void) {
-	uart_init(115200); // Initialize USB serial emulation at 115200 baud
-	clear();
-	spaceship_t s;
-
-	initializeSpaceship(&s);
-	drawSpaceship(&s);
-
-	while(1){
-		init_pins();
-		configADC();
-		readjoystick(&s);
-
-		if (readjoystick(&s) == 2 ) {
-			removeSpaceship(&s);
-			update_ship_right(&s);
-			drawSpaceship(&s);
-		}
-		if (readjoystick(&s) == 3 ) {
-			removeSpaceship(&s);
-			update_ship_left(&s);
-			drawSpaceship(&s);
-		}
-		if (makeSpaceship_weapon(&s) == 2) {
-			int n = 0;
-			start_weapon(&s);
-			draw_weapon(&s);
-			while ( n < 20) {
-				remove_weapon(&s);
-				updateSpaceship_weapon(&s);
-				draw_weapon(&s);
-				n++;
-			}
-
-		}
-
-	}
-
-}
+//
+//int main (void) {
+//	uart_init(115200); // Initialize USB serial emulation at 115200 baud
+//	clear();
+//	spaceship_t s;
+//
+//	initializeSpaceship(&s);
+//	drawSpaceship(&s);
+//
+//	while(1){
+//		init_pins();
+//		configADC();
+//		readjoystick(&s);
+//
+//		if (readjoystick(&s) == 2 ) {
+//			removeSpaceship(&s);
+//			update_ship_right(&s);
+//			drawSpaceship(&s);
+//		}
+//		if (readjoystick(&s) == 3 ) {
+//			removeSpaceship(&s);
+//			update_ship_left(&s);
+//			drawSpaceship(&s);
+//		}
+//		if (makeSpaceship_weapon(&s) == 2) {
+//			int n = 0;
+//			start_weapon(&s);
+//			draw_weapon(&s);
+//			while ( n < 20) {
+//				remove_weapon(&s);
+//				updateSpaceship_weapon(&s);
+//				draw_weapon(&s);
+//				n++;
+//			}
+//
+//		}
+//
+//	}
+//
+//}
 
