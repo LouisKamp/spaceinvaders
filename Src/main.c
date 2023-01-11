@@ -6,6 +6,7 @@
 #include "spaceship.h"
 #include "interrupts.h"
 #include "screens.h"
+#include "enemy.h"
 #include "bullet.h"
 #include "state.h"
 
@@ -27,6 +28,9 @@ int main(void) {
 	spaceship_t player_spaceship;
 	initialize_spaceship(&player_spaceship);
 	bullet_t bullets[NBULLETS] = {};
+	uint8_t num_bullets = 0;
+	enemy_t enemy[NENEMY] = {};
+	uint8_t num_enemy = 0;
 	uint8_t screen = 0;
 	joystick_input_t joystick_input;
 
@@ -34,9 +38,11 @@ int main(void) {
 	game_state.buffer = local_buffer;
 	game_state.player = &player_spaceship;
 	game_state.bullets = bullets;
+	game_state.num_bullet = &num_bullets;
+	game_state.enemy = enemy;
+	game_state.num_enemy =&num_enemy;
 	game_state.screen = &screen;
 	game_state.joystick_input = &joystick_input;
-
 
 	while (1) {
 		if (!waiting_for_render) {

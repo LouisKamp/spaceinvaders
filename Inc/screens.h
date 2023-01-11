@@ -13,6 +13,8 @@
 #include "spaceship.h"
 #include "state.h"
 #include "bullet.h"
+#include "enemy.h"
+
 
 void make_start_screen(char* str, game_state_t state);
 void make_help_screen(char* str, game_state_t state);

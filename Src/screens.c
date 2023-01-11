@@ -45,9 +45,25 @@ void make_game_screen(game_state_t state) {
 	}
 
 	if (*state.joystick_input & (0x01 << 4)) {
-		initialize_bullet(state.player, &state.bullets[0]);
+		initialize_bullet(state.player, &state.bullets[*state.num_bullet]);
+		*state.num_bullet +=1;
 	}
+
+	for (uint8_t j = 0; j < NENEMY; j++) {
+		draw_enemy(&state.enemy[j], state.buffer);
+	}
+
+	if(*state.joystick_input & (0x01 <<2)) {
+		initialize_enemy(&state.enemy[*state.num_enemy]);
+		*state.num_enemy +=1;
+	}
+
+
+
+
 }
+
+
 
 
 
