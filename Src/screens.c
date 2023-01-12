@@ -33,7 +33,6 @@ void make_help_screen(char* str, game_state_t state) {
 void help_info_screen(game_state_t state) {
 	lcd_write_string("Shoot on center",1,3, state.buffer);
 	lcd_write_string("Move Down ",20,3, state.buffer);
-	lcd_push_buffer(state.buffer);
 }
 
 void make_game_screen(game_state_t state) {
@@ -44,7 +43,7 @@ void make_game_screen(game_state_t state) {
 		draw_bullet(&state.bullets[i], state.buffer);
 	}
 
-	if (*state.joystick_input & (0x01 << 4)) {
+	if (*state.joystick_input & (0x01 << 4)) { // if joystick center is pressed
 		initialize_bullet(state.player, &state.bullets[0]);
 	}
 }
