@@ -8,9 +8,11 @@
 #ifndef STATE_H_
 #define STATE_H_
 
+#include "enemy.h"
+#include "asteroid.h"
 #include "bullet.h"
 #include "spaceship.h"
-#include "enemy.h"
+
 
 typedef struct {
 	spaceship_t * player;
@@ -20,7 +22,10 @@ typedef struct {
 	uint8_t * buffer;
 	enemy_t * enemy;
 	uint8_t *num_enemy;
+	asteroid_t *asteroid;
+	uint8_t *num_asteroid;
 	joystick_input_t * joystick_input;
+
 } game_state_t;
 
 

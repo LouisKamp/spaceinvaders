@@ -14,6 +14,8 @@
 #include "state.h"
 #include "bullet.h"
 #include "enemy.h"
+#include "asteroid.h"
+
 
 
 void make_start_screen(char* str, game_state_t state);

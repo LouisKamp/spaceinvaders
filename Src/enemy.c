@@ -17,7 +17,7 @@ void initialize_enemy(enemy_t *e) { //initialize the enemy coordinates.
 	e->life = 1;
 }
 void draw_enemy(enemy_t *e, uint8_t *buffer) { //Draw enemy
-	e->y+=e->vy;
+	e->y-=e->vy;
 	lcd_write_char('C', e->x, e->y, buffer);
 }
 

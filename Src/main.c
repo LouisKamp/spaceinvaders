@@ -6,6 +6,7 @@
 #include "spaceship.h"
 #include "interrupts.h"
 #include "screens.h"
+#include "asteroid.h"
 #include "enemy.h"
 #include "bullet.h"
 #include "state.h"
@@ -28,6 +29,8 @@ int main(void) {
 	spaceship_t player_spaceship;
 	initialize_spaceship(&player_spaceship);
 	bullet_t bullets[NBULLETS] = {};
+	asteroid_t asteroid;
+	uint8_t num_asteroid[NASTEROID] = {};
 	uint8_t num_bullets = 0;
 	enemy_t enemy[NENEMY] = {};
 	uint8_t num_enemy = 0;
@@ -39,6 +42,8 @@ int main(void) {
 	game_state.player = &player_spaceship;
 	game_state.bullets = bullets;
 	game_state.num_bullet = &num_bullets;
+	game_state.asteroid =&asteroid;
+	game_state.num_asteroid =num_asteroid;
 	game_state.enemy = enemy;
 	game_state.num_enemy =&num_enemy;
 	game_state.screen = &screen;
