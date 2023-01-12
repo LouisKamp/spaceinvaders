@@ -29,8 +29,8 @@ int main(void) {
 	spaceship_t player_spaceship;
 	initialize_spaceship(&player_spaceship);
 	bullet_t bullets[NBULLETS] = {};
-	asteroid_t asteroid;
-	uint8_t num_asteroid[NASTEROID] = {};
+	asteroid_t asteroid[NASTEROID]={};
+	uint8_t num_asteroid =0;
 	uint8_t num_bullets = 0;
 	enemy_t enemy[NENEMY] = {};
 	uint8_t num_enemy = 0;
