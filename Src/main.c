@@ -11,7 +11,6 @@
 #include "bullet.h"
 #include "state.h"
 
-uint8_t local_buffer[512] = {};
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
 
@@ -36,6 +35,7 @@ int main(void) {
 	uint8_t num_enemy = 0;
 	uint8_t screen = 0;
 	joystick_input_t joystick_input;
+	uint8_t local_buffer[512] = {};
 
 	game_state_t game_state;
 	game_state.buffer = local_buffer;
