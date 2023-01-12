@@ -20,11 +20,13 @@ typedef struct {
     uint8_t x;
     uint8_t y;
     uint8_t active;
+    uint8_t vx;
+    uint8_t vy;
 } bullet_t;
 
 void initialize_bullet(spaceship_t* s,bullet_t *b);
 void draw_bullet(bullet_t * b, uint8_t *buffer); //Update bullet
-void remove_bullet (spaceship_t* s,bullet_t *b,uint8_t *buffer);
+void remove_bullet (bullet_t *b,uint8_t *buffer);
 
 
 #endif /* BULLET_H_ */
