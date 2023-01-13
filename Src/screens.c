@@ -36,14 +36,16 @@ void help_info_screen(game_state_t state) {
 }
 
 void make_game_screen(game_state_t state) {
-
+	//draw
 	draw_spaceship(state.player, state.buffer);
 	draw_all_bullets(state);
 	draw_all_enemies(state);
-
+	draw_all_asteroid(state);
 
 	update_all_bullets(state);
+	update_all_asteroid(state);
 	handle_user_input(state);
+
 }
 
 
