@@ -14,6 +14,7 @@
 #include "lcd.h"
 #include "gpio.h"
 #include "types.h"
+#include "fixed_point.h"
 
 
 

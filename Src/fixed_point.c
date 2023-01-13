@@ -8,15 +8,6 @@
 #include "fixed_point.h"
 
 
-#define FIX14_SHIFT 14
-#define FIX14_MULT(a, b) ( (a)*(b) >> FIX14_SHIFT )
-
-
-#define FIX_SHIFT 5
-#define FIX_MULT(a, b) (int16_t)( ((int32_t) a)*((int32_t) b) >> FIX_SHIFT )
-#define FIX_MULT(a, b) (int16_t)( ((int32_t) a)/((int32_t) b) << FIX_SHIFT )
-
-
 void print_fix(fix_t i) {
 
 	// Prints a signed 11.5 fixed point number
@@ -58,6 +49,4 @@ void rotate_vector(vector_t* vector, int32_t angle) {
 	vector->x = x * fixed_point_cos(angle) - y * fixed_point_sin(angle);
 	vector->y = x * fixed_point_sin(angle) + y * fixed_point_cos(angle);
 }
-
-
 

@@ -9,11 +9,11 @@
 #include "enemy.h"
 
 void initialize_enemy(enemy_t *e) { //initialize the enemy coordinates.
-	e->y = 50;
-	e->x = 20 ;
+	e->y = TO_FIX(50);
+	e->x = TO_FIX(20);
+	e->vy = TO_FIX(-1);
+	e->vx = TO_FIX(-1);
 	e->active = 1;
-	e->vy = 0;
-	e->vx = 0;
 	e->life = 1;
 }
 
@@ -26,7 +26,7 @@ void update_all_enemies(game_state_t state) {
 
 void draw_enemy(enemy_t *e, uint8_t *buffer) {
 	if (e->active) {
-		lcd_write_char('C', e->x, e->y, buffer);
+		lcd_write_char('C', TO_INT(e->x), TO_INT(e->y), buffer);
 	}
 }
 
