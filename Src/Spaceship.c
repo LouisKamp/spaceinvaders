@@ -9,7 +9,7 @@ void initialize_spaceship(spaceship_t* s) {
 	s->life = 2;
 	s->weapon = s->y+2;
 }
-void draw_spaceship(spaceship_t* s, uint8_t* buffer) {
+void draw_spaceship(spaceship_t * s, uint8_t * buffer) {
 	lcd_write_char('>', s->x, s->y, buffer);
 }
 
@@ -87,6 +87,11 @@ void update_spaceship_postition(joystick_input_t input, spaceship_t* s) {
 		s->y++;
 	}
 
+}
+
+
+void spaceship_shoot(spaceship_t * spaceship, game_state_t state) {
+	create_bullet(spaceship->x, spaceship->y, state);
 }
 
 

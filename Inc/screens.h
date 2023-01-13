@@ -9,12 +9,13 @@
 #define SCREENS_H_
 
 
+#include <types.h>
 #include "lcd.h"
 #include "spaceship.h"
-#include "state.h"
 #include "bullet.h"
 #include "enemy.h"
 #include "asteroid.h"
+#include "game.h"
 
 
 

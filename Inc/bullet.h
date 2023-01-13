@@ -10,23 +10,19 @@
 
 #define NBULLETS 50
 
+
 #include "spaceship.h"
 #include "led.h"
 #include "lcd.h"
 #include "gpio.h"
 #include "joystick.h"
+#include "types.h"
 
-typedef struct {
-    uint8_t x;
-    uint8_t y;
-    uint8_t active;
-    uint8_t vx;
-    uint8_t vy;
-} bullet_t;
-
-void initialize_bullet(spaceship_t* s,bullet_t *b);
+void initialize_bullet(uint8_t x, uint8_t y, bullet_t *b);
 void draw_bullet(bullet_t * b, uint8_t *buffer); //Update bullet
-void remove_bullet (bullet_t *b,uint8_t *buffer);
-
+void update_bullet(bullet_t * b);
+void create_bullet(uint8_t x, uint8_t y, game_state_t state);
+void draw_all_bullets(game_state_t state);
+void update_all_bullets(game_state_t state);
 
 #endif /* BULLET_H_ */

@@ -13,20 +13,13 @@
 #include "led.h"
 #include "lcd.h"
 #include "gpio.h"
-#include "bullet.h"
+#include "types.h"
 
-typedef struct {
-	uint8_t x;
-	uint8_t y;
-	uint8_t vx;
-	uint8_t vy;
-	uint8_t life;
-	uint8_t active;
 
-}enemy_t;
 
 void initialize_enemy(enemy_t *e);
 void draw_enemy(enemy_t *e, uint8_t *buffer);
-void enemy_death( enemy_t *e,bullet_t *b, uint8_t *buffer);
+void draw_all_enemies(game_state_t state);
+void updates_all_enemies(game_state_t state);
 
 #endif /* ENEMY_H_ */

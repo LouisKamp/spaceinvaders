@@ -1,3 +1,4 @@
+#include <types.h>
 #include "stm32f30x_conf.h" // STM32 config
 #include "30010_io.h" 		// Input/output library for this course
 #include "gpio.h"
@@ -9,7 +10,7 @@
 #include "asteroid.h"
 #include "enemy.h"
 #include "bullet.h"
-#include "state.h"
+
 
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
@@ -27,14 +28,23 @@ int main(void) {
 
 	spaceship_t player_spaceship;
 	initialize_spaceship(&player_spaceship);
+
 	bullet_t bullets[NBULLETS] = {};
-	asteroid_t asteroid;
-	uint8_t num_asteroid[NASTEROID] = {};
 	uint8_t num_bullets = 0;
-	enemy_t enemy[NENEMY] = {};
+
+
+	asteroid_t asteroid[NASTEROID] = {};
+	uint8_t num_asteroid = 0;
+
+
+	enemy_t enemies[NENEMY] = {};
 	uint8_t num_enemy = 0;
+
+
 	uint8_t screen = 0;
+
 	joystick_input_t joystick_input;
+
 	uint8_t local_buffer[512] = {};
 
 	game_state_t game_state;
@@ -42,12 +52,16 @@ int main(void) {
 	game_state.player = &player_spaceship;
 	game_state.bullets = bullets;
 	game_state.num_bullet = &num_bullets;
-	game_state.asteroid =&asteroid;
-	game_state.num_asteroid =num_asteroid;
-	game_state.enemy = enemy;
-	game_state.num_enemy =&num_enemy;
+
+	game_state.asteroid = &asteroid;
+	game_state.num_asteroid = num_asteroid;
+
+	game_state.enemies = enemies;
+	game_state.num_enemy = &num_enemy;
 	game_state.screen = &screen;
 	game_state.joystick_input = &joystick_input;
+
+	//initialize_enemy(&enemies[0]);
 
 	while (1) {
 		if (!waiting_for_render) {

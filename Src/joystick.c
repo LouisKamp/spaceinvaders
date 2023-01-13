@@ -1,6 +1,6 @@
 
 
-#include "gpio.h"
+
 #include "joystick.h"
 
 joystick_input_t read_joystick() {

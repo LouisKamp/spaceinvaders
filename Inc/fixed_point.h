@@ -2,15 +2,8 @@
 #define FIXED_POINT_H_
 
 #include <stdio.h>
+#include "types.h"
 #include "LUTsin.h"
-
-typedef struct {
-    int32_t x, y;
-} vector_t;
-
-
-typedef uint32_t fix_16_16_t;
-typedef uint32_t fix_2_14_t;
 
 void print_fix(int32_t i);
 fix_16_16_t convert_2_14_to_16_16(fix_2_14_t i);

@@ -36,25 +36,14 @@ void help_info_screen(game_state_t state) {
 }
 
 void make_game_screen(game_state_t state) {
-	update_spaceship_postition(*state.joystick_input, state.player);
+
 	draw_spaceship(state.player, state.buffer);
-	initialize_asteroid(state.asteroid);
-	draw_asteroid(&state.asteroid[0], state.buffer);
+	draw_all_bullets(state);
+	draw_all_enemies(state);
 
 
-
-	for (uint8_t i = 0; i < NBULLETS; i++) {
-		draw_bullet(&state.bullets[i], state.buffer);
-	}
-
-	if (*state.joystick_input & (0x01 << 4)) {
-		initialize_bullet(state.player, &state.bullets[*state.num_bullet]);
-		*state.num_bullet += 1;
-		if ((&state.asteroid[0].y) == (&state.bullets[*state.num_bullet].y) && (&state.asteroid[0].x) == (&state.bullets[*state.num_bullet].x)) {
-			set_led(0b010);
-		}
-	}
-
+	update_all_bullets(state);
+	handle_user_input(state);
 }
 
 

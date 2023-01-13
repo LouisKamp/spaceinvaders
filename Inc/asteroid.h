@@ -8,6 +8,7 @@
 #ifndef ASTEROID_H_
 #define ASTEROID_H_
 
+#include <types.h>
 #include "bullet.h"
 #include "led.h"
 #include "lcd.h"
@@ -15,15 +16,6 @@
 #include "joystick.h"
 
 #define NASTEROID 1
-
-
-typedef struct {
-	uint8_t x;
-	uint8_t y;
-	uint8_t active;
-	uint8_t vx;
-	uint8_t vy;
-} asteroid_t;
 
 void initialize_asteroid(asteroid_t *a);
 void draw_asteroid(asteroid_t *a, uint8_t *buffer); //draw asteroid
