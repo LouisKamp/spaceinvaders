@@ -48,7 +48,7 @@ fix_t fixed_point_sin(int32_t angle) {
 	return convert_2_14_to_11_5(res); // format 16.16
 }
 
-fix_16_16_t fixed_point_cos(int32_t angle) {
+fix_t fixed_point_cos(int32_t angle) {
 	return fixed_point_sin(angle + 128);
 }
 
