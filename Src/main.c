@@ -10,7 +10,7 @@
 #include "asteroid.h"
 #include "enemy.h"
 #include "bullet.h"
-
+#include "explotion.h"
 
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
@@ -40,6 +40,9 @@ int main(void) {
 	enemy_t enemies[NENEMY] = {};
 	uint8_t num_enemy = 0;
 
+	enemy_t explotions[NEXPLOTIONS] = {};
+	uint8_t num_explotions = 0;
+
 
 	uint8_t screen = 0;
 
@@ -58,8 +61,12 @@ int main(void) {
 
 	game_state.enemies = enemies;
 	game_state.num_enemy = &num_enemy;
+
 	game_state.screen = &screen;
 	game_state.joystick_input = &joystick_input;
+
+	game_state.explotions = explotions;
+	game_state.num_explotions = &num_explotions;
 
 	initialize_enemy(&enemies[0]);
 
@@ -83,12 +90,9 @@ int main(void) {
 	}
 }
 
-uint8_t sec = 0;
-
 void TIM2_IRQHandler(void) {
 	lcd_push_buffer(&render_buffer);
 	waiting_for_render = 0;
-	sec++;
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
 }
 

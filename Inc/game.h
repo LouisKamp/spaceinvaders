@@ -13,6 +13,7 @@
 #include "spaceship.h"
 #include "joystick.h"
 #include "enemy.h"
+#include "explotion.h"
 
 void handle_user_input(game_state_t state);
 void handle_bullet_enemy_interaction(game_state_t state);
