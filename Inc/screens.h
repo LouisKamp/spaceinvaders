@@ -9,7 +9,7 @@
 #define SCREENS_H_
 
 
-#include <types.h>
+#include "types.h"
 #include "lcd.h"
 #include "spaceship.h"
 #include "bullet.h"
@@ -17,7 +17,6 @@
 #include "asteroid.h"
 #include "game.h"
 #include "joystick.h"
-
 
 
 void make_start_screen(char* str, game_state_t state);

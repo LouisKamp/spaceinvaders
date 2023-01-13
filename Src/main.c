@@ -61,7 +61,7 @@ int main(void) {
 	game_state.screen = &screen;
 	game_state.joystick_input = &joystick_input;
 
-	//initialize_enemy(&enemies[0]);
+	initialize_enemy(&enemies[0]);
 
 	while (1) {
 		if (!waiting_for_render) {
@@ -83,10 +83,12 @@ int main(void) {
 	}
 }
 
+uint8_t sec = 0;
 
 void TIM2_IRQHandler(void) {
 	lcd_push_buffer(&render_buffer);
 	waiting_for_render = 0;
+	sec++;
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
 }
 

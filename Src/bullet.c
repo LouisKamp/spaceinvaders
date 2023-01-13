@@ -16,8 +16,12 @@ void initialize_bullet(uint8_t x, uint8_t y, bullet_t *b) { //initialize the bul
 }
 void draw_bullet(bullet_t *b, uint8_t *buffer) { //Draw bullet my press Center on joystick
 	if (b->active) {
-		lcd_write_pixel(b->x+3, b->y, buffer);
+		lcd_write_pixel(b->x, b->y, buffer);
 	}
+}
+
+void remove_bullet(bullet_t * b) {
+	b->active = 0;
 }
 
 
@@ -27,7 +31,7 @@ void update_bullet(bullet_t * b) {
 		b->y += b->vy;
 
 		// check if bullet are out of picture
-		if (b->y > 128) {
+		if (b->y > 127) {
 			// deactivate if out
 			b->active = 0;
 		}

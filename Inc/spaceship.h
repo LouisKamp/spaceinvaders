@@ -14,13 +14,6 @@
 #include "bullet.h"
 
 
-#define ESC 0x1B
-#define FIX14_SHIFT 14
-#define FIX14_MULT(a, b) ( (a)*(b) >> FIX14_SHIFT )
-
-
-
-
 void initialize_spaceship(spaceship_t* s);
 void draw_spaceship(spaceship_t* s, uint8_t* buffer);
 void remove_spaceship(spaceship_t* s);
@@ -30,7 +23,7 @@ void draw_weapon(spaceship_t* s);
 void remove_weapon(spaceship_t* s);
 void update_spaceship_weapon(spaceship_t* s);
 void update_spaceship_postition(joystick_input_t input, spaceship_t* s);
-void spaceship_shoot(spaceship_t * spaceship, game_state_t state);
+void spaceship_shoot(spaceship_t* spaceship, game_state_t state);
 
 
 
