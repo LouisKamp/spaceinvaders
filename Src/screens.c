@@ -9,7 +9,7 @@
 
 void make_start_screen(char* str, game_state_t state) {
 	// check if joystick is down
-	if (*(state.joystick_input) & (0x01 << 4)) {
+	if (*(state.joystick_input) & JOYSTICK_CENTER) {
 		*(state.screen) = 1;
 	}
 

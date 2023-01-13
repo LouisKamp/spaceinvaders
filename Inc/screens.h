@@ -16,6 +16,7 @@
 #include "enemy.h"
 #include "asteroid.h"
 #include "game.h"
+#include "joystick.h"
 
 
 

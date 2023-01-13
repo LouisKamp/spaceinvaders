@@ -37,10 +37,6 @@ int main(void) {
 	uint8_t num_bullets = 0;
 
 
-	asteroid_t asteroid[NASTEROID] = {};
-	uint8_t num_asteroid = 0;
-
-
 	enemy_t enemies[NENEMY] = {};
 	uint8_t num_enemy = 0;
 

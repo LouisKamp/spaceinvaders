@@ -11,6 +11,7 @@
 #include "types.h"
 #include "bullet.h"
 #include "spaceship.h"
+#include "joystick.h"
 
 void handle_user_input(game_state_t state);
 

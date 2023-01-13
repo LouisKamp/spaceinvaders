@@ -3,6 +3,7 @@
 
 #include "joystick.h"
 
+
 joystick_input_t read_joystick() {
 
 	uint8_t result = 0;
@@ -20,7 +21,7 @@ joystick_input_t read_joystick() {
 	uint16_t val_left = GPIOC->IDR & (0x0001 << pin_left);
 	uint16_t val_down = GPIOB->IDR & (0x0001 << pin_down);
 
-	uint16_t val_spawn_check = GPIOC->IDR & (0x0001 << spawn ); //Read from pin PC2
+	uint16_t val_spawn_check = GPIOC->IDR & (0x0001 << spawn); //Read from pin PC2
 
 	result |= (val_up > 0) << 0;
 	result |= (val_down > 0) << 1;
@@ -40,17 +41,17 @@ color_t input_to_color(joystick_input_t joystick_input) {
 	uint8_t color = 0;
 
 	// UP
-	if (joystick_input & (1 << 0)) {
+	if (joystick_input & JOYSTICK_UP) {
 		color |= (0x0001 << 0);
 	}
 
 	// LEFT
-	if (joystick_input & (1 << 2)) {
+	if (joystick_input & JOYSTICK_LEFT) {
 		color |= (0x0001 << 1);
 	}
 
 	// RIGHT
-	if (joystick_input & (1 << 3)) {
+	if (joystick_input & JOYSTICK_RIGHT) {
 		color |= (0x0001 << 2);
 	}
 
