@@ -18,10 +18,10 @@
 #include "joystick.h"
 #include "types.h"
 
-void initialize_bullet(uint8_t x, uint8_t y, bullet_t *b);
+void initialize_bullet(fix_t x, fix_t y, bullet_t *b);
 void draw_bullet(bullet_t * b, uint8_t *buffer); //Update bullet
 void update_bullet(bullet_t * b);
-void create_bullet(uint8_t x, uint8_t y, game_state_t state);
+void create_bullet(fix_t x, fix_t y, game_state_t state);
 void draw_all_bullets(game_state_t state);
 void update_all_bullets(game_state_t state);
 
