@@ -42,6 +42,10 @@ void update_enemy(enemy_t * enemy) {
 		enemy->y += enemy->vy;
 	}
 }
+void remove_enemy(enemy_t * enemy) {
+	enemy->active = 0;
+}
+
 
 
 

@@ -20,6 +20,7 @@
 
 void initialize_enemy(enemy_t *e);
 void draw_enemy(enemy_t *e, uint8_t *buffer);
+void remove_bullet(enemy_t * enemy);
 void draw_all_enemies(game_state_t state);
 void update_all_enemies(game_state_t state);
 void update_enemy(enemy_t * enemy);

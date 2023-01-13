@@ -29,6 +29,11 @@ void handle_bullet_enemy_interaction(game_state_t state) {
 			if ((dist_x < TO_FIX(5)) && (dist_y < TO_FIX(2))) {
 				// bullet hit
 				remove_bullet(&state.bullets[i]);
+				state.enemies[j].life -= 1;
+				printf("%8d",state.enemies[j].life );
+				if (state.enemies[j].life == 0) {
+					remove_enemy(&state.enemies[j]);
+				}
 			}
 		}
 	}
