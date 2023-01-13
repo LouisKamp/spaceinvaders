@@ -7,9 +7,9 @@
 
 #include "bullet.h"
 
-void initialize_bullet(uint8_t x, uint8_t y, bullet_t *b) { //initialize the bullets coordinates.
-	b->y = TO_FIX(y);
-	b->x = TO_FIX(x);
+void initialize_bullet(fix_t x, fix_t y, bullet_t *b) { //initialize the bullets coordinates.
+	b->y = y;
+	b->x = x;
 	b->vx = TO_FIX(0);
 	b->vy = TO_FIX(2);
 	b->active = 1;
@@ -38,7 +38,7 @@ void update_bullet(bullet_t * b) {
 	}
 }
 
-void create_bullet(uint8_t x, uint8_t y, game_state_t state) {
+void create_bullet(fix_t x, fix_t y, game_state_t state) {
 	bullet_t * new_bullet = &state.bullets[*state.num_bullet % NBULLETS];
 	*state.num_bullet += 1;
 
