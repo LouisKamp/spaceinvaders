@@ -1,4 +1,5 @@
-#include <types.h>
+#include "explosion.h"
+#include "types.h"
 #include "stm32f30x_conf.h" // STM32 config
 #include "30010_io.h" 		// Input/output library for this course
 #include "gpio.h"
@@ -10,7 +11,6 @@
 #include "asteroid.h"
 #include "enemy.h"
 #include "bullet.h"
-#include "explotion.h"
 
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
@@ -40,8 +40,8 @@ int main(void) {
 	enemy_t enemies[NENEMY] = {};
 	uint8_t num_enemy = 0;
 
-	enemy_t explotions[NEXPLOTIONS] = {};
-	uint8_t num_explotions = 0;
+	enemy_t explosions[NEXPLOSIONS] = {};
+	uint8_t num_explosions = 0;
 
 
 	uint8_t screen = 0;
@@ -65,8 +65,8 @@ int main(void) {
 	game_state.screen = &screen;
 	game_state.joystick_input = &joystick_input;
 
-	game_state.explotions = explotions;
-	game_state.num_explotions = &num_explotions;
+	game_state.explosions = explosions;
+	game_state.num_explosions = &num_explosions;
 
 	initialize_enemy(&enemies[0]);
 

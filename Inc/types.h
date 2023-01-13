@@ -65,8 +65,8 @@ typedef struct {
 
 typedef struct {
 
-	explotion_t * explotions;
-	uint8_t * num_explotions;
+	explotion_t * explosions;
+	uint8_t * num_explosions;
 
 	bullet_t* bullets;
 	uint8_t* num_bullet;
