@@ -15,11 +15,13 @@
 #include "gpio.h"
 #include "joystick.h"
 
-#define NASTEROID 1
+#define NASTEROID 5
 
-void initialize_asteroid(asteroid_t *a);
+void initialize_asteroid(uint8_t x , uint8_t y ,asteroid_t *a);
 void draw_asteroid(asteroid_t *a, uint8_t *buffer); //draw asteroid
-void remove_asteroid (asteroid_t *a,bullet_t *b,uint8_t *buffer);
+void draw_all_asteroid(game_state_t state);
+void create_asteroid(uint8_t x, uint8_t y, game_state_t state);
+void update_all_asteroid(game_state_t state);
 
 
 #endif /* ASTEROID_H_ */
