@@ -11,7 +11,7 @@
 
 #define FIX_SHIFT 5
 #define FIX_MULT(a, b) (int16_t)( ((int32_t) a)*((int32_t) b) >> FIX_SHIFT )
-#define FIX_MULT(a, b) (int16_t)( ((int32_t) a)/((int32_t) b) << FIX_SHIFT )
+#define FIX_DIVD(a, b) (int16_t)( ((int32_t) a)/((int32_t) b) << FIX_SHIFT )
 #define TO_FIX(a) (fix_t) (a << FIX_SHIFT)
 #define TO_INT(a) (int16_t) (a >> FIX_SHIFT)
 
