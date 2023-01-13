@@ -8,15 +8,15 @@
 #include "bullet.h"
 
 void initialize_bullet(uint8_t x, uint8_t y, bullet_t *b) { //initialize the bullets coordinates.
-	b->y = y;
-	b->x = x;
-	b->vx = 0;
-	b->vy = 2;
+	b->y = TO_FIX(y);
+	b->x = TO_FIX(x);
+	b->vx = TO_FIX(0);
+	b->vy = TO_FIX(2);
 	b->active = 1;
 }
 void draw_bullet(bullet_t *b, uint8_t *buffer) { //Draw bullet my press Center on joystick
 	if (b->active) {
-		lcd_write_pixel(b->x, b->y, buffer);
+		lcd_write_pixel(TO_INT(b->x), TO_INT(b->y), buffer);
 	}
 }
 
@@ -31,7 +31,7 @@ void update_bullet(bullet_t * b) {
 		b->y += b->vy;
 
 		// check if bullet are out of picture
-		if (b->y > 127) {
+		if (TO_INT(b->y) > 127) {
 			// deactivate if out
 			b->active = 0;
 		}

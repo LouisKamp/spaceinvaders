@@ -2,15 +2,15 @@
 #include "spaceship.h"
 
 void initialize_spaceship(spaceship_t* s) {
-	s->x = 20;
-	s->y = 20;
-	s->vx = 2;
-	s->vy = 5;
+	s->x = TO_FIX(20);
+	s->y = TO_FIX(20);
+	s->vx = TO_FIX(2);
+	s->vy = TO_FIX(5);
 	s->life = 2;
 	s->weapon = s->y+2;
 }
 void draw_spaceship(spaceship_t * s, uint8_t * buffer) {
-	lcd_write_char('>', s->x, s->y, buffer);
+	lcd_write_char('>', TO_INT(s->x), TO_INT(s->y), buffer);
 }
 
 void remove_spaceship(spaceship_t* s) {
@@ -68,30 +68,30 @@ void update_spaceship_weapon(spaceship_t* s) {
 
 void update_spaceship_postition(joystick_input_t input, spaceship_t* s) {
 	// UP
-	if ((input & (1 << 0)) && (0 < s->x)) {
-		s->x--;
+	if ((input & JOYSTICK_UP) && (0 < TO_INT(s->x))) {
+		s->x -= TO_FIX(1);
 	}
 
 	// DOWN
-	if ((input & (1 << 1)) && (s->x < 25)) {
-		s->x++;
+	if ((input & JOYSTICK_DOWN) && (TO_INT(s->x) < 25)) {
+		s->x += TO_FIX(1);
 	}
 
 	// LEFT
-	if ((input & (1 << 2)) && (0 < s->y)) {
-		s->y--;
+	if ((input & JOYSTICK_LEFT) && (0 < TO_INT(s->y))) {
+		s->y -= TO_FIX(1);
 	}
 
 	// RIGHT
-	if ((input & (1 << 3)) && (s->y < 122)) {
-		s->y++;
+	if ((input & JOYSTICK_RIGHT) && (TO_INT(s->y) < 122)) {
+		s->y += TO_FIX(1);
 	}
 
 }
 
 
 void spaceship_shoot(spaceship_t * spaceship, game_state_t state) {
-	create_bullet(spaceship->x+3, spaceship->y, state);
+	create_bullet(TO_INT(spaceship->x)+3, TO_INT(spaceship->y), state);
 }
 
 
