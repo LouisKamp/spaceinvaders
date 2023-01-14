@@ -10,7 +10,9 @@ void initialize_spaceship(spaceship_t* s) {
 	s->weapon = s->y+2;
 }
 void draw_spaceship(spaceship_t * s, uint8_t * buffer) {
-	lcd_write_char('>', TO_INT(s->x), TO_INT(s->y), buffer);
+	int32_t mat[10][5] = { {0,1,0,1,0}, {0,0,0,0,0}, {0,1,0,1,0}, {1,0,1,0,1}, {1,1,0,1,1},{1,1,1,1,1},{1,1,1,1,1},{0,1,0,1,0}, {0,0,1,0,0} };
+	lcd_write_custom(10, 5, mat, TO_INT(s->x), TO_INT(s->y), buffer);
+	//lcd_write_char('>', TO_INT(s->x), TO_INT(s->y), buffer);
 }
 
 void remove_spaceship(spaceship_t* s) {

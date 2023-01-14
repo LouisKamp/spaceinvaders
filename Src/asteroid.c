@@ -7,16 +7,18 @@
 
 #include "asteroid.h"
 
-void initialize_asteroid(uint8_t x, uint8_t y, asteroid_t *a) {
-	a->x = 20;
-	a->y = 120;
-	a->vx = 5;
-	a->vy = 2;
-	a->active =1;
+void initialize_asteroid(fix_t x, fix_t y, asteroid_t *a) {
+	a->x = x;
+	a->y = y;
+	a->vx = TO_FIX(0);
+	a->vy = TO_FIX(0);
+	a->active = 1;
 }
+
 void draw_asteroid(asteroid_t *a, uint8_t *buffer) {
 	if (a->active) {
-		lcd_write_char('O', a->x, a->y, buffer);
+		int32_t mat[7][6] = { {0,1,1,1,1,0}, {1,0,1,1,1,1}, {1,1,1,1,0,1}, {1,1,1,1,1,1},{1,1,0,1,1,1},{0,1,1,1,1,0}};
+		lcd_write_custom(6, 6, mat, TO_INT(a->x), TO_INT(a->y), buffer);
 	}
 }
 void update_asteroid(asteroid_t * a) {
@@ -37,7 +39,7 @@ void create_asteroid(uint8_t x, uint8_t y, game_state_t state) {
 	initialize_asteroid(x,y, new_asteroid);
 }
 
-void draw_all_asteroid(game_state_t state) {
+void draw_all_asteroids(game_state_t state) {
 	for (uint8_t i = 0; i < NASTEROID; i++) {
 		draw_asteroid(&state.asteroid[i], state.buffer);
 	}

@@ -11,6 +11,7 @@
 #include "asteroid.h"
 #include "enemy.h"
 #include "bullet.h"
+#include "asteroid.h"
 
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
@@ -56,7 +57,7 @@ int main(void) {
 	game_state.bullets = bullets;
 	game_state.num_bullet = &num_bullets;
 
-	game_state.asteroid = &asteroid;
+	game_state.asteroid = asteroid;
 	game_state.num_asteroid = num_asteroid;
 
 	game_state.enemies = enemies;
@@ -69,6 +70,7 @@ int main(void) {
 	game_state.num_explosions = &num_explosions;
 
 	initialize_enemy(&enemies[0]);
+	initialize_asteroid(TO_FIX(10), TO_FIX(50),&asteroid[0]);
 
 	while (1) {
 		if (!waiting_for_render) {

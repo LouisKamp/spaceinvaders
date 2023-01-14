@@ -40,9 +40,9 @@ typedef struct {
 typedef struct {
 	fix_t x;
 	fix_t y;
-	uint8_t active;
 	fix_t vx;
 	fix_t vy;
+	uint8_t active;
 } asteroid_t;
 
 typedef struct {

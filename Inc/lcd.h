@@ -16,5 +16,6 @@ void lcd_clear();
 void lcd_write_char(char letter, int32_t x, int32_t y, uint8_t * buffer);
 void lcd_write_string(char* str, int32_t x, int32_t y,  uint8_t * buffer);
 void lcd_write_pixel(int32_t x, int32_t y,  uint8_t * buffer);
+void lcd_write_custom(int32_t width, int32_t height, int32_t * matrix,int32_t x, int32_t y,  uint8_t * buffer);
 
 #endif /* LCD_H_ */
