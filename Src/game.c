@@ -34,7 +34,7 @@ void handle_bullet_enemy_interaction(game_state_t state) {
 				continue;
 			}
 
-			int16_t dist_x = abs(state.bullets[i].x - state.enemies[j].x - TO_FIX(2));
+			int16_t dist_x = abs(state.bullets[i].x - (state.enemies[j].x + TO_FIX(2)));
 			int16_t dist_y = abs(state.bullets[i].y - state.enemies[j].y);
 			if ((dist_x < TO_FIX(5)) && (dist_y < TO_FIX(2))) {
 				// bullet hit
