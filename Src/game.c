@@ -66,9 +66,10 @@ void handle_bullet_asteroid_interaction(game_state_t state) {
 				continue;
 			}
 
-			int16_t dist_x = state.bullets[i].x - state.asteroid[j].x - TO_FIX(2);
+			int16_t dist_x = state.bullets[i].x - (state.asteroid[j].x + TO_FIX(3));
 			int16_t dist_y = abs(state.bullets[i].y - state.asteroid[j].y);
-			if ((abs(dist_x) < TO_FIX(5)) && (dist_y < TO_FIX(2))) {
+
+			if ((abs(dist_x) < TO_FIX(3)) && (dist_y < TO_FIX(5))) {
 				// bullet hit
 				remove_bullet(&state.bullets[i]);
 				create_explotion(state.bullets[i].x, state.bullets[i].y, state);
@@ -77,7 +78,7 @@ void handle_bullet_asteroid_interaction(game_state_t state) {
 
 			if ((abs(dist_x) < TO_FIX(10)) && (dist_y < TO_FIX(5))) {
 				// gravity
-				state.bullets[i].vx -= FIX_MULT(dist_x, 0x1);
+				state.bullets[i].vx -= FIX_MULT(FIX_DIVD(TO_FIX(8), dist_x), 0x3);
 			}
 
 		}
