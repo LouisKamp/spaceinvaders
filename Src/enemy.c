@@ -9,14 +9,13 @@
 #include "enemy.h"
 
 void initialize_enemy(enemy_t *e) { //initialize the enemy coordinates.
-	e->y = TO_FIX(50);
-	e->x = TO_FIX(20);
+	e->y = TO_FIX(20);
+	e->x = TO_FIX(40);
 	e->vy = TO_FIX(0);
 	e->vx = TO_FIX(0);
 	e->active = 1;
-	e->life = 10;
+	e->life = 20;
 }
-
 
 void update_all_enemies(game_state_t state) {
 	for (uint8_t i = 0; i < NENEMY; i++) {
@@ -40,11 +39,20 @@ void update_enemy(enemy_t * enemy) {
 	if (enemy->active) {
 		enemy->x += enemy->vx;
 		enemy->y += enemy->vy;
+		if (TO_INT(enemy->y) < 0 ||  TO_INT(enemy->y) > 127 || TO_INT(enemy->x) > 40 || TO_INT(enemy->x) < 0 ) {
+			// deactivate if out
+			enemy->active = 0;
+		}
+
 	}
 }
 void remove_enemy(enemy_t * enemy) {
 	enemy->active = 0;
 }
+
+
+
+
 
 
 
