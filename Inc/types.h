@@ -21,6 +21,13 @@ typedef int16_t fix_t; // fixed point format: 11.5
 typedef int32_t fix_2_14_t; // fixed point format: 2.14
 typedef int32_t fix_16_16_t; // fixed point format: 2.14
 
+typedef struct {
+	fix_t x;
+	fix_t y;
+	uint8_t state;
+	uint8_t active;
+} explotion_t;
+
 
 typedef struct {
 	fix_t x;
@@ -33,9 +40,9 @@ typedef struct {
 typedef struct {
 	fix_t x;
 	fix_t y;
-	uint8_t active;
 	fix_t vx;
 	fix_t vy;
+	uint8_t active;
 } asteroid_t;
 
 typedef struct {
@@ -57,6 +64,9 @@ typedef struct {
 } enemy_t;
 
 typedef struct {
+
+	explotion_t * explosions;
+	uint8_t * num_explosions;
 
 	bullet_t* bullets;
 	uint8_t* num_bullet;

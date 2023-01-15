@@ -40,14 +40,19 @@ void make_game_screen(game_state_t state) {
 	draw_spaceship(state.player, state.buffer);
 	draw_all_enemies(state);
 	draw_all_bullets(state);
+	draw_all_explosions(state);
+	draw_all_asteroids(state);
 
 	// UPDATE
 	update_all_bullets(state);
 	update_all_enemies(state);
+	update_all_explosions(state);
+	update_all_asteroid(state);
 
 	// HANDLE
 	handle_user_input(state);
 	handle_bullet_enemy_interaction(state);
+	handle_bullet_asteroid_interaction(state);
 }
 
 

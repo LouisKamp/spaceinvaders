@@ -25,7 +25,9 @@ void update_all_enemies(game_state_t state) {
 
 void draw_enemy(enemy_t *e, uint8_t *buffer) {
 	if (e->active) {
-		lcd_write_char('C', TO_INT(e->x), TO_INT(e->y), buffer);
+		//lcd_write_char('C', TO_INT(e->x), TO_INT(e->y), buffer);
+		int32_t mat[8][6] = { {0,0,0,1,0,0}, {0,0,1,1,1,0}, {0,1,0,1,1,1}, {1,0,0,1,0,1}, {1,0,0,1,1,1}, {0,1,0,1,1,1}, {0,0,1,1,1,0},{0,0,0,1,0,0}};
+		lcd_write_custom(8, 6, mat, TO_INT(e->x), TO_INT(e->y), buffer);
 	}
 }
 
