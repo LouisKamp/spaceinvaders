@@ -12,6 +12,8 @@
 
 
 void init_interupts();
+void enemyspawn_configure();
+
 
 
 #endif /* INTERRUPTS_H_ */
