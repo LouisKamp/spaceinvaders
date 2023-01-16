@@ -9,10 +9,10 @@
 #define INTERRUPTS_H_
 
 #include "stm32f30x_conf.h"
+#define TO_COUNT_TIME(a) a*20
 
 
 void init_interupts();
-void enemyspawn_configure();
 
 
 

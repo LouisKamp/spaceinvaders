@@ -14,7 +14,7 @@ void initialize_enemy(enemy_t *e) { //initialize the enemy coordinates.
 	e->vy = TO_FIX(0);
 	e->vx = TO_FIX(0);
 	e->active = 1;
-	e->life = 20;
+	e->life = 5;
 }
 
 void update_all_enemies(game_state_t state) {
@@ -50,6 +50,12 @@ void update_enemy(enemy_t * enemy) {
 }
 void remove_enemy(enemy_t * enemy) {
 	enemy->active = 0;
+}
+
+void create_enemy ( game_state_t state) {
+	enemy_t * new_enemies = &state.enemies[*state.num_enemy % NENEMY];
+	*state.num_enemy += 1;
+	initialize_enemy( new_enemies);
 }
 
 

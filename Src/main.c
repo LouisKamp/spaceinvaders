@@ -15,7 +15,7 @@
 
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
-
+uint32_t time = 0;
 
 
 // Tactic: do all the calculations in while and the push the local buffer to the render buffer, that is updated ever xx seconds.
@@ -25,7 +25,6 @@ int main(void) {
 	lcd_init();
 	uart_init(9600);
 	init_interupts();
-
 	set_led(0b000);
 
 
@@ -71,8 +70,8 @@ int main(void) {
 	game_state.explosions = explosions;
 	game_state.num_explosions = &num_explosions;
 
-	initialize_enemy(&enemies[0]);
-	initialize_asteroid(TO_FIX(10), TO_FIX(80),&asteroid[0]);
+	game_state.time = &time;
+
 
 	while (1) {
 		if (!waiting_for_render) {
@@ -97,14 +96,10 @@ int main(void) {
 void TIM2_IRQHandler(void) {
 	lcd_push_buffer(&render_buffer);
 	waiting_for_render = 0;
+	time +=1;
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
 }
 
-
-void TIM15_IRQHandler(void) {
-
-	TIM15->SR &= ~0x0001; // Clear interrupt bit
-}
 
 
 

@@ -38,6 +38,10 @@ void help_info_screen(game_state_t state) {
 void make_game_screen(game_state_t state) {
 	// DRAW
 	draw_spaceship(state.player, state.buffer);
+	if (*state.time % TO_COUNT_TIME(5) == 0 ) {
+		create_enemy(state);
+	}
+	draw_spaceship_health(state);
 	draw_all_enemies(state);
 	draw_all_bullets(state);
 	draw_all_explosions(state);

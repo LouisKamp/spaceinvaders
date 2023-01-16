@@ -28,27 +28,31 @@ void init_interupts() {
 
 }
 
+
 void timer15_configure() {
 	RCC->APB1ENR |= RCC_APB2ENR_TIM15EN;  // Enable clock for TIM3
+
+	TIM15->CR1 |= 0x0 << 0;
 
 	TIM15->CR1 |= 0x0 << 11; // Configure timer 3
 	TIM15->CR1 |= 0x00 << 8;
 	TIM15->CR1 |= 0x0 << 7;
-	TIM15->CR1 |= 0x0 << 6;
-	TIM15->CR1 |= 0x0 << 4;
 	TIM15->CR1 |= 0x0 << 3;
 	TIM15->CR1 |= 0x0 << 2;
 	TIM15->CR1 |= 0x0 << 1;
-
+	TIM15->CR1 |= 0x1 << 0;
 
 	TIM15->ARR = 63;
-	TIM15 ->PSC =0;
+	TIM15 ->PSC = 0;
 	TIM15->DIER |= 0x0001;
 	NVIC_SetPriority(TIM1_BRK_TIM15_IRQn,0);
 	NVIC_EnableIRQ( TIM1_BRK_TIM15_IRQn);
 
 }
 
+void TIM15_IRQHandle(void){
+	TIM15->SR &= ~0x0001;
+}
 
 
 

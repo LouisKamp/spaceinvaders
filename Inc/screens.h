@@ -17,6 +17,7 @@
 #include "asteroid.h"
 #include "game.h"
 #include "joystick.h"
+#include "interrupts.h"
 
 
 void make_start_screen(char* str, game_state_t state);
