@@ -101,4 +101,10 @@ void TIM2_IRQHandler(void) {
 }
 
 
+void TIM15_IRQHandler(void) {
+
+	TIM15->SR &= ~0x0001; // Clear interrupt bit
+}
+
+
 
