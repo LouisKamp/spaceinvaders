@@ -43,10 +43,7 @@ void make_game_screen(game_state_t state) {
 
 	draw_all_bullets(state);
 	draw_all_explosions(state);
-	if (TIM3->SR &= TIM_SR_UIF) {
-		draw_all_asteroids(state);
-		TIM3->SR &= ~TIM_SR_UIF; // Clear interrupt bit
-	}
+	draw_all_asteroids(state);
 
 
 	// UPDATE
