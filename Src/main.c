@@ -25,6 +25,8 @@ int main(void) {
 	lcd_init();
 	uart_init(9600);
 	init_interupts();
+	enemyspawn_configure();
+
 	set_led(0b000);
 
 
@@ -71,7 +73,7 @@ int main(void) {
 	game_state.num_explosions = &num_explosions;
 
 	initialize_enemy(&enemies[0]);
-	initialize_asteroid(TO_FIX(10), TO_FIX(50),&asteroid[0]);
+	initialize_asteroid(TO_FIX(10), TO_FIX(80),&asteroid[0]);
 
 	while (1) {
 		if (!waiting_for_render) {

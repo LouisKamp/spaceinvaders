@@ -11,7 +11,7 @@ void initialize_asteroid(fix_t x, fix_t y, asteroid_t *a) {
 	a->x = x;
 	a->y = y;
 	a->vx = TO_FIX(0);
-	a->vy = TO_FIX(0);
+	a->vy = TO_FIX(-1);
 	a->active = 1;
 }
 
