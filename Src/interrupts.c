@@ -41,13 +41,65 @@ void enemyspawn_configure() {
 	TIM3->CR1 |= 0x0 << 1;
 	TIM3->CR1 |= 0x1 << 0 ;
 
-	TIM3->ARR =  1279999999999999;
+
 	TIM3 ->PSC =0 ;
 	TIM3 -> DIER |= TIM_DIER_UIE;
 	NVIC_SetPriority(TIM3_IRQn,0);
 	NVIC_EnableIRQ(TIM3_IRQn);
 }
 
+
+void timer3_configure() {
+	RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;  // Enable clock for TIM3
+
+	TIM3->CR1 |= 0x0 << 11; // Configure timer 3
+	TIM3->CR1 |= 0x00 << 8;
+	TIM3->CR1 |= 0x0 << 7;
+	TIM3->CR1 |= 0x0 << 6;
+	TIM3->CR1 |= 0x0 << 4;
+	TIM3->CR1 |= 0x0 << 3;
+	TIM3->CR1 |= 0x0 << 2;
+	TIM3->CR1 |= 0x0 << 1;
+
+
+	TIM3->ARR = 63999999;
+	TIM3 ->PSC =0;
+	TIM3->DIER |= 0x0001;
+	NVIC_SetPriority(TIM3_IRQn,0);
+	NVIC_EnableIRQ( TIM3_IRQn);
+
+}
+
+void TIM3_IRQHandler(void) {
+	//Do whatever you want here, but make sure it doesn’t take too much time
+
+	if (TIM3->SR |= 0x0001) {
+		// Increment hundredths of seconds
+		timer.hundredths++;
+
+		// Check if hundredths of seconds overflows
+		if (timer.hundredths == 100) {
+			timer.hundredths = 0;
+			timer.seconds++;
+		}
+
+		// Check if seconds overflows
+		if (timer.seconds == 60) {
+			timer.seconds = 0;
+			timer.minutes++;
+			printf("Minutes = %8d\n",timer.minutes);
+		}
+
+		// Check if minutes overflows
+		if (timer.minutes == 60) {
+			timer.minutes = 0;
+			timer.hours++;
+		}
+
+		TIM3->SR &= ~0x0001; // Clear interrupt bit
+	}
+
+}
 
 
 

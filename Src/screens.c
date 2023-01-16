@@ -39,9 +39,15 @@ void make_game_screen(game_state_t state) {
 	// DRAW
 	draw_spaceship(state.player, state.buffer);
 	draw_all_enemies(state);
+
+
 	draw_all_bullets(state);
 	draw_all_explosions(state);
-	draw_all_asteroids(state);
+	if (TIM3->SR &= TIM_SR_UIF) {
+		draw_all_asteroids(state);
+		TIM3->SR &= ~TIM_SR_UIF; // Clear interrupt bit
+	}
+
 
 	// UPDATE
 	update_all_bullets(state);
