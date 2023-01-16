@@ -12,10 +12,11 @@
 #include "enemy.h"
 #include "bullet.h"
 #include "asteroid.h"
+#include "i2c.h"
 
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
-
+uint32_t time = 0;
 
 
 // Tactic: do all the calculations in while and the push the local buffer to the render buffer, that is updated ever xx seconds.
@@ -27,6 +28,8 @@ int main(void) {
 	init_interupts();
 
 	set_led(0b000);
+
+	I2C_init();
 
 
 	spaceship_t player_spaceship;
@@ -73,6 +76,9 @@ int main(void) {
 
 	initialize_enemy(&enemies[0]);
 	initialize_asteroid(TO_FIX(10), TO_FIX(80),&asteroid[0]);
+
+	//uint8_t vals = 0;
+	//I2C_Read(0b1001000, 0x00, &vals, 1);
 
 	while (1) {
 		if (!waiting_for_render) {

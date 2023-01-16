@@ -5,20 +5,70 @@
 #include "gpio.h"
 
 
+static void setup_temp() {
+	// Set pin PA0 to output high
+//	GPIOA->OSPEEDR &= ~(0x00000003 << (0 * 2)); // Clear speed register GPIOA->OSPEEDR |= (0x00000002 << (1 * 2)); // set speed register (0x01 - 10MHz, 0x02 - 2 MHz, 0x03 - 50 MHz)
+//	GPIOA->OTYPER &= ~(0x0001 << (0 * 1)); // Clear output type register GPIOA->OTYPER |= (0x0000 << (1)); // Set output type register (0x00 - Push pull, 0x01 - Open drain)
+//	GPIOA->MODER &= ~(0x00000003 << (0 * 2)); // Clear mode register GPIOA->MODER |= (0x00000001 << (1 * 2)); // Set mode register (0x00 – Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out)
+//	GPIOA->ODR |= (0x0001 << 0); //Set pin PA0 to high
+//
+//
+//	// Set pin PA1 to output high
+//	GPIOA->OSPEEDR &= ~(0x00000003 << (1 * 2));
+//	GPIOA->OTYPER &= ~(0x0001 << (1 * 1));
+//	GPIOA->MODER &= ~(0x00000003 << (1 * 2));
+//	GPIOA->ODR |= (0x0001 << 1);
+//
+//	// Set pin PA2 to output high
+//	GPIOA->OSPEEDR &= ~(0x00000003 << (2 * 2));
+//	GPIOA->OTYPER &= ~(0x0001 << (2 * 1)); //
+//	GPIOA->MODER &= ~(0x00000003 << (2 * 2));
+//	GPIOA->ODR |= (0x0001 << 2);
+}
 
-// init pins for LED and on board joystick
-void init_pins() {
+static void setup_led() {
+	// PB4 = RED
+	uint8_t pin_red = 4;
 
-	// SETUP
-	RCC->AHBENR |= RCC_AHBPeriph_GPIOA;
-	RCC->AHBENR |= RCC_AHBPeriph_GPIOB;
-	RCC->AHBENR |= RCC_AHBPeriph_GPIOC;
+	GPIOB->OSPEEDR &= ~(0x00000003 << (pin_red * 2)); // Clear speed register
+	GPIOB->OSPEEDR |= (0x00000002 << (pin_red * 2)); // set speed register (0x01 - 10MHz, 0x02 - 2 MHz, 0x03 - 50 MHz)
 
-	// PB8 for I2C
-	//PB9 for I2C
+	GPIOB->OTYPER &= ~(0x0001 << (pin_red * 1)); // Clear output type register
+	GPIOB->OTYPER |= (0x0000 << (pin_red * 1));  // Set output type register (0x00 -Push pull, 0x01 - Open drain)
 
-	// JOYSTICK
+	GPIOB->MODER &= ~(0x00000003 << (pin_red * 2)); // Clear mode register
+	GPIOB->MODER |= (0x00000001 << (pin_red * 2)); // Set mode register (0x00 –Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out);
 
+
+
+	// PC7 = GREEN
+	uint8_t pin_green = 7;
+
+	GPIOC->OSPEEDR &= ~(0x00000003 << (pin_green * 2));
+	GPIOC->OSPEEDR |= (0x00000002 << (pin_green * 2));
+
+	GPIOC->OTYPER &= ~(0x0001 << (pin_green * 1));
+	GPIOC->OTYPER |= (0x0000 << (pin_green * 1));
+
+	GPIOC->MODER &= ~(0x00000003 << (pin_green * 2));
+	GPIOC->MODER |= (0x00000001 << (pin_green * 2));
+
+
+
+	// PA9 = BLUE
+	uint8_t pin_blue = 9;
+
+	GPIOA->OSPEEDR &= ~(0x00000003 << (pin_blue * 2));
+	GPIOA->OSPEEDR |= (0x00000002 << (pin_blue * 2));
+
+	GPIOA->OTYPER &= ~(0x0001 << (pin_blue * 1));
+	GPIOA->OTYPER |= (0x0000 << (pin_blue * 1));
+
+	GPIOA->MODER &= ~(0x00000003 << (pin_blue * 2));
+	GPIOA->MODER |= (0x00000001 << (pin_blue * 2));
+}
+
+static void setup_joystick() {
 	// PC0 = RIGHT
 	uint8_t pin_right = 0;
 	GPIOC->MODER &= ~(0x00000003 << (pin_right * 2)); // Clear mode register GPIOA->MODER |= (0x00000000 << (0 * 2)); // Set mode register (0x00 – Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out)
@@ -66,63 +116,23 @@ void init_pins() {
 	GPIOC->PUPDR |= (0x00000002 << (switch_W * 2));
 
 	//	uint16_t val = GPIOC->IDR & (0x0001 << switch_W ); //Read from pin PC3
+}
 
 
+void init_pins() {
+	// SETUP
+	RCC->AHBENR |= RCC_AHBPeriph_GPIOA;
+	RCC->AHBENR |= RCC_AHBPeriph_GPIOB;
+	RCC->AHBENR |= RCC_AHBPeriph_GPIOC;
 
-	//PinA0
-	uint8_t pinA0_joystick_ADC = 1;
-	GPIOA->MODER &= ~(0x00000003 << (pinA0_joystick_ADC * 2)); // Clear mode register
-	GPIOA->MODER |= (0x00000000 << (pinA0_joystick_ADC * 2));
-	GPIOA->PUPDR &= ~(0x00000003 << (pinA0_joystick_ADC * 2)); // Clear push/pull register
-	GPIOA->PUPDR |= (0x00000002 << (pinA0_joystick_ADC * 2));
+	// JOYSTICK
+	setup_joystick();
 
-	//PinA1
-	uint8_t pinA1_joystick_ADC = 1;
-	GPIOA->MODER &= ~(0x00000003 << (pinA1_joystick_ADC * 2)); // Clear mode register
-	GPIOA->MODER |= (0x00000000 << (pinA1_joystick_ADC * 2));
-	GPIOA->PUPDR &= ~(0x00000003 << (pinA1_joystick_ADC * 2)); // Clear push/pull register
-	GPIOA->PUPDR |= (0x00000002 << (pinA1_joystick_ADC * 2));
+	// SETUP TEMP ADDRESS
+	setup_temp();
 
 	// LED
-	// PB4 = RED
-	uint8_t pin_red = 4;
-
-	GPIOB->OSPEEDR &= ~(0x00000003 << (pin_red * 2)); // Clear speed register
-	GPIOB->OSPEEDR |= (0x00000002 << (pin_red * 2)); // set speed register (0x01 - 10MHz, 0x02 - 2 MHz, 0x03 - 50 MHz)
-
-	GPIOB->OTYPER &= ~(0x0001 << (pin_red * 1)); // Clear output type register
-	GPIOB->OTYPER |= (0x0000 << (pin_red * 1));  // Set output type register (0x00 -Push pull, 0x01 - Open drain)
-
-	GPIOB->MODER &= ~(0x00000003 << (pin_red * 2)); // Clear mode register
-	GPIOB->MODER |= (0x00000001 << (pin_red * 2)); // Set mode register (0x00 –Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out);
-
-
-
-	// PC7 = GREEN
-	uint8_t pin_green = 7;
-
-	GPIOC->OSPEEDR &= ~(0x00000003 << (pin_green * 2));
-	GPIOC->OSPEEDR |= (0x00000002 << (pin_green * 2));
-
-	GPIOC->OTYPER &= ~(0x0001 << (pin_green * 1));
-	GPIOC->OTYPER |= (0x0000 << (pin_green * 1));
-
-	GPIOC->MODER &= ~(0x00000003 << (pin_green * 2));
-	GPIOC->MODER |= (0x00000001 << (pin_green * 2));
-
-
-
-	// PA9 = BLUE
-	uint8_t pin_blue = 9;
-
-	GPIOA->OSPEEDR &= ~(0x00000003 << (pin_blue * 2));
-	GPIOA->OSPEEDR |= (0x00000002 << (pin_blue * 2));
-
-	GPIOA->OTYPER &= ~(0x0001 << (pin_blue * 1));
-	GPIOA->OTYPER |= (0x0000 << (pin_blue * 1));
-
-	GPIOA->MODER &= ~(0x00000003 << (pin_blue * 2));
-	GPIOA->MODER |= (0x00000001 << (pin_blue * 2));
+	setup_led();
 }
 
 void configADC() {
@@ -150,5 +160,7 @@ void configADC() {
 	ADC_StartConversion(ADC1); // Start ADC read
 	while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == 0); // Wait for ADC read
 }
+
+
 
 
