@@ -27,7 +27,6 @@ int main(void) {
 	lcd_init();
 	uart_init(9600);
 	init_interupts();
-
 	set_led(0b000);
 
 	I2C_init();
@@ -81,8 +80,8 @@ int main(void) {
 	game_state.explosions = explosions;
 	game_state.num_explosions = &num_explosions;
 
-	initialize_enemy(&enemies[0]);
-	initialize_asteroid(TO_FIX(10), TO_FIX(80),&asteroid[0]);
+	game_state.time = &time;
+
 
 	initialize_powerup(TO_FIX(10), TO_FIX(10), &powerups[0]);
 
@@ -116,8 +115,10 @@ int main(void) {
 void TIM2_IRQHandler(void) {
 	lcd_push_buffer(&render_buffer);
 	waiting_for_render = 0;
+	time +=1;
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
 }
+
 
 
 

@@ -16,6 +16,7 @@
 
 void initialize_spaceship(spaceship_t* s);
 void draw_spaceship(spaceship_t* s, uint8_t* buffer);
+void  draw_spaceship_health( game_state_t state);
 void remove_spaceship(spaceship_t* s);
 int8_t make_spaceship_weapon(spaceship_t* s);
 void start_weapon(spaceship_t* s);

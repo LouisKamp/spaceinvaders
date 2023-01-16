@@ -21,6 +21,7 @@ typedef int16_t fix_t; // fixed point format: 11.5
 typedef int32_t fix_2_14_t; // fixed point format: 2.14
 typedef int32_t fix_16_16_t; // fixed point format: 2.14
 
+
 typedef struct {
 	fix_t x;
 	fix_t y;
@@ -92,7 +93,11 @@ typedef struct {
 
 	uint8_t* buffer;
 
+	uint32_t * time;
+
 	joystick_input_t* joystick_input;
+
+
 } game_state_t;
 
 
