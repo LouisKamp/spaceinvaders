@@ -23,7 +23,7 @@ void start_weapon(spaceship_t* s);
 void draw_weapon(spaceship_t* s);
 void remove_weapon(spaceship_t* s);
 void update_spaceship_weapon(spaceship_t* s);
-void update_spaceship_postition(joystick_input_t input, spaceship_t* s);
+void update_spaceship(joystick_input_t input, spaceship_t* s);
 void spaceship_shoot(spaceship_t* spaceship, game_state_t state);
 
 

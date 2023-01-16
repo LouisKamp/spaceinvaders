@@ -9,7 +9,7 @@
 
 void handle_user_input(game_state_t state) {
 
-	update_spaceship_postition(*state.joystick_input, state.player);
+	update_spaceship(*state.joystick_input, state.player);
 
 	// if joystick center is pressed then create bullet
 	if (*state.joystick_input & JOYSTICK_CENTER) {
@@ -87,6 +87,7 @@ void handle_player_powerup_interaction(game_state_t state) {
 		if (TO_INT(delta_x) < 5 && TO_INT(delta_y) < 5 ) {
 			state.player->state = 1;
 			state.powerups[i].active = 0;
+			state.player->countdown = TO_COUNT_TIME(10);
 		}
 
 	}

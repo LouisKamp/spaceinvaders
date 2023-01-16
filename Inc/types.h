@@ -59,6 +59,7 @@ typedef struct {
 	uint8_t life;
 	uint8_t weapon;
 	uint8_t state;
+	uint8_t countdown;
 } spaceship_t;
 
 typedef struct {

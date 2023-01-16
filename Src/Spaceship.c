@@ -8,13 +8,16 @@ void initialize_spaceship(spaceship_t* s) {
 	s->vy = TO_FIX(5);
 	s->life = 3;
 	s->weapon = s->y+2;
+	s->countdown = 0;
 }
 void draw_spaceship(spaceship_t * s, uint8_t * buffer) {
-	//int32_t mat[10][5] = { {0,1,0,1,0}, {0,0,0,0,0}, {0,1,0,1,0}, {1,0,1,0,1}, {1,1,0,1,1},{1,1,1,1,1},{1,1,1,1,1},{0,1,0,1,0}, {0,0,1,0,0} };
-	//lcd_write_custom(10, 5, mat, TO_INT(s->x), TO_INT(s->y), buffer);
-	//lcd_write_char('>', TO_INT(s->x), TO_INT(s->y), buffer);
-	int32_t mat[11][7] = {{0,0,1,0,1,0,0},{0,0,0,0,0,0,0},{0,0,1,0,1,0,0},{0,0,0,1,0,0,0},{0,1,0,0,0,1,0},{0,1,1,0,1,1,0},{0,1,1,1,1,1,0},{1,1,1,1,1,1,1},{1,0,1,0,1,0,1},{1,0,0,1,0,0,1},{1,0,0,0,0,0,1}};
-	lcd_write_custom(11, 7, mat, TO_INT(s->x), TO_INT(s->y), buffer);
+	if (s->state == 0) {
+		int32_t mat[10][5] = { {0,1,0,1,0}, {0,0,0,0,0}, {0,1,0,1,0}, {1,0,1,0,1}, {1,1,0,1,1},{1,1,1,1,1},{1,1,1,1,1},{0,1,0,1,0}, {0,0,1,0,0} };
+		lcd_write_custom(10, 5, mat, TO_INT(s->x), TO_INT(s->y), buffer);
+	} else {
+		int32_t mat[11][7] = {{0,0,1,0,1,0,0},{0,0,0,0,0,0,0},{0,0,1,0,1,0,0},{0,0,0,1,0,0,0},{0,1,0,0,0,1,0},{0,1,1,0,1,1,0},{0,1,1,1,1,1,0},{1,1,1,1,1,1,1},{1,0,1,0,1,0,1},{1,0,0,1,0,0,1},{1,0,0,0,0,0,1}};
+		lcd_write_custom(11, 7, mat, TO_INT(s->x), TO_INT(s->y), buffer);
+	}
 }
 
 void draw_spaceship_health(game_state_t state) {
@@ -40,48 +43,8 @@ void remove_spaceship(spaceship_t* s) {
 	getxy((s->y + 2), (s->x));
 }
 
-int8_t make_spaceship_weapon(spaceship_t* s) {
-	uint16_t shoot = GPIOC->IDR & (0x0001 << 2); //Read from pin PC2
-	uint16_t switch_W = GPIOC->IDR & (0x0001 << 3); //Read from pin PC3
-	if (switch_W) {
-		while (1) {
-			int weaponcolor[] = { 1,2,3 };
-			const int* current_weapon = weaponcolor;
 
-			if (current_weapon == &weaponcolor[0]) {
-				set_led(0b100);
-				current_weapon++;
-				return shoot;
-			}
-			if (current_weapon == &weaponcolor[1]) {
-				set_led(0b010);
-				current_weapon++;
-				return shoot;
-			}
-			if (current_weapon == &weaponcolor[2]) {
-				set_led(0b001);
-				current_weapon++;
-				return shoot;
-			}
-			if (current_weapon == &weaponcolor[3])
-			{
-				current_weapon = weaponcolor;
-				return shoot;
-			}
-		}
-	}
-	else {
-		return shoot;
-	}
-
-}
-
-
-void update_spaceship_weapon(spaceship_t* s) {
-	s->weapon = s->weapon - 1;
-}
-
-void update_spaceship_postition(joystick_input_t input, spaceship_t* s) {
+void update_spaceship(joystick_input_t input, spaceship_t* s) {
 	// UP
 	if ((input & JOYSTICK_UP) && (0 < TO_INT(s->x))) {
 		s->x -= TO_FIX(1);
@@ -102,64 +65,23 @@ void update_spaceship_postition(joystick_input_t input, spaceship_t* s) {
 		s->y += TO_FIX(1);
 	}
 
+	if (s->state == 1 && s->countdown == 0) {
+		s->state = 0;
+	} else if (s->countdown != 0) {
+		s->countdown--;
+	}
+
 }
 
 
 void spaceship_shoot(spaceship_t * spaceship, game_state_t state) {
-	create_bullet(spaceship->x+TO_FIX(2), spaceship->y+TO_FIX(10), state);
+	if (spaceship->state == 0) {
+		create_bullet(spaceship->x+TO_FIX(2), spaceship->y+TO_FIX(10), state);
+	} else {
+		create_bullet(spaceship->x+TO_FIX(0), spaceship->y+TO_FIX(15), state);
+		create_bullet(spaceship->x+TO_FIX(6), spaceship->y+TO_FIX(15), state);
+	}
 }
 
 
-//int8_t read_joystick(spaceship_t* s) {
-//
-//	uint16_t x = ADC_GetConversionValue(ADC1); // Read the ADC value
-//	if (1500 < x && x < 4100) {
-//		return 2;
-//	}
-//
-//	if (14 < x && x < 1300) {
-//		return 3;
-//	}
-//
-//}
-//
-//int main (void) {
-//	uart_init(115200); // Initialize USB serial emulation at 115200 baud
-//	clear();
-//	spaceship_t s;
-//
-//	initializeSpaceship(&s);
-//	drawSpaceship(&s);
-//
-//	while(1){
-//		init_pins();
-//		configADC();
-//		readjoystick(&s);
-//
-//		if (readjoystick(&s) == 2 ) {
-//			removeSpaceship(&s);
-//			update_ship_right(&s);
-//			drawSpaceship(&s);
-//		}
-//		if (readjoystick(&s) == 3 ) {
-//			removeSpaceship(&s);
-//			update_ship_left(&s);
-//			drawSpaceship(&s);
-//		}
-//		if (makeSpaceship_weapon(&s) == 2) {
-//			int n = 0;
-//			start_weapon(&s);
-//			draw_weapon(&s);
-//			while ( n < 20) {
-//				remove_weapon(&s);
-//				updateSpaceship_weapon(&s);
-//				draw_weapon(&s);
-//				n++;
-//			}
-//
-//		}
-//
-//	}
-//
-//}
 
