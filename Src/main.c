@@ -101,11 +101,5 @@ void TIM2_IRQHandler(void) {
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
 }
 
-void TIM3_IRQHandler(void) {
-	printf("Hej");
-	TIM3->SR &= ~0x0001; // Clear interrupt bit
-}
-
-
 
 

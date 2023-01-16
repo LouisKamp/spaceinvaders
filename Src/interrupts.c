@@ -73,31 +73,7 @@ void timer3_configure() {
 void TIM3_IRQHandler(void) {
 	//Do whatever you want here, but make sure it doesn’t take too much time
 
-	if (TIM3->SR |= 0x0001) {
-		// Increment hundredths of seconds
-		timer.hundredths++;
-
-		// Check if hundredths of seconds overflows
-		if (timer.hundredths == 100) {
-			timer.hundredths = 0;
-			timer.seconds++;
-		}
-
-		// Check if seconds overflows
-		if (timer.seconds == 60) {
-			timer.seconds = 0;
-			timer.minutes++;
-			printf("Minutes = %8d\n",timer.minutes);
-		}
-
-		// Check if minutes overflows
-		if (timer.minutes == 60) {
-			timer.minutes = 0;
-			timer.hours++;
-		}
-
-		TIM3->SR &= ~0x0001; // Clear interrupt bit
-	}
+	TIM3->SR &= ~0x0001; // Clear interrupt bit
 
 }
 
