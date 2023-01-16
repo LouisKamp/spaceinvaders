@@ -23,6 +23,7 @@ uint8_t waiting_for_render = 0;
 int main(void) {
 	init_pins();
 	lcd_init();
+	uart_init(9600);
 	init_interupts();
 	set_led(0b000);
 
@@ -96,6 +97,11 @@ void TIM2_IRQHandler(void) {
 	lcd_push_buffer(&render_buffer);
 	waiting_for_render = 0;
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
+}
+
+void TIM3_IRQHandler(void) {
+	printf("Hej");
+	TIM3->SR &= ~0x0001; // Clear interrupt bit
 }
 
 
