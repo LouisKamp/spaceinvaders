@@ -9,8 +9,8 @@
 #include "enemy.h"
 
 void initialize_enemy(enemy_t *e) { //initialize the enemy coordinates.
-	e->y = TO_FIX(20);
-	e->x = TO_FIX(40);
+	e->y = TO_FIX(50);
+	e->x = TO_FIX(20);
 	e->vy = TO_FIX(0);
 	e->vx = TO_FIX(0);
 	e->active = 1;

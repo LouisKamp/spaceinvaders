@@ -25,7 +25,6 @@ int main(void) {
 	lcd_init();
 	uart_init(9600);
 	init_interupts();
-	enemyspawn_configure();
 
 	set_led(0b000);
 
