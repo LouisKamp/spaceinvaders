@@ -8,7 +8,6 @@
 #define FIX14_SHIFT 14
 #define FIX14_MULT(a, b) ( (a)*(b) >> FIX14_SHIFT )
 
-
 #define FIX_SHIFT 5
 #define FIX_MULT(a, b) (int16_t)( ((int32_t) a)*((int32_t) b) >> FIX_SHIFT )
 #define FIX_DIVD(a, b) (int16_t)( ((int32_t) a)/((int32_t) b) << FIX_SHIFT )

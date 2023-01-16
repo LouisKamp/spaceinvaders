@@ -28,6 +28,11 @@ typedef struct {
 	uint8_t active;
 } explotion_t;
 
+typedef struct {
+	fix_t x;
+	fix_t y;
+	uint8_t active;
+} powerup_t;
 
 typedef struct {
 	fix_t x;
@@ -52,6 +57,7 @@ typedef struct {
 	fix_t vy;
 	uint8_t life;
 	uint8_t weapon;
+	uint8_t state;
 } spaceship_t;
 
 typedef struct {
@@ -64,6 +70,9 @@ typedef struct {
 } enemy_t;
 
 typedef struct {
+
+	powerup_t * powerups;
+	uint8_t * num_powerups;
 
 	explotion_t * explosions;
 	uint8_t * num_explosions;

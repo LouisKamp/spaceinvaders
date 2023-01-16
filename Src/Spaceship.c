@@ -93,7 +93,7 @@ void update_spaceship_postition(joystick_input_t input, spaceship_t* s) {
 
 
 void spaceship_shoot(spaceship_t * spaceship, game_state_t state) {
-	create_bullet(spaceship->x+TO_FIX(3), spaceship->y, state);
+	create_bullet(spaceship->x+TO_FIX(2), spaceship->y+TO_FIX(10), state);
 }
 
 

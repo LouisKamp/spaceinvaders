@@ -13,6 +13,7 @@
 #include "bullet.h"
 #include "asteroid.h"
 #include "i2c.h"
+#include "powerup.h"
 
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
@@ -49,6 +50,8 @@ int main(void) {
 	enemy_t explosions[NEXPLOSIONS] = {};
 	uint8_t num_explosions = 0;
 
+	powerup_t powerups[NPOWERUPS] = {};
+	uint8_t num_powerups = 0;
 
 	uint8_t screen = 0;
 
@@ -59,6 +62,10 @@ int main(void) {
 	game_state_t game_state;
 	game_state.buffer = local_buffer;
 	game_state.player = &player_spaceship;
+
+	game_state.powerups = powerups;
+	game_state.num_powerups = &num_powerups;
+
 	game_state.bullets = bullets;
 	game_state.num_bullet = &num_bullets;
 
@@ -77,8 +84,8 @@ int main(void) {
 	initialize_enemy(&enemies[0]);
 	initialize_asteroid(TO_FIX(10), TO_FIX(80),&asteroid[0]);
 
-	//uint8_t vals = 0;
-	//I2C_Read(0b1001000, 0x00, &vals, 1);
+	initialize_powerup(TO_FIX(10), TO_FIX(10), &powerups[0]);
+
 
 	while (1) {
 		if (!waiting_for_render) {
@@ -92,6 +99,12 @@ int main(void) {
 				break;
 			case 1:
 				make_game_screen(game_state);
+				break;
+			case 2:
+				make_help_screen(game_state);
+				break;
+			case 3:
+				make_boss_screen(game_state);
 				break;
 			}
 

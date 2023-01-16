@@ -8,7 +8,7 @@
 #ifndef BULLET_H_
 #define BULLET_H_
 
-#define NBULLETS 50
+#define NBULLETS 255
 
 
 #include "spaceship.h"

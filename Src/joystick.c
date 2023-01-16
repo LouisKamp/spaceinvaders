@@ -36,6 +36,9 @@ joystick_input_t read_joystick() {
 
 }
 
+
+// slave address for accelerometer: 1001100
+
 color_t input_to_color(joystick_input_t joystick_input) {
 
 	uint8_t color = 0;

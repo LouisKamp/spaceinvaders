@@ -31,7 +31,6 @@ draw.h
 -- spaceship
   shoot
   change weapon
-  movement + diagonal and rotation
   health
   collision
 

@@ -19,6 +19,14 @@ void handle_user_input(game_state_t state) {
 	else {
 		set_led(0b000);
 	}
+
+
+	if ((*(state.joystick_input) & JOYSTICK_CENTER) && (*(state.joystick_input) & JOYSTICK_LEFT) && (TO_INT(state.player->y) == 0)) {
+		*(state.screen) = 3;
+	}
+
+
+
 }
 
 void handle_bullet_enemy_interaction(game_state_t state) {
@@ -28,6 +36,8 @@ void handle_bullet_enemy_interaction(game_state_t state) {
 			continue;
 		}
 
+
+		// ENEMY
 		for (uint8_t j = 0; j < NENEMY; j++) {
 
 			if (!state.enemies[j].active) {
@@ -49,7 +59,38 @@ void handle_bullet_enemy_interaction(game_state_t state) {
 				}
 			}
 		}
+
+		// PLAYER
+		fix_t delta_x = abs(state.bullets[i].x - (state.player->x + TO_FIX(3)));
+		fix_t delta_y = abs(state.bullets[i].y - state.player->y);
+
+		// NOT TESTED
+		if (TO_INT(delta_x) < 3 && TO_INT(delta_y) < 5) {
+			create_explotion(state.bullets[i].x, state.bullets[i].y, state);
+			state.player->life--;
+		}
+
 	}
+}
+
+void handle_player_powerup_interaction(game_state_t state) {
+
+
+	for (uint8_t i = 0; i < NPOWERUPS; i++) {
+		if (!state.powerups[i].active) {
+			continue;
+		}
+
+		fix_t delta_x = abs(state.powerups[i].x - state.player->x);
+		fix_t delta_y = abs(state.powerups[i].y - state.player->y);
+
+		if (TO_INT(delta_x) < 5 && TO_INT(delta_y) < 5 ) {
+			state.player->state = 1;
+			state.powerups[i].active = 0;
+		}
+
+	}
+
 }
 
 
