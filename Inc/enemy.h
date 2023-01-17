@@ -19,13 +19,13 @@
 #include "bullet.h"
 
 
-void initialize_enemy(fix_t x , fix_t y,enemy_t *e);
-void draw_enemy(enemy_t *e, uint8_t *buffer);
-void remove_bullet(enemy_t * enemy);
+void initialize_enemy(fix_t x, fix_t y, enemy_t* e);
+void draw_enemy(enemy_t* e, uint8_t* buffer);
+void remove_bullet(enemy_t* enemy);
 void draw_all_enemies(game_state_t state);
 void update_all_enemies(game_state_t state);
-void update_enemy(enemy_t * enemy, game_state_t state);
-void create_enemy (game_state_t state);
+void update_enemy(enemy_t* enemy, game_state_t state);
+void create_enemy(fix_t x, fix_t y, game_state_t state);
 
 
 #endif /* ENEMY_H_ */

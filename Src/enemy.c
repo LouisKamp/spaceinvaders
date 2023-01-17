@@ -61,18 +61,11 @@ void remove_enemy(enemy_t* enemy) {
 	enemy->active = 0;
 }
 
-void create_enemy(game_state_t state) {
-	if (*state.time % TO_COUNT_TIME(10) == 0) {
-		fix_t x = rand() % 20 + 1;
-		fix_t y = 100;
+void create_enemy(fix_t x, fix_t y, game_state_t state) {
+	enemy_t* new_enemy = &state.enemies[*state.num_enemy % NENEMIES];
 
-		enemy_t* new_enemies = &state.enemies[*state.num_enemy % NENEMIES];
-
-		*state.num_enemy += 1;
-		initialize_enemy(x, y, new_enemies);
-
-	}
-
+	*state.num_enemy += 1;
+	initialize_enemy(x, y, new_enemy);
 }
 
 
