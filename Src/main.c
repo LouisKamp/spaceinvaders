@@ -71,7 +71,7 @@ int main(void) {
 	game_state.num_bullet = &num_bullets;
 
 	game_state.asteroid = asteroid;
-	game_state.num_asteroid = num_asteroid;
+	game_state.num_asteroid = &num_asteroid;
 
 	game_state.enemies = enemies;
 	game_state.num_enemy = &num_enemy;
@@ -87,7 +87,7 @@ int main(void) {
 	game_state.time = &time;
 
 	initialize_powerup(TO_FIX(10), TO_FIX(10), &powerups[0]);
-	initialize_asteroid(TO_FIX(10), TO_FIX(85), &asteroid[0]);
+
 
 
 	while (1) {

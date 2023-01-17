@@ -8,10 +8,10 @@
 #include "asteroid.h"
 
 void initialize_asteroid(fix_t x, fix_t y, asteroid_t *a) {
-	a->x = x;
-	a->y = y;
+	a->x = TO_FIX(x);
+	a->y = TO_FIX(y);
 	a->vx = TO_FIX(0);
-	a->vy = TO_FIX(0);
+	a->vy = TO_FIX(-1);
 	a->life = 8;
 	a->active = 1;
 }
@@ -36,7 +36,7 @@ void update_asteroid(asteroid_t * a) {
 }
 void create_asteroid(game_state_t state) {
 
-	if (*state.time % TO_COUNT_TIME(10) == 0 ) {
+	if (*state.time % TO_COUNT_TIME(5) == 0 ) {
 		fix_t x = rand() % 20 + 1 ;
 		fix_t y = rand() % 80 + 40;
 		asteroid_t * new_asteroid = &state.asteroid[*state.num_asteroid % NASTEROID];

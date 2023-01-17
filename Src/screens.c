@@ -72,7 +72,7 @@ void make_game_screen(game_state_t state) {
 	// DRAW
 	draw_spaceship(state.player, state.buffer);
 	create_enemy (state);
-	//create_asteroid(state);
+	create_asteroid(state);
 
 	draw_spaceship_health(state);
 	draw_all_enemies(state);

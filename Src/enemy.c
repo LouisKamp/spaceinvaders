@@ -55,7 +55,7 @@ void remove_enemy(enemy_t * enemy) {
 void create_enemy ( game_state_t state) {
 	if (*state.time % TO_COUNT_TIME(10) == 0 ) {
 		fix_t x = rand() % 20 + 1 ;
-		fix_t y = rand() % 80 + 40;
+		fix_t y = rand() % 90 + 50;
 		enemy_t * new_enemies = &state.enemies[*state.num_enemy % NENEMY];
 		*state.num_enemy += 1;
 		initialize_enemy(x,y ,new_enemies);
