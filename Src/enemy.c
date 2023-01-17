@@ -8,7 +8,7 @@
 
 #include "enemy.h"
 
-void initialize_enemy(uint8_t x , uint8_t y ,enemy_t *e) { //initialize the enemy coordinates.
+void initialize_enemy(fix_t x , fix_t y ,enemy_t *e) { //initialize the enemy coordinates.
 	e->y = TO_FIX(y);
 	e->x = TO_FIX(x);
 	e->vy = TO_FIX(-1);
