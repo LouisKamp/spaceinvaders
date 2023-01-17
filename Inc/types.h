@@ -97,6 +97,7 @@ typedef struct {
 	uint32_t * time;
 
 	joystick_input_t* joystick_input;
+	joystick_input_t * accelerometer_input;
 
 
 } game_state_t;

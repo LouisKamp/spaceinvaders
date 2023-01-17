@@ -36,8 +36,20 @@ joystick_input_t read_joystick() {
 
 }
 
+joystick_input_t read_accelerometer() {
+	int8_t tilt = (I2C_Read(0b10011001, 0x03, 0, 1) >> 2) & (0b111);
 
-// slave address for accelerometer: 1001100
+	uint8_t result = 0;
+
+	result |= (tilt == 0b101 ) << 0; // UP
+	result |= (tilt == 0b110 ) << 1; // DOWN
+	result |= (tilt == 0b001 ) << 2; // LEFT
+	result |= (tilt == 0b010 ) << 3; // RIGHT
+	return result;
+}
+
+
+// slave address for accelerometer:
 
 color_t input_to_color(joystick_input_t joystick_input) {
 

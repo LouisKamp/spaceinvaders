@@ -30,6 +30,7 @@ int main(void) {
 	set_led(0b000);
 
 	I2C_init();
+	I2C_Write(0b10011000, 0x07,0x01); // INIT accelerometer
 
 
 	spaceship_t player_spaceship;
@@ -56,6 +57,8 @@ int main(void) {
 
 	joystick_input_t joystick_input;
 
+	joystick_input_t accelerometer_input;
+
 	uint8_t local_buffer[512] = {};
 
 	game_state_t game_state;
@@ -76,6 +79,7 @@ int main(void) {
 
 	game_state.screen = &screen;
 	game_state.joystick_input = &joystick_input;
+	game_state.accelerometer_input = &accelerometer_input;
 
 	game_state.explosions = explosions;
 	game_state.num_explosions = &num_explosions;
@@ -91,18 +95,19 @@ int main(void) {
 			waiting_for_render = 1;
 			lcd_clear(&local_buffer);
 			joystick_input = read_joystick();
+			accelerometer_input = read_accelerometer();
 
 			switch (screen) {
-			case 0:
+			case START_SCREEN:
 				make_start_screen("Press down to start", game_state);
 				break;
-			case 1:
+			case GAME_SCREEN:
 				make_game_screen(game_state);
 				break;
-			case 2:
+			case HELP_SCREEN:
 				make_help_screen(game_state);
 				break;
-			case 3:
+			case BOSS_SCREEN:
 				make_boss_screen(game_state);
 				break;
 			}

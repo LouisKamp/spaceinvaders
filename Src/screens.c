@@ -10,11 +10,11 @@
 void make_start_screen(char* str, game_state_t state) {
 	// check if joystick is down
 	if (*(state.joystick_input) & JOYSTICK_CENTER) {
-		*(state.screen) = 1;
+		*(state.screen) = GAME_SCREEN;
 	}
 
 	if (*(state.joystick_input) & JOYSTICK_RIGHT) {
-		*(state.screen) = 2;
+		*(state.screen) = HELP_SCREEN;
 	}
 
 	int n = 1;
@@ -36,23 +36,24 @@ void make_start_screen(char* str, game_state_t state) {
 void make_help_screen(game_state_t state) {
 
 	if (*(state.joystick_input) & JOYSTICK_LEFT) {
-		*(state.screen) = 0;
+		*(state.screen) = START_SCREEN;
 	}
 
 	lcd_write_string("<- Back", 0, 3, state.buffer);
 	lcd_write_string("Shoot on center", 9-2, 3, state.buffer);
-	lcd_write_string("Use joystick to move ", 17-2, 3, state.buffer);
+	lcd_write_string("Tilt device to move ", 17-2, 3, state.buffer);
 	lcd_write_string("HINT: gravity + asteroids", 25-2, 3, state.buffer);
 }
 
 void make_boss_screen(game_state_t state) {
+
 	if (*(state.joystick_input) & JOYSTICK_RIGHT) {
-		*(state.screen) = 1;
+		*(state.screen) = GAME_SCREEN;
 	}
 
 
 	uint16_t vals = 0;
-	I2C_Read(0b10010001, 0x00, &vals, 2);
+	I2C_Read(0b10010001, 0x00, &vals, 2); // read temp from sensor
 
 
 	uint16_t temp1 = vals >> 5;
@@ -74,6 +75,8 @@ void make_game_screen(game_state_t state) {
 	if (*state.time % TO_COUNT_TIME(10) == 0 ) {
 		create_enemy(state);
 	}
+
+
 	draw_spaceship_health(state);
 	draw_all_enemies(state);
 	draw_all_bullets(state);

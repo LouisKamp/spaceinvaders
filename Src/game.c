@@ -9,7 +9,7 @@
 
 void handle_user_input(game_state_t state) {
 
-	update_spaceship(*state.joystick_input, state.player);
+	update_spaceship(*state.accelerometer_input, state.player);
 
 	// if joystick center is pressed then create bullet
 	if (*state.joystick_input & JOYSTICK_CENTER) {

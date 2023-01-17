@@ -21,6 +21,12 @@
 #include "interrupts.h"
 
 
+#define START_SCREEN 0
+#define GAME_SCREEN 1
+#define HELP_SCREEN 2
+#define BOSS_SCREEN 3
+
+
 void make_start_screen(char* str, game_state_t state);
 void make_help_screen(game_state_t state);
 void make_game_screen(game_state_t state);
