@@ -19,6 +19,7 @@
 #include "joystick.h"
 #include "powerup.h"
 #include "interrupts.h"
+#include "score.h"
 
 
 void make_start_screen(char* str, game_state_t state);

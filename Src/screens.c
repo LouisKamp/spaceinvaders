@@ -71,15 +71,15 @@ void make_boss_screen(game_state_t state) {
 void make_game_screen(game_state_t state) {
 	// DRAW
 	draw_spaceship(state.player, state.buffer);
-	if (*state.time % TO_COUNT_TIME(10) == 0 ) {
-		create_enemy(state);
-	}
+	create_enemy (state);
+	//create_asteroid(state);
 	draw_spaceship_health(state);
 	draw_all_enemies(state);
 	draw_all_bullets(state);
 	draw_all_explosions(state);
 	draw_all_asteroids(state);
 	draw_all_powerups(state);
+	draw_score(state);
 
 
 	// UPDATE
@@ -87,6 +87,7 @@ void make_game_screen(game_state_t state) {
 	update_all_enemies(state);
 	update_all_explosions(state);
 	update_all_asteroid(state);
+
 
 	// HANDLE
 	handle_user_input(state);
