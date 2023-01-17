@@ -26,11 +26,13 @@
 #define GAME_SCREEN 1
 #define HELP_SCREEN 2
 #define BOSS_SCREEN 3
+#define GAMEOVER_SCREEN 4
 
 
 void make_start_screen(char* str, game_state_t state);
 void make_help_screen(game_state_t state);
 void make_game_screen(game_state_t state);
 void make_boss_screen(game_state_t state);
+void make_gameover_screen(game_state_t state);
 
 #endif /* SCREENS_H_ */

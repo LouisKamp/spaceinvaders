@@ -70,6 +70,7 @@ typedef struct {
 	fix_t vy;
 	uint8_t life;
 	uint8_t active;
+	uint8_t countdown_shoot;
 } enemy_t;
 
 typedef struct {
@@ -86,7 +87,7 @@ typedef struct {
 	enemy_t* enemies;
 	uint8_t* num_enemy;
 
-	asteroid_t* asteroid;
+	asteroid_t* asteroids;
 	uint8_t* num_asteroid;
 
 	spaceship_t* player;

@@ -17,7 +17,7 @@
 #include "types.h"
 #include "interrupts.h"
 
-#define NASTEROID 5
+#define NASTEROIDS 255
 
 void initialize_asteroid(fix_t x , fix_t y ,asteroid_t *a);
 void draw_asteroid(asteroid_t *a, uint8_t *buffer); //draw asteroid

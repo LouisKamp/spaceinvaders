@@ -32,21 +32,21 @@ int main(void) {
 	set_led(0b000);
 
 	I2C_init();
-	I2C_Write(0b10011000, 0x07,0x01); // INIT accelerometer
+	I2C_Write(0b10011000, 0x07, 0x01); // INIT accelerometer
 
 
 	spaceship_t player_spaceship;
 	initialize_spaceship(&player_spaceship);
 
 
-	asteroid_t asteroid[NASTEROID] = {};
+	asteroid_t asteroid[NASTEROIDS] = {};
 	uint8_t num_asteroid = 0;
 
 	bullet_t bullets[NBULLETS] = {};
 	uint8_t num_bullets = 0;
 
 
-	enemy_t enemies[NENEMY] = {};
+	enemy_t enemies[NENEMIES] = {};
 	uint8_t num_enemy = 0;
 
 	enemy_t explosions[NEXPLOSIONS] = {};
@@ -55,7 +55,7 @@ int main(void) {
 	powerup_t powerups[NPOWERUPS] = {};
 	uint8_t num_powerups = 0;
 
-	uint8_t screen = 0;
+	uint8_t screen = START_SCREEN;
 
 	joystick_input_t joystick_input;
 
@@ -73,8 +73,8 @@ int main(void) {
 	game_state.bullets = bullets;
 	game_state.num_bullet = &num_bullets;
 
-	game_state.asteroid = asteroid;
-	game_state.num_asteroid = num_asteroid;
+	game_state.asteroids = asteroid;
+	game_state.num_asteroid = &num_asteroid;
 
 	game_state.enemies = enemies;
 	game_state.num_enemy = &num_enemy;
@@ -114,6 +114,9 @@ int main(void) {
 			case BOSS_SCREEN:
 				make_boss_screen(game_state);
 				break;
+			case GAMEOVER_SCREEN:
+				make_gameover_screen(game_state);
+				break;
 			}
 
 			memcpy(render_buffer, local_buffer, sizeof(render_buffer));
@@ -124,7 +127,7 @@ int main(void) {
 void TIM2_IRQHandler(void) {
 	lcd_push_buffer(&render_buffer);
 	waiting_for_render = 0;
-	time +=1;
+	time += 1;
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
 }
 

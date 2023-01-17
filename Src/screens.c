@@ -69,11 +69,30 @@ void make_boss_screen(game_state_t state) {
 	lcd_write_string("Uncertainty: +- 5 degC", 9, 3, state.buffer);
 }
 
+void make_gameover_screen(game_state_t state) {
+
+
+	if (*state.joystick_input & JOYSTICK_CENTER) {
+		clear_game_state(state);
+	}
+
+	lcd_write_string("Game over!", 0, 40, state.buffer);
+	char str[10] = {};
+	sprintf(str, "Score: %i", *state.score);
+
+	lcd_write_string(str, 10, 45, state.buffer);
+	lcd_write_string("Press down to play again", 20, 5, state.buffer);
+}
+
 void make_game_screen(game_state_t state) {
 	// DRAW
 	draw_spaceship(state.player, state.buffer);
 	if (*state.time % TO_COUNT_TIME(10) == 0) {
 		create_enemy(state);
+	}
+
+	if (state.player->life <= 0) {
+		*state.screen = GAMEOVER_SCREEN;
 	}
 
 
@@ -98,6 +117,7 @@ void make_game_screen(game_state_t state) {
 	handle_bullet_enemy_interaction(state);
 	handle_bullet_asteroid_interaction(state);
 	handle_player_powerup_interaction(state);
+	handle_player_asteroid_interaction(state);
 }
 
 

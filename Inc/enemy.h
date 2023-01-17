@@ -8,7 +8,7 @@
 #ifndef ENEMY_H_
 #define ENEMY_H_
 
-#define NENEMY 5
+#define NENEMIES 5
 
 #include "led.h"
 #include "lcd.h"
@@ -24,7 +24,7 @@ void draw_enemy(enemy_t *e, uint8_t *buffer);
 void remove_bullet(enemy_t * enemy);
 void draw_all_enemies(game_state_t state);
 void update_all_enemies(game_state_t state);
-void update_enemy(enemy_t * enemy);
+void update_enemy(enemy_t * enemy, game_state_t state);
 void create_enemy (game_state_t state);
 
 

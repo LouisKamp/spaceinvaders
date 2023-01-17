@@ -8,18 +8,22 @@
 
 #include "enemy.h"
 
+
+#define ENEMY_SHOOT_COUTDOWN_TIME TO_COUNT_TIME(3)
+
 void initialize_enemy(uint8_t x , uint8_t y ,enemy_t *e) { //initialize the enemy coordinates.
 	e->y = TO_FIX(y);
 	e->x = TO_FIX(x);
-	e->vy = TO_FIX(-1);
+	e->vy = -0b10000; // -0.5 in FIX_T
 	e->vx = TO_FIX(0);
 	e->active = 1;
 	e->life = 5;
+	e->countdown_shoot = ENEMY_SHOOT_COUTDOWN_TIME;
 }
 
 void update_all_enemies(game_state_t state) {
-	for (uint8_t i = 0; i < NENEMY; i++) {
-		update_enemy(&state.enemies[i]);
+	for (uint8_t i = 0; i < NENEMIES; i++) {
+		update_enemy(&state.enemies[i], state);
 	}
 }
 
@@ -32,13 +36,14 @@ void draw_enemy(enemy_t *e, uint8_t *buffer) {
 }
 
 void draw_all_enemies(game_state_t state) {
-	for (uint8_t i = 0; i< NENEMY; i++) {
+	for (uint8_t i = 0; i< NENEMIES; i++) {
 		draw_enemy(&state.enemies[i], state.buffer);
 	}
 }
 
-void update_enemy(enemy_t * enemy) {
+void update_enemy(enemy_t * enemy, game_state_t state) {
 	if (enemy->active) {
+
 		enemy->x += enemy->vx;
 		enemy->y += enemy->vy;
 		if (TO_INT(enemy->y) < 0 ||  TO_INT(enemy->y) > 127 || TO_INT(enemy->x) > 40 || TO_INT(enemy->x) < 0 ) {
@@ -46,6 +51,11 @@ void update_enemy(enemy_t * enemy) {
 			enemy->active = 0;
 		}
 
+		enemy->countdown_shoot -= 1;
+		if (enemy->countdown_shoot == 0) {
+			create_bullet((enemy->x + TO_FIX(3)), (enemy->y - TO_FIX(5)), TO_FIX(0), TO_FIX(-1), state);
+			enemy->countdown_shoot = ENEMY_SHOOT_COUTDOWN_TIME;
+		}
 	}
 }
 void remove_enemy(enemy_t * enemy) {
@@ -56,7 +66,7 @@ void create_enemy ( game_state_t state) {
 	if (*state.time % TO_COUNT_TIME(10) == 0 ) {
 		fix_t x = rand() % 20 + 1 ;
 		fix_t y = rand() % 80 + 40;
-		enemy_t * new_enemies = &state.enemies[*state.num_enemy % NENEMY];
+		enemy_t * new_enemies = &state.enemies[*state.num_enemy % NENEMIES];
 		*state.num_enemy += 1;
 		initialize_enemy(x,y ,new_enemies);
 
