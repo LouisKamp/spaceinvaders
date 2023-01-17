@@ -49,18 +49,17 @@ void clear_game_state(game_state_t state) {
 
 void handle_user_input(game_state_t state) {
 
-	update_spaceship(*state.joystick_input, state.player);
+	update_spaceship(*state.accelerometer_input, state.player);
 
 	// if joystick center is pressed then create bullet
 	if (*state.joystick_input & JOYSTICK_CENTER) {
 		set_led(0b100);
-		spaceship_shoot(state.player, state);
-	}
-	else {
+		spaceship_shoot(*state.player, state);
+	} else {
 		set_led(0b000);
 	}
 
-
+	// BOSS KEY
 	if ((*(state.joystick_input) & JOYSTICK_CENTER) && (*(state.joystick_input) & JOYSTICK_LEFT) && (TO_INT(state.player->y) == 0)) {
 		*(state.screen) = 3;
 	}
@@ -96,7 +95,7 @@ void handle_bullet_enemy_interaction(game_state_t state) {
 					remove_enemy(&state.enemies[j]);
 					create_explotion(state.enemies[j].x, state.enemies[j].y, state);
 					create_explotion(state.enemies[j].x + TO_FIX(6), state.enemies[j].y, state);
-					update_score(state);
+					add_score(10, state);
 				}
 			}
 		}
@@ -165,6 +164,13 @@ void handle_bullet_asteroid_interaction(game_state_t state) {
 				remove_bullet(&state.bullets[i]);
 				create_explotion(state.bullets[i].x, state.bullets[i].y, state);
 				state.asteroids[j].life -= 1;
+
+				if (state.asteroids[j].life == 0) {
+					remove_asteoroid(&state.asteroids[j]);
+					create_explotion(state.asteroids[j].x, state.asteroids[j].y, state);
+					create_explotion(state.asteroids[j].x + TO_FIX(6), state.asteroids[j].y, state);
+					add_score(10,state);
+				}
 			}
 		}
 	}

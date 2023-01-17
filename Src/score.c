@@ -9,15 +9,12 @@
 #include "score.h"
 
 
-void draw_score( game_state_t state) {
-	uint16_t temp = *state.score;
+void draw_score(uint32_t scrore, uint8_t* buffer) {
 	char str[30] = {};
-	sprintf(str, "Score: %i", temp);
-	lcd_write_string(str, 0, 50,  state.buffer);
+	sprintf(str, "Score: %i", scrore);
+	lcd_write_string(str, 0, 50, buffer);
 }
 
-void update_score (game_state_t state) {
-	*state.score +=10;
-	draw_score(state);
-
+void add_score (uint8_t amount, game_state_t state) {
+	*state.score += amount;
 }

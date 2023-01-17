@@ -19,9 +19,9 @@ void remove_explotion(explotion_t* explotion) {
 	explotion->active = 0;
 }
 
-void draw_all_explosions(game_state_t state) {
+void draw_all_explosions(explotion_t* explosions, uint8_t* buffer) {
 	for (uint16_t i = 0; i < NEXPLOSIONS; i++) {
-		draw_explotion(&state.explosions[i], state.buffer);
+		draw_explotion(explosions[i], buffer);
 	}
 }
 
@@ -38,17 +38,17 @@ void create_explotion(fix_t x, fix_t y, game_state_t state) {
 	init_explotion(x, y, new_explotion);
 }
 
-void draw_explotion(explotion_t* explotion, uint8_t* buffer) {
+void draw_explotion(explotion_t explotion, uint8_t* buffer) {
 
-	uint16_t x = TO_INT(explotion->x);
-	uint16_t y = TO_INT(explotion->y);
+	uint16_t x = TO_INT(explotion.x);
+	uint16_t y = TO_INT(explotion.y);
 
-	if (explotion->active) {
-		if (explotion->state == 0) {
+	if (explotion.active) {
+		if (explotion.state == 0) {
 			lcd_write_pixel(x, y, buffer);
 		}
 
-		if (explotion->state == 1) {
+		if (explotion.state == 1) {
 			// top
 			lcd_write_pixel(x - 1, y - 1, buffer);
 			lcd_write_pixel(x - 1, y, buffer);
@@ -65,7 +65,7 @@ void draw_explotion(explotion_t* explotion, uint8_t* buffer) {
 
 		}
 
-		if (explotion->state == 2) {
+		if (explotion.state == 2) {
 			// top
 			lcd_write_pixel(x - 2, y - 2, buffer);
 			lcd_write_pixel(x - 2, y, buffer);
@@ -82,7 +82,7 @@ void draw_explotion(explotion_t* explotion, uint8_t* buffer) {
 
 		}
 
-		if (explotion->state == 3) {
+		if (explotion.state == 3) {
 			// top
 			lcd_write_pixel(x - 3, y - 3, buffer);
 			lcd_write_pixel(x - 3, y, buffer);

@@ -19,7 +19,6 @@
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
 uint32_t time = 0;
-uint32_t score = 0;
 
 
 // Tactic: do all the calculations in while and the push the local buffer to the render buffer, that is updated ever xx seconds.
@@ -60,6 +59,8 @@ int main(void) {
 	joystick_input_t joystick_input;
 
 	joystick_input_t accelerometer_input;
+
+	uint32_t score = 0;
 
 	uint8_t local_buffer[512] = {};
 

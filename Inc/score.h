@@ -10,7 +10,7 @@
 
 #include "types.h"
 #include "lcd.h"
-void draw_score( game_state_t state);
-void update_score( game_state_t state);
+void draw_score(uint32_t score, uint8_t* buffer);
+void add_score(uint8_t amount, game_state_t state);
 
 #endif /* SCORE_H_ */

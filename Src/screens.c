@@ -86,7 +86,31 @@ void make_gameover_screen(game_state_t state) {
 
 void make_game_screen(game_state_t state) {
 	// DRAW
-	draw_spaceship(state.player, state.buffer);
+	draw_all_enemies(state.enemies, state.buffer);
+	draw_all_bullets(state.bullets, state.buffer);
+	draw_all_explosions(state.explosions, state.buffer);
+	draw_all_asteroids(state.asteroids, state.buffer);
+	draw_all_powerups(state.powerups, state.buffer);
+	draw_score(*state.score, state.buffer);
+	draw_spaceship(*state.player, state.buffer);
+	draw_spaceship_health(*state.player, state.buffer);
+
+
+	// UPDATE
+	update_all_bullets(state);
+	update_all_enemies(state);
+	update_all_explosions(state);
+	update_all_asteroids(state);
+
+
+	// HANDLE
+	handle_user_input(state);
+	handle_bullet_enemy_interaction(state);
+	handle_bullet_asteroid_interaction(state);
+	handle_player_powerup_interaction(state);
+	handle_player_asteroid_interaction(state);
+
+	// CREATE
 
 	if (*state.time % TO_COUNT_TIME(10) == 0) {
 		fix_t x = rand() % 20 + 1;
@@ -103,29 +127,6 @@ void make_game_screen(game_state_t state) {
 		fix_t y = 100;
 		create_asteroid(x, y, state);
 	}
-
-	draw_spaceship_health(state);
-	draw_all_enemies(state);
-	draw_all_bullets(state);
-	draw_all_explosions(state);
-	draw_all_asteroids(state);
-	draw_all_powerups(state);
-	draw_score(state);
-
-
-	// UPDATE
-	update_all_bullets(state);
-	update_all_enemies(state);
-	update_all_explosions(state);
-	update_all_asteroid(state);
-
-
-	// HANDLE
-	handle_user_input(state);
-	handle_bullet_enemy_interaction(state);
-	handle_bullet_asteroid_interaction(state);
-	handle_player_powerup_interaction(state);
-	handle_player_asteroid_interaction(state);
 }
 
 

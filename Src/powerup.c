@@ -28,9 +28,9 @@ void create_powerup(fix_t x, fix_t y, game_state_t state) {
 }
 
 
-void draw_all_powerups(game_state_t state) {
+void draw_all_powerups(powerup_t* powerups, uint8_t* buffer) {
 	for (uint8_t i = 0; i < NPOWERUPS; i++) {
-		draw_powerup(&state.powerups[i], state.buffer);
+		draw_powerup(&powerups[i], buffer);
 	}
 }
 void remove_powerup(powerup_t* powerup) {

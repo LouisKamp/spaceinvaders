@@ -10,14 +10,14 @@
 
 #define ENEMY_SHOOT_COUTDOWN_TIME TO_COUNT_TIME(3)
 
-void initialize_enemy(fix_t x, fix_t y, enemy_t* e) { //initialize the enemy coordinates.
-	e->y = TO_FIX(y);
-	e->x = TO_FIX(x);
-	e->vy = -0b10000; // -0.5 in FIX_T
-	e->vx = TO_FIX(0);
-	e->active = 1;
-	e->life = 5;
-	e->countdown_shoot = ENEMY_SHOOT_COUTDOWN_TIME;
+void initialize_enemy(fix_t x, fix_t y, enemy_t* enemy) { //initialize the enemy coordinates.
+	enemy->y = TO_FIX(y);
+	enemy->x = TO_FIX(x);
+	enemy->vy = -0b10000; // -0.5 in FIX_T
+	enemy->vx = TO_FIX(0);
+	enemy->active = 1;
+	enemy->life = 5;
+	enemy->countdown_shoot = ENEMY_SHOOT_COUTDOWN_TIME;
 }
 
 void update_all_enemies(game_state_t state) {
@@ -26,17 +26,16 @@ void update_all_enemies(game_state_t state) {
 	}
 }
 
-void draw_enemy(enemy_t* e, uint8_t* buffer) {
-	if (e->active) {
-		//lcd_write_char('C', TO_INT(e->x), TO_INT(e->y), buffer);
+void draw_enemy(enemy_t enemy, uint8_t* buffer) {
+	if (enemy.active) {
 		int32_t mat[8][6] = { {0,0,0,1,0,0}, {0,0,1,1,1,0}, {0,1,0,1,1,1}, {1,0,0,1,0,1}, {1,0,0,1,1,1}, {0,1,0,1,1,1}, {0,0,1,1,1,0},{0,0,0,1,0,0} };
-		lcd_write_custom(8, 6, mat, TO_INT(e->x), TO_INT(e->y), buffer);
+		lcd_write_custom(8, 6, mat, TO_INT(enemy.x), TO_INT(enemy.y), buffer);
 	}
 }
 
-void draw_all_enemies(game_state_t state) {
+void draw_all_enemies(enemy_t* enemies, uint8_t* buffer) {
 	for (uint8_t i = 0; i < NENEMIES; i++) {
-		draw_enemy(&state.enemies[i], state.buffer);
+		draw_enemy(enemies[i], buffer);
 	}
 }
 
@@ -57,6 +56,7 @@ void update_enemy(enemy_t* enemy, game_state_t state) {
 		}
 	}
 }
+
 void remove_enemy(enemy_t* enemy) {
 	enemy->active = 0;
 }
