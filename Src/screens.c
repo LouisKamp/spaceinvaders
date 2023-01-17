@@ -87,14 +87,22 @@ void make_gameover_screen(game_state_t state) {
 void make_game_screen(game_state_t state) {
 	// DRAW
 	draw_spaceship(state.player, state.buffer);
+
 	if (*state.time % TO_COUNT_TIME(10) == 0) {
-		create_enemy(state);
+		fix_t x = rand() % 20 + 1;
+		fix_t y = 100;
+		create_enemy(x, y, state);
 	}
 
 	if (state.player->life <= 0) {
 		*state.screen = GAMEOVER_SCREEN;
 	}
 
+	if (*state.time % TO_COUNT_TIME(5) == 0) {
+		fix_t x = rand() % 20 + 1;
+		fix_t y = 100;
+		create_asteroid(x, y, state);
+	}
 
 	draw_spaceship_health(state);
 	draw_all_enemies(state);

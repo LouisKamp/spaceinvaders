@@ -8,10 +8,9 @@
 
 #include "enemy.h"
 
-
 #define ENEMY_SHOOT_COUTDOWN_TIME TO_COUNT_TIME(3)
 
-void initialize_enemy(uint8_t x , uint8_t y ,enemy_t *e) { //initialize the enemy coordinates.
+void initialize_enemy(fix_t x, fix_t y, enemy_t* e) { //initialize the enemy coordinates.
 	e->y = TO_FIX(y);
 	e->x = TO_FIX(x);
 	e->vy = -0b10000; // -0.5 in FIX_T
@@ -27,26 +26,26 @@ void update_all_enemies(game_state_t state) {
 	}
 }
 
-void draw_enemy(enemy_t *e, uint8_t *buffer) {
+void draw_enemy(enemy_t* e, uint8_t* buffer) {
 	if (e->active) {
 		//lcd_write_char('C', TO_INT(e->x), TO_INT(e->y), buffer);
-		int32_t mat[8][6] = { {0,0,0,1,0,0}, {0,0,1,1,1,0}, {0,1,0,1,1,1}, {1,0,0,1,0,1}, {1,0,0,1,1,1}, {0,1,0,1,1,1}, {0,0,1,1,1,0},{0,0,0,1,0,0}};
+		int32_t mat[8][6] = { {0,0,0,1,0,0}, {0,0,1,1,1,0}, {0,1,0,1,1,1}, {1,0,0,1,0,1}, {1,0,0,1,1,1}, {0,1,0,1,1,1}, {0,0,1,1,1,0},{0,0,0,1,0,0} };
 		lcd_write_custom(8, 6, mat, TO_INT(e->x), TO_INT(e->y), buffer);
 	}
 }
 
 void draw_all_enemies(game_state_t state) {
-	for (uint8_t i = 0; i< NENEMIES; i++) {
+	for (uint8_t i = 0; i < NENEMIES; i++) {
 		draw_enemy(&state.enemies[i], state.buffer);
 	}
 }
 
-void update_enemy(enemy_t * enemy, game_state_t state) {
+void update_enemy(enemy_t* enemy, game_state_t state) {
 	if (enemy->active) {
 
 		enemy->x += enemy->vx;
 		enemy->y += enemy->vy;
-		if (TO_INT(enemy->y) < 0 ||  TO_INT(enemy->y) > 127 || TO_INT(enemy->x) > 40 || TO_INT(enemy->x) < 0 ) {
+		if (TO_INT(enemy->y) < 0 || TO_INT(enemy->y) > 127 || TO_INT(enemy->x) > 40 || TO_INT(enemy->x) < 0) {
 			// deactivate if out
 			enemy->active = 0;
 		}
@@ -58,17 +57,19 @@ void update_enemy(enemy_t * enemy, game_state_t state) {
 		}
 	}
 }
-void remove_enemy(enemy_t * enemy) {
+void remove_enemy(enemy_t* enemy) {
 	enemy->active = 0;
 }
 
-void create_enemy ( game_state_t state) {
-	if (*state.time % TO_COUNT_TIME(10) == 0 ) {
-		fix_t x = rand() % 20 + 1 ;
-		fix_t y = rand() % 80 + 40;
-		enemy_t * new_enemies = &state.enemies[*state.num_enemy % NENEMIES];
+void create_enemy(game_state_t state) {
+	if (*state.time % TO_COUNT_TIME(10) == 0) {
+		fix_t x = rand() % 20 + 1;
+		fix_t y = 100;
+
+		enemy_t* new_enemies = &state.enemies[*state.num_enemy % NENEMIES];
+
 		*state.num_enemy += 1;
-		initialize_enemy(x,y ,new_enemies);
+		initialize_enemy(x, y, new_enemies);
 
 	}
 
