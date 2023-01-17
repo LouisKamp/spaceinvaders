@@ -48,6 +48,7 @@ typedef struct {
 	fix_t y;
 	fix_t vx;
 	fix_t vy;
+	uint8_t life;
 	uint8_t active;
 } asteroid_t;
 
@@ -98,6 +99,8 @@ typedef struct {
 
 	joystick_input_t* joystick_input;
 	joystick_input_t * accelerometer_input;
+
+	uint32_t *score;
 
 
 } game_state_t;

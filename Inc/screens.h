@@ -19,6 +19,7 @@
 #include "joystick.h"
 #include "powerup.h"
 #include "interrupts.h"
+#include "score.h"
 
 
 #define START_SCREEN 0

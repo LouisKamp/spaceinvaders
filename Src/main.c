@@ -14,10 +14,12 @@
 #include "asteroid.h"
 #include "i2c.h"
 #include "powerup.h"
+#include "score.h"
 
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
 uint32_t time = 0;
+uint32_t score = 0;
 
 
 // Tactic: do all the calculations in while and the push the local buffer to the render buffer, that is updated ever xx seconds.
@@ -84,10 +86,12 @@ int main(void) {
 	game_state.explosions = explosions;
 	game_state.num_explosions = &num_explosions;
 
+	game_state.score = &score;
+
 	game_state.time = &time;
 
-
 	initialize_powerup(TO_FIX(10), TO_FIX(10), &powerups[0]);
+	initialize_asteroid(TO_FIX(10), TO_FIX(85), &asteroid[0]);
 
 
 	while (1) {

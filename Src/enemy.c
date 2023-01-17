@@ -8,10 +8,10 @@
 
 #include "enemy.h"
 
-void initialize_enemy(enemy_t *e) { //initialize the enemy coordinates.
-	e->y = TO_FIX(50);
-	e->x = TO_FIX(20);
-	e->vy = TO_FIX(0);
+void initialize_enemy(uint8_t x , uint8_t y ,enemy_t *e) { //initialize the enemy coordinates.
+	e->y = TO_FIX(y);
+	e->x = TO_FIX(x);
+	e->vy = TO_FIX(-1);
 	e->vx = TO_FIX(0);
 	e->active = 1;
 	e->life = 5;
@@ -53,9 +53,15 @@ void remove_enemy(enemy_t * enemy) {
 }
 
 void create_enemy ( game_state_t state) {
-	enemy_t * new_enemies = &state.enemies[*state.num_enemy % NENEMY];
-	*state.num_enemy += 1;
-	initialize_enemy( new_enemies);
+	if (*state.time % TO_COUNT_TIME(10) == 0 ) {
+		fix_t x = rand() % 20 + 1 ;
+		fix_t y = rand() % 80 + 40;
+		enemy_t * new_enemies = &state.enemies[*state.num_enemy % NENEMY];
+		*state.num_enemy += 1;
+		initialize_enemy(x,y ,new_enemies);
+
+	}
+
 }
 
 

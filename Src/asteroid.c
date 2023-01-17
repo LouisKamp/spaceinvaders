@@ -11,7 +11,8 @@ void initialize_asteroid(fix_t x, fix_t y, asteroid_t *a) {
 	a->x = x;
 	a->y = y;
 	a->vx = TO_FIX(0);
-	a->vy = TO_FIX(-1);
+	a->vy = TO_FIX(0);
+	a->life = 8;
 	a->active = 1;
 }
 
@@ -33,16 +34,26 @@ void update_asteroid(asteroid_t * a) {
 		}
 	}
 }
-void create_asteroid(uint8_t x, uint8_t y, game_state_t state) {
-	asteroid_t * new_asteroid = &state.asteroid[*state.num_asteroid % NASTEROID];
-	*state.num_asteroid += 1;
-	initialize_asteroid(x,y, new_asteroid);
+void create_asteroid(game_state_t state) {
+
+	if (*state.time % TO_COUNT_TIME(10) == 0 ) {
+		fix_t x = rand() % 20 + 1 ;
+		fix_t y = rand() % 80 + 40;
+		asteroid_t * new_asteroid = &state.asteroid[*state.num_asteroid % NASTEROID];
+		*state.num_asteroid += 1;
+		initialize_asteroid(x,y, new_asteroid);
+	}
+
 }
 
 void draw_all_asteroids(game_state_t state) {
 	for (uint8_t i = 0; i < NASTEROID; i++) {
 		draw_asteroid(&state.asteroid[i], state.buffer);
 	}
+}
+
+void remove_asteorid(asteroid_t * a) {
+	a->active = 0;
 }
 
 void update_all_asteroid(game_state_t state) {

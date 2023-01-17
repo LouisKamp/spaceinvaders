@@ -84,4 +84,3 @@ void spaceship_shoot(spaceship_t * spaceship, game_state_t state) {
 }
 
 
-

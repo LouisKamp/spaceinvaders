@@ -56,6 +56,9 @@ void handle_bullet_enemy_interaction(game_state_t state) {
 					remove_enemy(&state.enemies[j]);
 					create_explotion(state.enemies[j].x, state.enemies[j].y, state);
 					create_explotion(state.enemies[j].x+TO_FIX(6), state.enemies[j].y, state);
+					update_score (state);
+
+
 				}
 			}
 		}
@@ -115,14 +118,22 @@ void handle_bullet_asteroid_interaction(game_state_t state) {
 				// bullet hit
 				remove_bullet(&state.bullets[i]);
 				create_explotion(state.bullets[i].x, state.bullets[i].y, state);
+				state.asteroid[j].life -= 1;
+				/*if (state.asteroid[j].life == 0) {
+					remove_asteorid(&state.asteroid[j]);
+					create_explotion(state.asteroid[j].x, state.asteroid[j].y, state);
+					create_explotion(state.asteroid[j].x+TO_FIX(6), state.asteroid[j].y, state);
+					update_score (state);
+
+				}*/
+
+
+				if ((abs(dist_x) < TO_FIX(10)) && (dist_y < TO_FIX(5))) {
+					// gravity
+					state.bullets[i].vx -= FIX_MULT(FIX_DIVD(TO_FIX(8), dist_x), 0x3);
+				}
+
 			}
-
-
-			if ((abs(dist_x) < TO_FIX(10)) && (dist_y < TO_FIX(5))) {
-				// gravity
-				state.bullets[i].vx -= FIX_MULT(FIX_DIVD(TO_FIX(8), dist_x), 0x3);
-			}
-
 		}
 	}
 }

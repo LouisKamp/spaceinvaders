@@ -40,9 +40,9 @@ void make_help_screen(game_state_t state) {
 	}
 
 	lcd_write_string("<- Back", 0, 3, state.buffer);
-	lcd_write_string("Shoot on center", 9-2, 3, state.buffer);
-	lcd_write_string("Tilt device to move ", 17-2, 3, state.buffer);
-	lcd_write_string("HINT: gravity + asteroids", 25-2, 3, state.buffer);
+	lcd_write_string("Shoot on center", 9 - 2, 3, state.buffer);
+	lcd_write_string("Tilt device to move ", 17 - 2, 3, state.buffer);
+	lcd_write_string("HINT: gravity + asteroids", 25 - 2, 3, state.buffer);
 }
 
 void make_boss_screen(game_state_t state) {
@@ -72,7 +72,7 @@ void make_boss_screen(game_state_t state) {
 void make_game_screen(game_state_t state) {
 	// DRAW
 	draw_spaceship(state.player, state.buffer);
-	if (*state.time % TO_COUNT_TIME(10) == 0 ) {
+	if (*state.time % TO_COUNT_TIME(10) == 0) {
 		create_enemy(state);
 	}
 
@@ -83,6 +83,7 @@ void make_game_screen(game_state_t state) {
 	draw_all_explosions(state);
 	draw_all_asteroids(state);
 	draw_all_powerups(state);
+	draw_score(state);
 
 
 	// UPDATE
@@ -90,6 +91,7 @@ void make_game_screen(game_state_t state) {
 	update_all_enemies(state);
 	update_all_explosions(state);
 	update_all_asteroid(state);
+
 
 	// HANDLE
 	handle_user_input(state);

@@ -41,7 +41,6 @@ void update_bullet(bullet_t * b) {
 void create_bullet(fix_t x, fix_t y, game_state_t state) {
 	bullet_t * new_bullet = &state.bullets[*state.num_bullet % NBULLETS];
 	*state.num_bullet += 1;
-
 	initialize_bullet(x,y, new_bullet);
 }
 void draw_all_bullets(game_state_t state) {
