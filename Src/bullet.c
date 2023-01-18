@@ -35,7 +35,7 @@ void update_bullet(bullet_t * bullet) {
 		bullet->y += bullet->vy;
 
 		// check if bullet are out of picture
-		if (TO_INT(bullet->y) > 127 || TO_INT(bullet->y) < 0 || TO_INT(bullet->x) < 0 || TO_INT(bullet->x) > 32) {
+		if ( 127 < TO_INT(bullet->y) || TO_INT(bullet->y) < 0 || TO_INT(bullet->x) < 0 || 31 < TO_INT(bullet->x)) {
 			// deactivate if out
 			bullet->active = 0;
 		}

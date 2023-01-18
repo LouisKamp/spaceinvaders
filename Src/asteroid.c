@@ -7,13 +7,13 @@
 
 #include "asteroid.h"
 
-void initialize_asteroid(fix_t x, fix_t y, asteroid_t* a) {
-	a->x = TO_FIX(x);
-	a->y = TO_FIX(y);
-	a->vx = TO_FIX(0);
-	a->vy = TO_FIX(-1);
-	a->life = 8;
-	a->active = 1;
+void initialize_asteroid(fix_t x, fix_t y, asteroid_t* asteroid) {
+	asteroid->x = TO_FIX(x);
+	asteroid->y = TO_FIX(y);
+	asteroid->vx = TO_FIX(0);
+	asteroid->vy = TO_FIX(-1);
+	asteroid->life = 8;
+	asteroid->active = 1;
 }
 
 void draw_asteroid(asteroid_t asteroid, uint8_t* buffer) {
@@ -23,15 +23,15 @@ void draw_asteroid(asteroid_t asteroid, uint8_t* buffer) {
 	}
 }
 
-void update_asteroid(asteroid_t* a) {
-	if (a->active) {
-		a->x += a->vx;
-		a->y += a->vy;
+void update_asteroid(asteroid_t* asteroid) {
+	if (asteroid->active) {
+		asteroid->x += asteroid->vx;
+		asteroid->y += asteroid->vy;
 
 		// check if asteorid are out of picture
-		if (a->y < 0) {
+		if (asteroid->y < 0) {
 			// deactivate if out
-			a->active = 0;
+			asteroid->active = 0;
 		}
 	}
 }
