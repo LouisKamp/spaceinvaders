@@ -21,10 +21,14 @@ void draw_powerup(powerup_t powerup, uint8_t* buffer) {
 
 
 void create_powerup(fix_t x, fix_t y, game_state_t state) {
+	int randomnumber = rand() % 20;
 	powerup_t* new_powerup = &state.powerups[*state.num_powerups % NPOWERUPS];
 	*state.num_powerups += 1;
+	if (10 <= randomnumber  ) {
+		initialize_powerup(x, y, new_powerup);
+	}
 
-	initialize_powerup(x, y, new_powerup);
+
 }
 
 

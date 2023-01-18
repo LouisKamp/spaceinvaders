@@ -64,7 +64,7 @@ void remove_enemy(enemy_t* enemy) {
 
 void create_enemy(fix_t x, fix_t y, game_state_t state) {
 	enemy_t* new_enemy = &state.enemies[*state.num_enemy % NENEMIES];
-	fix_t vy = (-0b10000)-(*state.score) ;
+	fix_t vy = (-0b10000)-((*state.score)/2) ;
 	fix_t vx = 0;
 	*state.num_enemy += 1;
 	initialize_enemy(x, y,vx, vy, new_enemy);

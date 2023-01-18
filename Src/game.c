@@ -95,6 +95,7 @@ void handle_bullet_enemy_interaction(game_state_t state) {
 					remove_enemy(&state.enemies[j]);
 					create_explotion(state.enemies[j].x, state.enemies[j].y, state);
 					create_explotion(state.enemies[j].x + TO_FIX(6), state.enemies[j].y, state);
+					create_powerup(state.enemies[j].x, state.enemies[j].y, state);
 					add_score(5, state);
 				}
 			}

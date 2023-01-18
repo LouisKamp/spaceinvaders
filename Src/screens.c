@@ -127,6 +127,8 @@ void make_game_screen(game_state_t state) {
 		fix_t y = 100;
 		create_asteroid(x, y, state);
 	}
+
+
 }
 
 

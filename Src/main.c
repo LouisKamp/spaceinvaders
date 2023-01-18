@@ -91,7 +91,7 @@ int main(void) {
 
 	game_state.time = &time;
 
-	initialize_powerup(TO_FIX(10), TO_FIX(10), &powerups[0]);
+	srand(TIM2->CNT);//set the seed of the random number to TIM2->CNT
 
 
 
