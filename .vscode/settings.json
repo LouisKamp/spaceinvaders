@@ -3,6 +3,8 @@
         "fixed_point.h": "c",
         "asteroid.h": "c",
         "joystick.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "game.h": "c",
+        "screens.h": "c"
     }
 }

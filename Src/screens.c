@@ -7,14 +7,19 @@
 
 #include "screens.h"
 
+
+void set_screen(uint8_t* screen, uint8_t screen_number) {
+	(*screen) = screen_number;
+}
+
 void make_start_screen(char* str, game_state_t state) {
 	// check if joystick is down
 	if (*(state.joystick_input) & JOYSTICK_CENTER) {
-		*(state.screen) = GAME_SCREEN;
+		set_screen(state.screen, GAME_SCREEN);
 	}
 
 	if (*(state.joystick_input) & JOYSTICK_RIGHT) {
-		*(state.screen) = HELP_SCREEN;
+		set_screen(state.screen, HELP_SCREEN);
 	}
 
 	int n = 1;
@@ -36,7 +41,7 @@ void make_start_screen(char* str, game_state_t state) {
 void make_help_screen(game_state_t state) {
 
 	if (*(state.joystick_input) & JOYSTICK_LEFT) {
-		*(state.screen) = START_SCREEN;
+		set_screen(state.screen, START_SCREEN);
 	}
 
 	lcd_write_string("<- Back", 0, 3, state.buffer);
@@ -48,7 +53,7 @@ void make_help_screen(game_state_t state) {
 void make_boss_screen(game_state_t state) {
 
 	if (*(state.joystick_input) & JOYSTICK_RIGHT) {
-		*(state.screen) = GAME_SCREEN;
+		set_screen(state.screen, GAME_SCREEN);
 	}
 
 
@@ -102,30 +107,22 @@ void make_game_screen(game_state_t state) {
 	update_all_explosions(state);
 	update_all_asteroids(state);
 
+	// CREATE
+	handle_create_events(state);
 
-	// HANDLE
-	handle_user_input(state);
+
+	// HANDLE INTERACTIONS
 	handle_bullet_enemy_interaction(state);
 	handle_bullet_asteroid_interaction(state);
 	handle_player_powerup_interaction(state);
 	handle_player_asteroid_interaction(state);
 
-	// CREATE
+	// USER INPUT
+	handle_user_input(state);
 
-	if (*state.time % TO_COUNT_TIME(10) == 0) {
-		fix_t x = rand() % 20 + 1;
-		fix_t y = 100;
-		create_enemy(x, y, state);
-	}
-
+	// check if gameover
 	if (state.player->life <= 0) {
-		*state.screen = GAMEOVER_SCREEN;
-	}
-
-	if (*state.time % TO_COUNT_TIME(5) == 0) {
-		fix_t x = rand() % 20 + 1;
-		fix_t y = 100;
-		create_asteroid(x, y, state);
+		set_screen(state.screen, GAMEOVER_SCREEN);
 	}
 }
 

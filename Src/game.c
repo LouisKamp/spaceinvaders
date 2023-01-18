@@ -49,23 +49,48 @@ void clear_game_state(game_state_t state) {
 
 void handle_user_input(game_state_t state) {
 
-	update_spaceship(*state.joystick_input, state.player);
+	update_spaceship(*state.accelerometer_input, state.player);
 
 	// if joystick center is pressed then create bullet
-	if (*state.joystick_input & JOYSTICK_CENTER) {
+	if (is_input(*state.joystick_input, JOYSTICK_CENTER)) {
 		set_led(0b100);
 		spaceship_shoot(*state.player, state);
-	} else {
+	}
+	else {
 		set_led(0b000);
 	}
 
 	// BOSS KEY
-	if ((*(state.joystick_input) & JOYSTICK_CENTER) && (*(state.joystick_input) & JOYSTICK_LEFT) && (TO_INT(state.player->y) == 0)) {
-		*(state.screen) = 3;
+	uint8_t player_pos_int = TO_INT(state.player->y);
+	uint8_t left_most_val = 0;
+	if (is_input(*state.joystick_input, JOYSTICK_CENTER) && is_input(*state.joystick_input, JOYSTICK_LEFT) && (player_pos_int == left_most_val)) {
+		set_screen(state.screen, BOSS_SCREEN);
+	}
+}
+
+
+static uint8_t check_interval(uint8_t interval, uint32_t time) {
+	if (time % TO_COUNT_TIME(interval) == 0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+void handle_create_events(game_state_t state) {
+
+	if (check_interval(10, *state.time)) {
+		fix_t x = rand() % 20 + 1;
+		fix_t y = 100;
+		create_enemy(x, y, state);
 	}
 
-
-
+	if (check_interval(5, *state.time)) {
+		fix_t x = rand() % 20 + 1;
+		fix_t y = 100;
+		create_asteroid(x, y, state);
+	}
 }
 
 void handle_bullet_enemy_interaction(game_state_t state) {
@@ -169,7 +194,7 @@ void handle_bullet_asteroid_interaction(game_state_t state) {
 					remove_asteoroid(&state.asteroids[j]);
 					create_explotion(state.asteroids[j].x, state.asteroids[j].y, state);
 					create_explotion(state.asteroids[j].x + TO_FIX(6), state.asteroids[j].y, state);
-					add_score(10,state);
+					add_score(10, state);
 				}
 			}
 		}
@@ -188,7 +213,7 @@ void handle_player_asteroid_interaction(game_state_t state) {
 		if (TO_INT(delta_x) < 4 && TO_INT(delta_y) < 4) {
 			create_explotion(state.player->x, state.player->y, state);
 			state.asteroids[i].active = 0;
-			state.player->life -= 3;
+			state.player->life = 0;
 		}
 
 	}

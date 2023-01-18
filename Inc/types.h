@@ -57,7 +57,7 @@ typedef struct {
 	fix_t y;
 	fix_t vx;
 	fix_t vy;
-	uint8_t life;
+	int8_t life;
 	uint8_t weapon;
 	uint8_t state;
 	uint8_t countdown;

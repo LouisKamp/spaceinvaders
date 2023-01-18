@@ -41,10 +41,10 @@ joystick_input_t read_accelerometer() {
 
 	uint8_t result = 0;
 
-	result |= (tilt == 0b101 ) << 0; // UP
-	result |= (tilt == 0b110 ) << 1; // DOWN
-	result |= (tilt == 0b001 ) << 2; // LEFT
-	result |= (tilt == 0b010 ) << 3; // RIGHT
+	result |= (tilt == 0b101) << 0; // UP
+	result |= (tilt == 0b110) << 1; // DOWN
+	result |= (tilt == 0b001) << 2; // LEFT
+	result |= (tilt == 0b010) << 3; // RIGHT
 	return result;
 }
 
@@ -73,5 +73,9 @@ color_t input_to_color(joystick_input_t joystick_input) {
 
 	return color;
 
+}
+
+uint8_t is_input(joystick_input_t input, uint8_t key) {
+	return input & key;
 }
 
