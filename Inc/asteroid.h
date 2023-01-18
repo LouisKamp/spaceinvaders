@@ -19,7 +19,7 @@
 
 #define NASTEROIDS 255
 
-void initialize_asteroid(fix_t x, fix_t y, asteroid_t* a);
+void initialize_asteroid(fix_t x, fix_t y,fix_t vx, fix_t vy , asteroid_t* a);
 void draw_asteroid(asteroid_t asteroid, uint8_t* buffer);
 void remove_asteoroid(asteroid_t* a);
 void draw_all_asteroids(asteroid_t* a, uint8_t* buffer);
