@@ -77,16 +77,16 @@ void make_boss_screen(game_state_t state) {
 void make_gameover_screen(game_state_t state) {
 
 
-	if (*state.joystick_input & JOYSTICK_CENTER) {
+	if (is_input(*state.joystick_input, JOYSTICK_RIGHT)) {
 		clear_game_state(state);
 	}
 
 	lcd_write_string("Game over!", 0, 40, state.buffer);
-	char str[10] = {};
+	char str[11] = {};
 	sprintf(str, "Score: %i", *state.score);
 
 	lcd_write_string(str, 10, 45, state.buffer);
-	lcd_write_string("Press down to play again", 20, 5, state.buffer);
+	lcd_write_string("Press right to play again", 20, 0, state.buffer);
 }
 
 void make_game_screen(game_state_t state) {
