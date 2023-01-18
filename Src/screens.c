@@ -124,6 +124,8 @@ void make_game_screen(game_state_t state) {
 	if (state.player->life <= 0) {
 		set_screen(state.screen, GAMEOVER_SCREEN);
 	}
+
+
 }
 
 

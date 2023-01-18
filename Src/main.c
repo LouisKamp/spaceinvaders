@@ -18,7 +18,7 @@
 
 uint8_t render_buffer[512] = {};
 uint8_t waiting_for_render = 0;
-uint32_t time = 0;
+
 
 
 // Tactic: do all the calculations in while and the push the local buffer to the render buffer, that is updated ever xx seconds.
@@ -86,9 +86,10 @@ int main(void) {
 
 	game_state.score = &score;
 
+	uint32_t time = 0;
 	game_state.time = &time;
 
-	initialize_powerup(TO_FIX(10), TO_FIX(10), &powerups[0]);
+	srand(TIM2->CNT);//set the seed of the random number to TIM2->CNT
 
 
 
@@ -98,7 +99,7 @@ int main(void) {
 			lcd_clear(&local_buffer);
 			joystick_input = read_joystick();
 			accelerometer_input = read_accelerometer();
-
+			time += 1;
 			switch (screen) {
 			case START_SCREEN:
 				make_start_screen("Press down to start", game_state);
@@ -125,7 +126,6 @@ int main(void) {
 void TIM2_IRQHandler(void) {
 	lcd_push_buffer(&render_buffer);
 	waiting_for_render = 0;
-	time += 1;
 	TIM2->SR &= ~0x0001; // Clear interrupt bit
 }
 

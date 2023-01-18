@@ -125,7 +125,8 @@ void handle_bullet_enemy_interaction(game_state_t state) {
 					remove_enemy(&state.enemies[j]);
 					create_explotion(state.enemies[j].x, state.enemies[j].y, state);
 					create_explotion(state.enemies[j].x + TO_FIX(6), state.enemies[j].y, state);
-					add_score(10, state);
+					create_powerup(state.enemies[j].x, state.enemies[j].y, state);
+					add_score(5, state);
 				}
 			}
 		}
@@ -215,11 +216,13 @@ void handle_player_asteroid_interaction(game_state_t state) {
 		fix_t delta_x = abs((state.player->x + TO_FIX(3)) - (state.asteroids[i].x + TO_FIX(4)));
 		fix_t delta_y = abs((state.player->y + TO_FIX(5)) - (state.asteroids[i].y + TO_FIX(4)));
 
-		if (TO_INT(delta_x) < 4 && TO_INT(delta_y) < 4) {
+		if (TO_INT(delta_x) < 4 && TO_INT(delta_y) < 4 ) {
 			create_explotion(state.player->x, state.player->y, state);
 			state.asteroids[i].active = 0;
 			state.player->life = 0;
 		}
+
+
 
 	}
 }

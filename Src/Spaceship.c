@@ -26,7 +26,7 @@ void draw_spaceship_health(spaceship_t spaceship, uint8_t* buffer) {
 		int32_t mat[9][7] = { {0,1,1,0,0,0,0}, {1,1,1,1,0,0,0},{1,1,1,1,1,0,0},{0,1,1,1,1,1,0},{0,0,1,1,1,1,1},{0,1,1,1,1,1,0},{1,1,1,1,1,0,0},{1,1,1,1,0,0,0},{0,1,1,0,0,0,0} };
 
 		for (int8_t i = 0; i < spaceship.life; i++) {
-			lcd_write_custom(9, 7, mat, 0, 0 + 11 * i, buffer);
+			lcd_write_custom(9, 7, mat, 1, 1 + 11 * i, buffer);
 		}
 	}
 }
