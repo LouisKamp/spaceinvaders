@@ -69,7 +69,9 @@ void handle_user_input(game_state_t state) {
 }
 
 
-static uint8_t check_interval(uint8_t interval, uint32_t time) {
+// a function that checks if enough time has passed for a interval
+// returns 1 when *interval* has passed in *time*
+uint8_t check_interval(uint8_t interval, uint32_t time) {
 	if (time % TO_COUNT_TIME(interval) == 0) {
 		return 1;
 	}
@@ -80,13 +82,16 @@ static uint8_t check_interval(uint8_t interval, uint32_t time) {
 
 void handle_create_events(game_state_t state) {
 
-	if (check_interval(10, *state.time)) {
+	uint8_t ten_seconds = 10;
+	uint8_t five_seconds = 5;
+
+	if (check_interval(ten_seconds, *state.time)) {
 		fix_t x = rand() % 20 + 1;
 		fix_t y = 100;
 		create_enemy(x, y, state);
 	}
 
-	if (check_interval(5, *state.time)) {
+	if (check_interval(five_seconds, *state.time)) {
 		fix_t x = rand() % 20 + 1;
 		fix_t y = 100;
 		create_asteroid(x, y, state);

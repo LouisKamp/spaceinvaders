@@ -26,10 +26,7 @@ uint32_t time = 0;
 int main(void) {
 	init_pins();
 	lcd_init();
-	uart_init(9600);
-	init_interupts();
-	set_led(0b000);
-
+	init_interrupts();
 	I2C_init();
 	I2C_Write(0b10011000, 0x07, 0x01); // INIT accelerometer
 

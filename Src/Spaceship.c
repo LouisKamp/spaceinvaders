@@ -34,23 +34,30 @@ void draw_spaceship_health(spaceship_t spaceship, uint8_t* buffer) {
 void update_spaceship(joystick_input_t input, spaceship_t* spaceship) {
 
 	// UPDATE POSITION
+	uint8_t spaceship_pos_x = TO_INT(spaceship->x);
+	uint8_t spaceship_pos_y = TO_INT(spaceship->y);
+	uint8_t top_most_value = 0;
+	uint8_t bottom_most_value = 25;
+	uint8_t right_most_value = 122;
+	uint8_t left_most_value = 0;
+
 	// UP
-	if ((input & JOYSTICK_UP) && (0 < TO_INT(spaceship->x))) {
+	if (is_input(input, JOYSTICK_UP) && top_most_value < spaceship_pos_x) {
 		spaceship->x -= TO_FIX(1);
 	}
 
 	// DOWN
-	if ((input & JOYSTICK_DOWN) && (TO_INT(spaceship->x) < 25)) {
+	if (is_input(input, JOYSTICK_DOWN) && spaceship_pos_x < bottom_most_value) {
 		spaceship->x += TO_FIX(1);
 	}
 
 	// LEFT
-	if ((input & JOYSTICK_LEFT) && (0 < TO_INT(spaceship->y))) {
+	if (is_input(input, JOYSTICK_LEFT) && left_most_value < spaceship_pos_y) {
 		spaceship->y -= TO_FIX(1);
 	}
 
 	// RIGHT
-	if ((input & JOYSTICK_RIGHT) && (TO_INT(spaceship->y) < 122)) {
+	if (is_input(input, JOYSTICK_RIGHT) && spaceship_pos_y < right_most_value) {
 		spaceship->y += TO_FIX(1);
 	}
 
@@ -60,7 +67,7 @@ void update_spaceship(joystick_input_t input, spaceship_t* spaceship) {
 		spaceship->state = SPACESHIP_NORMAL_STATE;
 	}
 	else if (spaceship->countdown != 0) {
-		// else countdown
+		// else keep on counting down
 		spaceship->countdown -= 1;
 	}
 

@@ -2,7 +2,7 @@
 
 #include "interrupts.h"
 
-void init_interupts() {
+void init_interrupts() {
 
 	RCC->APB1ENR |= RCC_APB1Periph_TIM2; // Enable clock line to timer 2;
 

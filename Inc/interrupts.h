@@ -12,7 +12,7 @@
 #define TO_COUNT_TIME(a) (a*20)
 
 
-void init_interupts();
+void init_interrupts();
 
 
 
