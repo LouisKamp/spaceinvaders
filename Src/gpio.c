@@ -107,9 +107,6 @@ void init_pins() {
 	// JOYSTICK
 	setup_joystick();
 
-	// SETUP TEMP ADDRESS
-	setup_temp();
-
 	// LED
 	setup_led();
 }
