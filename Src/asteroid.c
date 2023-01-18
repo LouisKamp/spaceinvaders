@@ -7,13 +7,13 @@
 
 #include "asteroid.h"
 
-void initialize_asteroid(fix_t x, fix_t y, fix_t vx, fix_t vy, asteroid_t* a) {
-	a->x = TO_FIX(x);
-	a->y = TO_FIX(y);
-	a->vx = TO_FIX(vx);
-	a->vy = (vy);
-	a->life = 8;
-	a->active = 1;
+void initialize_asteroid(fix_t x, fix_t y, asteroid_t* asteroid) {
+	asteroid->x = TO_FIX(x);
+	asteroid->y = TO_FIX(y);
+	asteroid->vx = TO_FIX(0);
+	asteroid->vy = TO_FIX(-1);
+	asteroid->life = 8;
+	asteroid->active = 1;
 }
 
 void draw_asteroid(asteroid_t asteroid, uint8_t* buffer) {
@@ -23,25 +23,23 @@ void draw_asteroid(asteroid_t asteroid, uint8_t* buffer) {
 	}
 }
 
-void update_asteroid(asteroid_t* a,game_state_t state) {
-	if (a->active) {
+void update_asteroid(asteroid_t* asteroid) {
+	if (asteroid->active) {
+		asteroid->x += asteroid->vx;
+		asteroid->y += asteroid->vy;
 
-		a->x += a->vx;
-		a->y += a->vy;
-		if (TO_INT(a->y) < 0 || TO_INT(a->y) > 127 || TO_INT(a->x) > 40 || TO_INT(a->x) < 0) {
+		// check if asteorid are out of picture
+		if (asteroid->y < 0) {
 			// deactivate if out
-			a->active = 0;
-			state.player->life--;
+			asteroid->active = 0;
 		}
 	}
 }
 
 void create_asteroid(fix_t x, fix_t y, game_state_t state) {
 	asteroid_t* new_asteroid = &state.asteroids[*state.num_asteroid % NASTEROIDS];
-	fix_t vy = (-0b10000) - ((*state.score)/2);
-	fix_t vx = 0;
 	*state.num_asteroid += 1;
-	initialize_asteroid(x, y, vx, vy , new_asteroid);
+	initialize_asteroid(x, y, new_asteroid);
 }
 
 void draw_all_asteroids(asteroid_t* asteroids, uint8_t* buffer) {
@@ -56,7 +54,7 @@ void remove_asteoroid(asteroid_t* asteroid) {
 
 void update_all_asteroids(game_state_t state) {
 	for (uint8_t i = 0; i < NASTEROIDS; i++) {
-		update_asteroid(&state.asteroids[i],state);
+		update_asteroid(&state.asteroids[i]);
 	}
 }
 
