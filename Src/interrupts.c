@@ -18,7 +18,7 @@ void init_interupts() {
 	TIM2->CR1 |= 0x1 << 0;
 	// TIM2->CR1 |= 0x1 << 0;
 
-	TIM2->ARR = 63999999/20; // Set reload value
+	TIM2->ARR = 63999999 / 20; // Set reload value
 	TIM2->PSC = 0; // Set prescale value
 
 	TIM2->DIER |= 0x0001; // Enable timer 2 interrupts
@@ -43,14 +43,14 @@ void timer15_configure() {
 	TIM15->CR1 |= 0x1 << 0;
 
 	TIM15->ARR = 63;
-	TIM15 ->PSC = 0;
+	TIM15->PSC = 0;
 	TIM15->DIER |= 0x0001;
-	NVIC_SetPriority(TIM1_BRK_TIM15_IRQn,0);
-	NVIC_EnableIRQ( TIM1_BRK_TIM15_IRQn);
+	NVIC_SetPriority(TIM1_BRK_TIM15_IRQn, 0);
+	NVIC_EnableIRQ(TIM1_BRK_TIM15_IRQn);
 
 }
 
-void TIM15_IRQHandle(void){
+void TIM15_IRQHandle(void) {
 	TIM15->SR &= ~0x0001;
 }
 

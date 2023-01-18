@@ -15,6 +15,6 @@ void draw_score(uint32_t scrore, uint8_t* buffer) {
 	lcd_write_string(str, 0, 50, buffer);
 }
 
-void add_score (uint8_t amount, game_state_t state) {
+void add_score(uint8_t amount, game_state_t state) {
 	*state.score += amount;
 }

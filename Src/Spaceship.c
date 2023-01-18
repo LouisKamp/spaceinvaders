@@ -58,7 +58,8 @@ void update_spaceship(joystick_input_t input, spaceship_t* spaceship) {
 	// when countdown is done, switch back to normal state
 	if (spaceship->state == SPACESHIP_POWERUP_STATE && spaceship->countdown == 0) {
 		spaceship->state = SPACESHIP_NORMAL_STATE;
-	} else if (spaceship->countdown != 0) {
+	}
+	else if (spaceship->countdown != 0) {
 		// else countdown
 		spaceship->countdown -= 1;
 	}

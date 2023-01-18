@@ -75,11 +75,11 @@ typedef struct {
 
 typedef struct {
 
-	powerup_t * powerups;
-	uint8_t * num_powerups;
+	powerup_t* powerups;
+	uint8_t* num_powerups;
 
-	explotion_t * explosions;
-	uint8_t * num_explosions;
+	explotion_t* explosions;
+	uint8_t* num_explosions;
 
 	bullet_t* bullets;
 	uint8_t* num_bullet;
@@ -96,12 +96,12 @@ typedef struct {
 
 	uint8_t* buffer;
 
-	uint32_t * time;
+	uint32_t* time;
 
 	joystick_input_t* joystick_input;
-	joystick_input_t * accelerometer_input;
+	joystick_input_t* accelerometer_input;
 
-	uint32_t *score;
+	uint32_t* score;
 
 
 } game_state_t;
