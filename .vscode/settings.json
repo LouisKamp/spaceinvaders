@@ -5,6 +5,7 @@
         "joystick.h": "c",
         "types.h": "c",
         "game.h": "c",
-        "screens.h": "c"
+        "screens.h": "c",
+        "score.h": "c"
     }
 }

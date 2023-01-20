@@ -191,15 +191,16 @@ void handle_player_powerup_interaction(game_state_t state) {
 
 
 void handle_bullet_asteroid_interaction(game_state_t state) {
-	// 
+	// loop over every bullet
 	for (uint8_t i = 0; i < NBULLETS; i++) {
-
+		// if bullet not active, skip
 		if (!state.bullets[i].active) {
 			continue;
 		}
 
 		for (uint8_t j = 0; j < NASTEROIDS; j++) {
 
+			// if asteroid not active, skip
 			if (!state.asteroids[j].active) {
 				continue;
 			}

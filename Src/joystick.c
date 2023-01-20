@@ -49,8 +49,6 @@ joystick_input_t read_accelerometer() {
 }
 
 
-// slave address for accelerometer:
-
 color_t input_to_color(joystick_input_t joystick_input) {
 
 	uint8_t color = 0;
@@ -75,7 +73,8 @@ color_t input_to_color(joystick_input_t joystick_input) {
 
 }
 
-uint8_t is_input(joystick_input_t input, uint8_t key) {
-	return input & key;
+// tests if input has specific key active
+uint8_t is_input(joystick_input_t input, uint8_t test_key) {
+	return input & test_key;
 }
 

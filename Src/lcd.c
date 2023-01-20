@@ -14,6 +14,7 @@ void lcd_clear(uint8_t* buffer) {
 
 
 // Writes one char to a LCD buffer on a x,y coordinate
+// NOT SAFE
 void lcd_write_char(char letter, int32_t x, int32_t y, uint8_t* buffer) {
 
 	// char to ascii
@@ -60,6 +61,7 @@ void lcd_write_char(char letter, int32_t x, int32_t y, uint8_t* buffer) {
 }
 
 // Writes a string to a LCD buffer on a specific coordinate
+// NOT SAFE
 void lcd_write_string(char* str, int32_t x, int32_t y, uint8_t* buffer) {
 
 	uint8_t len = strlen(str);
@@ -68,7 +70,7 @@ void lcd_write_string(char* str, int32_t x, int32_t y, uint8_t* buffer) {
 	}
 
 }
-
+// NOT SAFE
 void lcd_write_pixel(int32_t x, int32_t y, uint8_t* buffer) {
 
 	int32_t row = x / 8;
@@ -80,7 +82,8 @@ void lcd_write_pixel(int32_t x, int32_t y, uint8_t* buffer) {
 	}
 }
 
-
+// writes a custom matrix to the LCD-display
+// NOT SAFE
 void lcd_write_custom(int32_t width, int32_t height, int32_t* matrix, int32_t x, int32_t y, uint8_t* buffer) {
 	for (int32_t i = 0; i < width; i++) {
 		for (int32_t j = 0; j < height; j++) {
@@ -89,7 +92,6 @@ void lcd_write_custom(int32_t width, int32_t height, int32_t* matrix, int32_t x,
 			}
 		}
 	}
-
 }
 
 
