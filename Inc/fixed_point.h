@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include "types.h"
-#include "LUTsin.h"
 
 #define FIX14_SHIFT 14
 #define FIX14_MULT(a, b) ( (a)*(b) >> FIX14_SHIFT )

@@ -14,11 +14,11 @@ void set_screen(uint8_t* screen, uint8_t screen_number) {
 
 void make_start_screen(game_state_t state) {
 	// check if joystick is down
-	if (*(state.joystick_input) & JOYSTICK_CENTER) {
+	if (is_input(*state.joystick_input, JOYSTICK_CENTER)) {
 		set_screen(state.screen, GAME_SCREEN);
 	}
 
-	if (*(state.joystick_input) & JOYSTICK_RIGHT) {
+	if (is_input(*state.joystick_input, JOYSTICK_RIGHT)) {
 		set_screen(state.screen, HELP_SCREEN);
 	}
 
@@ -40,7 +40,7 @@ void make_start_screen(game_state_t state) {
 }
 void make_help_screen(game_state_t state) {
 
-	if (*(state.joystick_input) & JOYSTICK_LEFT) {
+	if (is_input(*state.joystick_input, JOYSTICK_LEFT)) {
 		set_screen(state.screen, START_SCREEN);
 	}
 
@@ -52,7 +52,7 @@ void make_help_screen(game_state_t state) {
 
 void make_boss_screen(game_state_t state) {
 
-	if (*(state.joystick_input) & JOYSTICK_RIGHT) {
+	if (is_input(*state.joystick_input, JOYSTICK_RIGHT)) {
 		set_screen(state.screen, GAME_SCREEN);
 	}
 
@@ -60,7 +60,7 @@ void make_boss_screen(game_state_t state) {
 	uint16_t vals = 0;
 	I2C_Read(0b10010001, 0x00, &vals, 2); // read temp from sensor
 
-
+	// prøver her at omforme det output vi får fra chippen, men det ser ikke ud til at fungere...:(
 	uint16_t temp1 = vals >> 5;
 	uint16_t temp2 = temp1 & ~(0b1 << 10);
 	fix_t temp3 = TO_FIX(temp2);

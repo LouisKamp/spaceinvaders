@@ -48,31 +48,6 @@ joystick_input_t read_accelerometer() {
 	return result;
 }
 
-
-color_t input_to_color(joystick_input_t joystick_input) {
-
-	uint8_t color = 0;
-
-	// UP
-	if (joystick_input & JOYSTICK_UP) {
-		color |= (0x0001 << 0);
-	}
-
-	// LEFT
-	if (joystick_input & JOYSTICK_LEFT) {
-		color |= (0x0001 << 1);
-	}
-
-	// RIGHT
-	if (joystick_input & JOYSTICK_RIGHT) {
-		color |= (0x0001 << 2);
-	}
-
-
-	return color;
-
-}
-
 // tests if input has specific key active
 uint8_t is_input(joystick_input_t input, uint8_t test_key) {
 	return input & test_key;

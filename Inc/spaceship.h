@@ -6,8 +6,6 @@
 #include "types.h"
 #include "gpio.h"
 #include "led.h"
-#include "LUTsin.h"
-#include "ansi.h"
 #include "lcd.h"
 #include "fixed_point.h"
 #include "joystick.h"
