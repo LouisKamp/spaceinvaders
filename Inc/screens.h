@@ -29,7 +29,7 @@
 #define GAMEOVER_SCREEN 4
 
 
-void make_start_screen(char* str, game_state_t state);
+void make_start_screen(game_state_t state);
 void make_help_screen(game_state_t state);
 void make_game_screen(game_state_t state);
 void make_boss_screen(game_state_t state);

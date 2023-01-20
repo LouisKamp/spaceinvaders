@@ -29,18 +29,18 @@ int main(void) {
 	init_interrupts();
 	I2C_init();
 	I2C_Write(0b10011000, 0x07, 0x01); // INIT accelerometer
+	srand(TIM2->CNT);//set the seed of the random number to TIM2->CNT
 
 
+	// game state init
 	spaceship_t player_spaceship;
 	initialize_spaceship(&player_spaceship);
-
 
 	asteroid_t asteroid[NASTEROIDS] = {};
 	uint8_t num_asteroid = 0;
 
 	bullet_t bullets[NBULLETS] = {};
 	uint8_t num_bullets = 0;
-
 
 	enemy_t enemies[NENEMIES] = {};
 	uint8_t num_enemy = 0;
@@ -89,20 +89,22 @@ int main(void) {
 	uint32_t time = 0;
 	game_state.time = &time;
 
-	srand(TIM2->CNT);//set the seed of the random number to TIM2->CNT
-
-
-
+	// begin render loop
 	while (1) {
+		// wait for TIM2_IRQHandler to push frame to LCD-display
 		if (!waiting_for_render) {
 			waiting_for_render = 1;
 			lcd_clear(&local_buffer);
+			time += 1;
+
+			// read input to game state
 			joystick_input = read_joystick();
 			accelerometer_input = read_accelerometer();
-			time += 1;
+
+			// render screens
 			switch (screen) {
 			case START_SCREEN:
-				make_start_screen("Press down to start", game_state);
+				make_start_screen(game_state);
 				break;
 			case GAME_SCREEN:
 				make_game_screen(game_state);
@@ -118,15 +120,21 @@ int main(void) {
 				break;
 			}
 
+			// copy local frame to render buffer
 			memcpy(render_buffer, local_buffer, sizeof(render_buffer));
 		}
 	}
 }
 
 void TIM2_IRQHandler(void) {
+	// render frame to LCD-display
 	lcd_push_buffer(&render_buffer);
+
+	// let main render next frame
 	waiting_for_render = 0;
-	TIM2->SR &= ~0x0001; // Clear interrupt bit
+
+	// clear interrupt bit
+	TIM2->SR &= ~0x0001;
 }
 
 

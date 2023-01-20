@@ -10,11 +10,11 @@
 
 #define ENEMY_SHOOT_COUTDOWN_TIME TO_COUNT_TIME(3)
 
-void initialize_enemy(fix_t x, fix_t y,fix_t vx, fix_t vy ,enemy_t* enemy ) { //initialize the enemy coordinates.
-	enemy->y = TO_FIX(y);
-	enemy->x = TO_FIX(x);
-	enemy->vy = (vy);  // -0.5 in FIX_T
-	enemy->vx = TO_FIX(vx);
+void initialize_enemy(fix_t x, fix_t y, fix_t vx, fix_t vy, enemy_t* enemy) { //initialize the enemy coordinates.
+	enemy->y = y;
+	enemy->x = x;
+	enemy->vy = vy;
+	enemy->vx = vx;
 	enemy->active = 1;
 	enemy->life = 5;
 	enemy->countdown_shoot = ENEMY_SHOOT_COUTDOWN_TIME;
@@ -46,8 +46,8 @@ void update_enemy(enemy_t* enemy, game_state_t state) {
 		enemy->y += enemy->vy;
 		if (TO_INT(enemy->y) < 0 || TO_INT(enemy->y) > 127 || TO_INT(enemy->x) > 40 || TO_INT(enemy->x) < 0) {
 			// deactivate if out
-			enemy->active = 0;
-			state.player->life--;
+			remove_enemy(enemy);
+			state.player->life -= 1;
 		}
 
 		enemy->countdown_shoot -= 1;
@@ -64,10 +64,10 @@ void remove_enemy(enemy_t* enemy) {
 
 void create_enemy(fix_t x, fix_t y, game_state_t state) {
 	enemy_t* new_enemy = &state.enemies[*state.num_enemy % NENEMIES];
-	fix_t vy = (-0b10000)-((*state.score)/2) ;
+	fix_t vy = (-0b10000) - ((*state.score) / 2);
 	fix_t vx = 0;
 	*state.num_enemy += 1;
-	initialize_enemy(x, y,vx, vy, new_enemy);
+	initialize_enemy(x, y, vx, vy, new_enemy);
 }
 
 

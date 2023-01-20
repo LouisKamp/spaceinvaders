@@ -12,7 +12,7 @@ void set_screen(uint8_t* screen, uint8_t screen_number) {
 	(*screen) = screen_number;
 }
 
-void make_start_screen(char* str, game_state_t state) {
+void make_start_screen(game_state_t state) {
 	// check if joystick is down
 	if (*(state.joystick_input) & JOYSTICK_CENTER) {
 		set_screen(state.screen, GAME_SCREEN);
@@ -36,7 +36,7 @@ void make_start_screen(char* str, game_state_t state) {
 	lcd_write_string("*", 23, 1, state.buffer);
 	lcd_write_string("*", 23, 120, state.buffer);
 	lcd_write_string("SPACE2000", 0, 40, state.buffer);
-	lcd_write_string(str, 16, 20, state.buffer);
+	lcd_write_string("Press down to start", 16, 20, state.buffer);
 }
 void make_help_screen(game_state_t state) {
 
@@ -114,6 +114,7 @@ void make_game_screen(game_state_t state) {
 	// HANDLE INTERACTIONS
 	handle_bullet_enemy_interaction(state);
 	handle_bullet_asteroid_interaction(state);
+	handle_bullet_player_interaction(state);
 	handle_player_powerup_interaction(state);
 	handle_player_asteroid_interaction(state);
 

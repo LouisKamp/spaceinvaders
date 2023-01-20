@@ -26,6 +26,7 @@ void handle_bullet_enemy_interaction(game_state_t state);
 void handle_bullet_asteroid_interaction(game_state_t state);
 void handle_player_powerup_interaction(game_state_t state);
 void handle_player_asteroid_interaction(game_state_t state);
+void handle_bullet_player_interaction(game_state_t state);
 void handle_create_events(game_state_t state);
 uint8_t check_interval(uint8_t interval, uint32_t time);
 
